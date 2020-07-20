@@ -30,7 +30,7 @@
 		1011E9D224C564CB000D8512 /* VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC.swift; sourceTree = "<group>"; };
 		1011E9D324C564CB000D8512 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1011E9D424C564CB000D8512 /* WashTagInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WashTagInfo.swift; sourceTree = "<group>"; };
-		3C329CF324C187FA00B35E7F /* GotToSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GotToSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C329CF324C187FA00B35E7F /* GotToSayAllen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GotToSayAllen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C329CF624C187FA00B35E7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C329CF824C187FA00B35E7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3C329CFA24C187FA00B35E7F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		3C329CEA24C187FA00B35E7F = {
 			isa = PBXGroup;
 			children = (
-				3C329CF524C187FA00B35E7F /* GotToSay */,
+				3C329CF524C187FA00B35E7F /* GotToSayAllen */,
 				3C329CF424C187FA00B35E7F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,12 +66,12 @@
 		3C329CF424C187FA00B35E7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3C329CF324C187FA00B35E7F /* GotToSay.app */,
+				3C329CF324C187FA00B35E7F /* GotToSayAllen.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3C329CF524C187FA00B35E7F /* GotToSay */ = {
+		3C329CF524C187FA00B35E7F /* GotToSayAllen */ = {
 			isa = PBXGroup;
 			children = (
 				1011E9D124C564CB000D8512 /* ARView.swift */,
@@ -91,7 +91,7 @@
 				3C329D0424C1880D00B35E7F /* Info.plist */,
 				3C329CFE24C1880D00B35E7F /* Preview Content */,
 			);
-			path = GotToSay;
+			path = GotToSayAllen;
 			sourceTree = "<group>";
 		};
 		3C329CFE24C1880D00B35E7F /* Preview Content */ = {
@@ -105,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3C329CF224C187FA00B35E7F /* GotToSay */ = {
+		3C329CF224C187FA00B35E7F /* GotToSayAllen */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3C329D0724C1880D00B35E7F /* Build configuration list for PBXNativeTarget "GotToSay" */;
+			buildConfigurationList = 3C329D0724C1880D00B35E7F /* Build configuration list for PBXNativeTarget "GotToSayAllen" */;
 			buildPhases = (
 				3C329CEF24C187FA00B35E7F /* Sources */,
 				3C329CF024C187FA00B35E7F /* Frameworks */,
@@ -117,9 +117,9 @@
 			);
 			dependencies = (
 			);
-			name = GotToSay;
+			name = GotToSayAllen;
 			productName = GodToSay;
-			productReference = 3C329CF324C187FA00B35E7F /* GotToSay.app */;
+			productReference = 3C329CF324C187FA00B35E7F /* GotToSayAllen.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -137,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3C329CEE24C187FA00B35E7F /* Build configuration list for PBXProject "GotToSay" */;
+			buildConfigurationList = 3C329CEE24C187FA00B35E7F /* Build configuration list for PBXProject "GotToSayAllen" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -150,7 +150,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3C329CF224C187FA00B35E7F /* GotToSay */,
+				3C329CF224C187FA00B35E7F /* GotToSayAllen */,
 			);
 		};
 /* End PBXProject section */
@@ -321,16 +321,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"GotToSay/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"GotToSayAllen/Preview Content\"";
 				DEVELOPMENT_TEAM = WM7JHTCY6Z;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/GotToSay/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/GotToSayAllen/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.got.GotToSayAllenAllen;
-				PRODUCT_NAME = GotToSay;
+				PRODUCT_NAME = GotToSayAllen;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -341,16 +341,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"GotToSay/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"GotToSayAllen/Preview Content\"";
 				DEVELOPMENT_TEAM = WM7JHTCY6Z;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/GotToSay/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/GotToSayAllen/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.got.GotToSayAllenAllen;
-				PRODUCT_NAME = GotToSay;
+				PRODUCT_NAME = GotToSayAllen;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -359,7 +359,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3C329CEE24C187FA00B35E7F /* Build configuration list for PBXProject "GotToSay" */ = {
+		3C329CEE24C187FA00B35E7F /* Build configuration list for PBXProject "GotToSayAllen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3C329D0524C1880D00B35E7F /* Debug */,
@@ -368,7 +368,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3C329D0724C1880D00B35E7F /* Build configuration list for PBXNativeTarget "GotToSay" */ = {
+		3C329D0724C1880D00B35E7F /* Build configuration list for PBXNativeTarget "GotToSayAllen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3C329D0824C1880D00B35E7F /* Debug */,
