@@ -1,0 +1,47 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "DoNotBleach.arreferenceimage"
+    },
+    {
+      "filename" : "DoNotDryClean.arreferenceimage"
+    },
+    {
+      "filename" : "DoNotIron.arreferenceimage"
+    },
+    {
+      "filename" : "DoNotTumbleDry.arreferenceimage"
+    },
+    {
+      "filename" : "DoNotWash.arreferenceimage"
+    },
+    {
+      "filename" : "GentleWetCleaning.arreferenceimage"
+    },
+    {
+      "filename" : "HandWash.arreferenceimage"
+    },
+    {
+      "filename" : "HCS.arreferenceimage"
+    },
+    {
+      "filename" : "IroningSymbol.arreferenceimage"
+    },
+    {
+      "filename" : "tagSisley.arreferenceimage"
+    },
+    {
+      "filename" : "tagSky.arreferenceimage"
+    },
+    {
+      "filename" : "tagUniqlo.arreferenceimage"
+    },
+    {
+      "filename" : "WashAtOrBelow30.arreferenceimage"
+    }
+  ]
+}
