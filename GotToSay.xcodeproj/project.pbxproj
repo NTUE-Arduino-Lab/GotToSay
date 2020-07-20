@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1011E9D524C564CB000D8512 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011E9D024C564CA000D8512 /* ViewController.swift */; };
 		1011E9D624C564CB000D8512 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011E9D124C564CB000D8512 /* ARView.swift */; };
-		1011E9D724C564CB000D8512 /* VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011E9D224C564CB000D8512 /* VC.swift */; };
 		1011E9D824C564CB000D8512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1011E9D324C564CB000D8512 /* Main.storyboard */; };
 		1011E9D924C564CB000D8512 /* WashTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011E9D424C564CB000D8512 /* WashTagInfo.swift */; };
 		3C329CF724C187FA00B35E7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329CF624C187FA00B35E7F /* AppDelegate.swift */; };
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		1011E9D024C564CA000D8512 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1011E9D124C564CB000D8512 /* ARView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
-		1011E9D224C564CB000D8512 /* VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC.swift; sourceTree = "<group>"; };
 		1011E9D324C564CB000D8512 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1011E9D424C564CB000D8512 /* WashTagInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WashTagInfo.swift; sourceTree = "<group>"; };
 		3C329CF324C187FA00B35E7F /* GotToSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GotToSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,7 +74,6 @@
 			children = (
 				1011E9D124C564CB000D8512 /* ARView.swift */,
 				1011E9D324C564CB000D8512 /* Main.storyboard */,
-				1011E9D224C564CB000D8512 /* VC.swift */,
 				1011E9D024C564CA000D8512 /* ViewController.swift */,
 				1011E9D424C564CB000D8512 /* WashTagInfo.swift */,
 				3C329D0A24C1899E00B35E7F /* DataRoom.swift */,
@@ -183,7 +180,6 @@
 				3C329D1B24C18FD400B35E7F /* Searchbar.swift in Sources */,
 				3C329CF924C187FA00B35E7F /* SceneDelegate.swift in Sources */,
 				1011E9D524C564CB000D8512 /* ViewController.swift in Sources */,
-				1011E9D724C564CB000D8512 /* VC.swift in Sources */,
 				3C329CFB24C187FA00B35E7F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

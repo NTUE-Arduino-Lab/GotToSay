@@ -27,7 +27,6 @@ struct ARView: View {
 				}.sheet(isPresented: $tag) {
 					myController()
 					}
-
 				Group{
 					if myTag?.wash != nil{
 							Text(String(myTag?.wash ?? "")).foregroundColor(.white).bold().font(.title)
@@ -61,6 +60,22 @@ struct ARView: View {
         }
     }
 }
+
+struct myController: UIViewControllerRepresentable {
+    
+	func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let controller = storyBoard.instantiateViewController(identifier: "Home")
+		
+        return controller
+    }
+	
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<myController>) {
+		
+		
+    }
+}
+
 struct ARView_Previews: PreviewProvider {
     static var previews: some View {
         ARView(name:"YUI",num: 0)
