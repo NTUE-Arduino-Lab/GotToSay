@@ -20,6 +20,7 @@ struct ContentView: View {
                                 Image("nav_map_blue" )
                                     .tag(2)
                                     .font(.title)
+									
                             }
                         }
                         VStack{
@@ -32,12 +33,12 @@ struct ContentView: View {
                                 {Image("nav_porfile_blue")}.tag(0)
                                 
                                                     }
-                          BppleView(BppleData: BppleData).tabItem {
-                            NavigationLink(destination: BppleView(BppleData: BppleData)) {
+                          BppleView().tabItem {
+                            NavigationLink(destination: BppleView()) {
                                     Image("nav_wardrobe_blue") }.tag(1)
 
                             }
-                        }
+				}
                 }
             }
     }
@@ -146,22 +147,11 @@ struct MemoView: View {
 }
 
 struct BppleView: View {
-    @State private var showAlert = false
-    var BppleData: [BppleD]
+//    @State private var showAlert = false
+//    var BppleData: [BppleD]
     var body: some View {
-        VStack {
-        Button(action: {
-           self.showAlert = true
-        }) {
-           VStack {
-            VC()
-           }
-        }.alert(isPresented: $showAlert) { () -> Alert in
-           let answer = ["黑", "白"].randomElement()!
-           return Alert(title: Text(answer))
-            }
-        }
-    }
+        ARView(name:"YUI",num: 0)
+		}
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

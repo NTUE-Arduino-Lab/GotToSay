@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+var loadtag = washTagInfo()
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

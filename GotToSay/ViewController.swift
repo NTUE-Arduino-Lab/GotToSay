@@ -65,7 +65,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 				tag.iron = "IronAtLowTemperature"
 				tag.dryClean = "DoNotDryClean"
 				createHostingController(for: planeNode,imgName: imageName,myTag: tag)
-//				getTarget = true
+				loadtag = tag
 			}else{createHostingController(for: planeNode,imgName: imageName)}
             node.addChildNode(planeNode)
             return node

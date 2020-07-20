@@ -12,20 +12,22 @@ struct ARView: View {
     @State var name: String
     @State var num: Int
 	@State var myTag: washTagInfo?
-	
+	@State var tag = false
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 20).fill(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .topLeading, endPoint: .bottomTrailing)).edgesIgnoringSafeArea(.all)
             VStack{
                 Text(name).foregroundColor(.white).bold().font(.title)
                 Text(String(num)).foregroundColor(.white).bold().font(.title)
-                Button(action: {self.name = "Buttop Tapped!"}){
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15).fill(Color.white).frame(width: 150, height: 50)
-                        Text("Tap Me")
-                    }
-				}
-				
+				Button(action: {self.tag = true}){
+				ZStack{
+					RoundedRectangle(cornerRadius: 15).fill(Color.white).frame(width: 150, height: 50)
+					Text("Tap Me")
+					}
+				}.sheet(isPresented: $tag) {
+					myController()
+					}
+
 				Group{
 					if myTag?.wash != nil{
 							Text(String(myTag?.wash ?? "")).foregroundColor(.white).bold().font(.title)

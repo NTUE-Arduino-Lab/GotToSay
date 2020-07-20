@@ -8,21 +8,27 @@
 
 import SwiftUI
 
-
 struct VC: View {
     var body: some View{
-			myController()
+		myController()
     }
 }
+
+
+
+
+
 struct myController: UIViewControllerRepresentable {
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> UIViewController {
+	@State var myTag:washTagInfo?
+	func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyBoard.instantiateViewController(identifier: "Home")
         return controller
     }
 	
     func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<myController>) {
+		
 		
     }
 }
