@@ -11,7 +11,6 @@ import MapKit
 
 struct ContentView: View {
     @State private var locations = [MKPointAnnotation]()
-    var locationFetcher = LocationFetcher()
     @State private var LaundryInfo_ = LaundryInfo(Num: 5,Name:"洗衣店5",Address:"宜蘭市",Longitude:0.0,Latitude:0.0)
     @State private var testCppleD = CppleD(number:1,name: "我是第一台洗衣機", first: "台北市大安區和平東路二段134號", member: "apple",imagename:"goforward.90")
 
@@ -64,7 +63,6 @@ struct MapSearchView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @ObservedObject var mapViewState = MapViewState()
-
     @ObservedObject var locate = Located()
     var locationFetcher = LocationFetcher()
 
