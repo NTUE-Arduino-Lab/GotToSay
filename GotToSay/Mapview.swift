@@ -17,15 +17,8 @@ struct MapView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
-        //逢甲座標
-        let center = CLLocationCoordinate2D(latitude: 24.178693 , longitude: 120.646740)
-        let region = MKCoordinateRegion(center: center,
-                                    latitudinalMeters: CLLocationDistance(800),
-                                    longitudinalMeters: CLLocationDistance(800))
-        mapView.setRegion(region, animated: true)
-
-        mapView.delegate = context.coordinator
         
+        mapView.delegate = context.coordinator
         return mapView
     }
 
@@ -35,10 +28,14 @@ struct MapView: UIViewRepresentable {
             view.addAnnotations(annotations)
         }
         
-        if let center = mapViewState.center {
+        // Set the map display region
+        if var center = mapViewState.center {
             var region: MKCoordinateRegion
             
-            if let span = mapViewState.span {
+            if var span = mapViewState.span {
+                center = CLLocationCoordinate2D(latitude: 25.023999999999987, longitude: 121.54500000000007)
+
+                span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
                 region = MKCoordinateRegion(center: center,
                                             span: span)
             } else {
@@ -51,7 +48,6 @@ struct MapView: UIViewRepresentable {
             mapViewState.center = nil
         }
     }
-
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
