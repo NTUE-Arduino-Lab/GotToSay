@@ -17,3 +17,8 @@ struct washTagInfo: Codable {
 	var hcs: String?
 	var iron: String?
 }
+class sendTag{
+	static let send = sendTag()
+	var data:washTagInfo?
+	private init() {}
+}
