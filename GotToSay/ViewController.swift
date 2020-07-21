@@ -10,20 +10,17 @@ import UIKit
 import SceneKit
 import ARKit
 import SwiftUI
-
-protocol delegate_washTag{
-    func sendTag() -> washTagInfo
-}
-
-class ViewController: UIViewController, ARSCNViewDelegate, delegate_washTag {
+class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Create a session configuration
@@ -47,7 +44,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, delegate_washTag {
 
     // MARK: - ARSCNViewDelegate
 	var tag: washTagInfo! = washTagInfo()
-
     // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
@@ -57,7 +53,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, delegate_washTag {
 			let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
             let planeNode = SCNNode(geometry: plane)
             planeNode.eulerAngles.x = -.pi/2
-			print("hi")
 			if imageName == "tagSisley"{
 				tag.wash = "GentleWashAtOrBelow30"
 				tag.bleach = "DoNotBleach"
@@ -65,6 +60,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, delegate_washTag {
 				tag.dry = "LineDryInShade"
 				tag.iron = "IronAtLowTemperature"
 				tag.dryClean = "DoNotDryClean"
+				sendTag.send.data = tag
 				createHostingController(for: planeNode,imgName: imageName,myTag: tag)
 				loadtag = tag
 			}else{createHostingController(for: planeNode,imgName: imageName)}
@@ -74,11 +70,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, delegate_washTag {
             return nil
         }
     }
-	
-	func sendTag() -> washTagInfo {
-		return tag
-	}
-	
+		
     func createHostingController(for node: SCNNode,imgName: String) {
         let arVC = UIHostingController(rootView: ARView(name:imgName,num:0))
 			

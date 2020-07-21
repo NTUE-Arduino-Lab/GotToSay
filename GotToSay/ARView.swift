@@ -69,34 +69,21 @@ struct ARView: View {
 }
 
 struct myController: UIViewControllerRepresentable {
-	func makeCoordinator() -> Coordinator {
-		Coordinator(self)
-	}
-	
-    
-	class Coordinator: NSObject, ARSCNViewDelegate {
-		let parent: myController
-		init(_ parent: myController)
-		{
-			self.parent = parent
-		}
-		
-				
-	}
 	@Environment(\.presentationMode) var presentationMode
     @Binding var washTag: washTagInfo?
-	var delegate: delegate_washTag?
-	
 	func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyBoard.instantiateViewController(identifier: "Home") as! ViewController
-		
-        return controller
+		sendTag.send.data = nil
+		print(sendTag.send.data)
+		return controller
     }
 	
     func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<myController>) {
-		
-		self.washTag = delegate?.sendTag()
+		if sendTag.send.data != nil{
+			washTag = sendTag.send.data
+			presentationMode.wrappedValue.dismiss()
+		}
     }
 }
 struct ARView_Previews: PreviewProvider {
