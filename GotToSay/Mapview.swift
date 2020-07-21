@@ -6,20 +6,18 @@ import CoreLocation
 class MapViewState: ObservableObject {
     var span: MKCoordinateSpan?
     @Published var center: CLLocationCoordinate2D?
-    
+
     
 }
 
 struct MapView: UIViewRepresentable {
     @Binding var centerCoordinate: CLLocationCoordinate2D
-    @ObservedObject var mapViewState: MapViewState
-    @Binding var selectedPlace: MKPointAnnotation?
-    @Binding var showingPlaceDetails: Bool
-    
-    var annotations: [MKPointAnnotation]
+    @ObservedObject var mapViewState: MapViewState    
+    @Binding var annotations: [MKPointAnnotation]
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
+        
         mapView.delegate = context.coordinator
         return mapView
     }
@@ -31,10 +29,12 @@ struct MapView: UIViewRepresentable {
         }
         
         // Set the map display region
-        if let center = mapViewState.center {
+        if var center = mapViewState.center {
             var region: MKCoordinateRegion
             
             if var span = mapViewState.span {
+                center = CLLocationCoordinate2D(latitude: 25.023999999999987, longitude: 121.54500000000007)
+
                 span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
                 region = MKCoordinateRegion(center: center,
                                             span: span)
