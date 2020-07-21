@@ -62,7 +62,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 				tag.dryClean = "DoNotDryClean"
 				sendTag.send.data = tag
 				createHostingController(for: planeNode,imgName: imageName,myTag: tag)
-				loadtag = tag
 			}else{createHostingController(for: planeNode,imgName: imageName)}
             node.addChildNode(planeNode)
             return node

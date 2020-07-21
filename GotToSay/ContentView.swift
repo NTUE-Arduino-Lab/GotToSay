@@ -27,32 +27,25 @@ struct ContentView: View {
     }
     var body: some View {
         VStack {
-                TabView {
-                        MapSearchView(Laundry:LaundryInfo_, info: info
-                                    )
+			TabView {
+				MapSearchView(Laundry:LaundryInfo_, info: info).tabItem {NavigationLink(destination: MapSearchView(Laundry:LaundryInfo_, info: info)) {
+						Image("nav_map_blue" ).tag(0)
+						}
+					}
+				VStack{
+					BarView()
+					List(CppleData) { CppleD in
+						MemoView(CppleData: CppleData, Cpple: CppleD)
+						}
+					}.tabItem {
+						NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
+						{Image("nav_porfile_blue")}.tag(1)}
 
-                            .tabItem {NavigationLink(destination: MapSearchView(Laundry:LaundryInfo_, info: info)) {
-                                Image("nav_map_blue" )
-									.tag(0)
-                            }
-
-                        }
-
-                        VStack{
-                            BarView()
-                            List(CppleData) { CppleD in
-                                MemoView(CppleData: CppleData, Cpple: CppleD)
-                            }
-                    }.tabItem {
-                        NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
-                                {Image("nav_porfile_blue")}.tag(1)}
-                    
-                    WardrobeView().tabItem {
-                            NavigationLink(destination: WardrobeView()) {
-                                    Image("nav_wardrobe_blue") }.tag(2)
-
-                            }
-                    }
+						WardrobeView().tabItem {
+							NavigationLink(destination: WardrobeView()) {
+									Image("nav_wardrobe_blue") }.tag(2)
+						}
+					}
                 }
             }
     }

@@ -71,6 +71,7 @@ struct ARView: View {
 struct myController: UIViewControllerRepresentable {
 	@Environment(\.presentationMode) var presentationMode
     @Binding var washTag: washTagInfo?
+	
 	func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyBoard.instantiateViewController(identifier: "Home") as! ViewController
@@ -80,8 +81,8 @@ struct myController: UIViewControllerRepresentable {
     }
 	
     func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<myController>) {
-		if sendTag.send.data != nil{
-			washTag = sendTag.send.data
+		washTag = sendTag.send.data
+		if washTag != nil{
 			presentationMode.wrappedValue.dismiss()
 		}
     }
