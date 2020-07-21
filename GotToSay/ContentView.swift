@@ -10,46 +10,32 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-    @State private var locations = [MKPointAnnotation]()
-    @State private var LaundryInfo_ = LaundryInfo(Num: 5,Name:"洗衣店5",Address:"宜蘭市",Longitude:0.0,Latitude:0.0)
     @State private var testCppleD = CppleD(number:1,name: "我是第一台洗衣機", first: "台北市大安區和平東路二段134號", member: "apple",imagename:"goforward.90")
-
-    func makepoint(){
-        for Laundrys in info{
-            let newLocation = MKPointAnnotation()
-            newLocation.title = Laundrys.Name
-            newLocation.subtitle = Laundrys.Address
-            newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
-            locations.append(newLocation)
-     
-        }
-    }
+    
     var body: some View {
         VStack {
                 TabView {
-                        MapSearchView(Laundry:LaundryInfo_, info: info
-                                    )
-
-                            .tabItem {NavigationLink(destination: MapSearchView(Laundry:LaundryInfo_, info: info)) {
+                        MapSearchView()
+                            .tabItem {NavigationLink(destination: MapSearchView()) {
                                 Image("nav_map_blue" )
 									.tag(0)
                             }
-
+                                
                         }
-
-                        VStack{
+                    VStack{
                             BarView()
                             List(CppleData) { CppleD in
                                 MemoView(CppleData: CppleData, Cpple: CppleD)
                             }
-                    }.tabItem {
+                        }.tabItem {
                         NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
-                                {Image("nav_porfile_blue")}.tag(1)}
+                                {Image("nav_porfile_blue")}.tag(1)
+                        
+                    }
                     
                     WardrobeView().tabItem {
                             NavigationLink(destination: WardrobeView()) {
-                                    Image("nav_wardrobe_blue") }.tag(2)
-
+                                    Image("nav_wardrobe_blue")}.tag(2)
                             }
                     }
                 }
@@ -68,18 +54,33 @@ struct MapSearchView: View {
 
     @State private var searchText = ""
     @State private var isEditing = false
-    var Laundry:LaundryInfo
-    var info:[LaundryInfo]
-    @State private var show = false
 
+    @State private var show = true
+    init(){
+        locationFetcher.start()
+        makepoint()
+
+    }
+    func makepoint(){
+        print("makepoint()")
+        for Laundrys in info{
+            let newLocation = MKPointAnnotation()
+            newLocation.title = Laundrys.Name
+            newLocation.subtitle = Laundrys.Address
+            newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
+            locations.append(newLocation)
+        }
+    }
     var body: some View {
         ZStack(alignment: .top) {
             MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations )
             VStack {
                 SearchBar(text: $searchText)
+                    .frame(minWidth: 0, maxWidth: 260)
                     .padding(.top, 7.0)
+                if searchText.isEmpty{
                     
-                
+                }else{
                 HStack {
                     List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
                         Button(action: {print(self.$searchText)}) {
@@ -89,13 +90,15 @@ struct MapSearchView: View {
                             .padding(.horizontal,10)
                     }
                 }
-                    
-                        }
                 .background(Color.white)
                 .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 200)
                 .shadow(radius: 3)
                 .border(Color.black.opacity(0.4), width: 1)
+                }
+            }
+
                 .opacity(show ? 1 : 0)
+            
             VStack{
                 HStack {
                     Spacer()
@@ -106,13 +109,8 @@ struct MapSearchView: View {
                             self.show = true
                         }
                         print("我是對話框")
-                        for Laundrys in self.info{
-                               let newLocation = MKPointAnnotation()
-                               newLocation.title = Laundrys.Name
-                               newLocation.subtitle = Laundrys.Address
-                               newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
-                            self.locations.append(newLocation)
-                           }
+                        self.makepoint()
+
                     }) {
                         Image(systemName: "lightbulb")
                     }
@@ -165,6 +163,7 @@ struct MapSearchView: View {
                     .foregroundColor(.white)
                     .font(.title)
                     .clipShape(Circle())
+                    .hidden()
                     
                     
                 }

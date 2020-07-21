@@ -42,8 +42,10 @@ struct SearchBar: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
  
                 }) {
-                    Text("Cancel")
+                    Text("取消")
                 }
+                .font(.headline)
+                .background(Color.white)
                 .padding(.trailing, 10)
 
             }
