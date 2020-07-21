@@ -19,7 +19,6 @@ struct MapView: UIViewRepresentable{
      func updateUIView(_ uiView: MKMapView, context: Context) {
         let locationFetcher = LocationFetcher()
         locationFetcher.start()
-        print("hi")
 
 
         let coordinate = CLLocationCoordinate2D(latitude: latDelta, longitude: longDelta)
@@ -34,8 +33,6 @@ struct MapView: UIViewRepresentable{
         objectAnnotation.coordinate = CLLocation(latitude: latDelta, longitude: longDelta).coordinate
 
         uiView.addAnnotation(objectAnnotation)
-        
-        
     }
 
         

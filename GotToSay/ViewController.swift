@@ -10,9 +10,12 @@ import UIKit
 import SceneKit
 import ARKit
 import SwiftUI
-var itemNum :Int = 0
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+protocol delegate_washTag{
+    func sendTag() -> washTagInfo
+}
+
+class ViewController: UIViewController, ARSCNViewDelegate, delegate_washTag {
     @IBOutlet var sceneView: ARSCNView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +26,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
 
@@ -44,20 +46,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
 
     // MARK: - ARSCNViewDelegate
-    
+	var tag: washTagInfo! = washTagInfo()
+
     // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         guard let imageAnchor = anchor as? ARImageAnchor else {return nil}
         guard let imageName = imageAnchor.name else {return nil}
         if imageName != nil{
-            itemNum += 1
-            print(itemNum)
-            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+			let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
             let planeNode = SCNNode(geometry: plane)
             planeNode.eulerAngles.x = -.pi/2
+			print("hi")
 			if imageName == "tagSisley"{
-				var tag: washTagInfo! = washTagInfo()
 				tag.wash = "GentleWashAtOrBelow30"
 				tag.bleach = "DoNotBleach"
 				tag.tumbleDry = "DoNotTumbleDry"
@@ -73,8 +74,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return nil
         }
     }
+	
+	func sendTag() -> washTagInfo {
+		return tag
+	}
+	
     func createHostingController(for node: SCNNode,imgName: String) {
-        let arVC = UIHostingController(rootView: ARView(name:imgName,num:itemNum))
+        let arVC = UIHostingController(rootView: ARView(name:imgName,num:0))
 			
         DispatchQueue.main.async {
             arVC.willMove(toParent: self)
@@ -88,7 +94,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
 	func createHostingController(for node: SCNNode,imgName: String, myTag:washTagInfo) {
-        let arVC = UIHostingController(rootView: ARView(name:imgName, num:itemNum, myTag:myTag))
+        let arVC = UIHostingController(rootView: ARView(name:imgName, num:0, myTag:myTag))
 		
         DispatchQueue.main.async {
             arVC.willMove(toParent: self)
