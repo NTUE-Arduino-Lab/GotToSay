@@ -7,22 +7,37 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
+    @State private var locations = [MKPointAnnotation]()
+    var locationFetcher = LocationFetcher()
     @State private var LaundryInfo_ = LaundryInfo(Num: 5,Name:"洗衣店5",Address:"宜蘭市",Longitude:0.0,Latitude:0.0)
     @State private var testCppleD = CppleD(number:1,name: "我是第一台洗衣機", first: "台北市大安區和平東路二段134號", member: "apple",imagename:"goforward.90")
-    
+
+    func makepoint(){
+        for Laundrys in info{
+            let newLocation = MKPointAnnotation()
+            newLocation.title = Laundrys.Name
+            newLocation.subtitle = Laundrys.Address
+            newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
+            locations.append(newLocation)
+     
+        }
+    }
     var body: some View {
         VStack {
                 TabView {
                         MapSearchView(Laundry:LaundryInfo_, info: info
-                                    ).tabItem {NavigationLink(destination: MapSearchView(Laundry:LaundryInfo_, info: info)) {
+                                    )
+
+                            .tabItem {NavigationLink(destination: MapSearchView(Laundry:LaundryInfo_, info: info)) {
                                 Image("nav_map_blue" )
-                                    .tag(2)
-                                    .font(.title)
-									
+									.tag(0)
                             }
+
                         }
+
                         VStack{
                             BarView()
                             List(CppleData) { CppleD in
@@ -30,31 +45,44 @@ struct ContentView: View {
                             }
                     }.tabItem {
                         NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
-                                {Image("nav_porfile_blue")}.tag(0)
-                                
-                                                    }
-                          BppleView().tabItem {
-                            NavigationLink(destination: BppleView()) {
-                                    Image("nav_wardrobe_blue") }.tag(1)
+                                {Image("nav_porfile_blue")}.tag(1)}
+                    
+                    WardrobeView().tabItem {
+                            NavigationLink(destination: WardrobeView()) {
+                                    Image("nav_wardrobe_blue") }.tag(2)
 
                             }
-				}
+                    }
                 }
             }
     }
-
+class  Located: ObservableObject {
+    @Published var items = [LaundryInfo]()
+}
 struct MapSearchView: View {
+
+    @State private var centerCoordinate = CLLocationCoordinate2D()
+    @State private var locations = [MKPointAnnotation]()
+    @ObservedObject var mapViewState = MapViewState()
+    @State private var selectedPlace: MKPointAnnotation?
+    @State private var showingPlaceDetails = false
+    @ObservedObject var locate = Located()
+    var locationFetcher = LocationFetcher()
 
     @State private var searchText = ""
     @State private var isEditing = false
     var Laundry:LaundryInfo
     var info:[LaundryInfo]
+    @State private var show = false
 
     var body: some View {
         ZStack(alignment: .top) {
-                MapView()
+            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails, annotations: locations )
             VStack {
                 SearchBar(text: $searchText)
+                    .padding(.top, 7.0)
+                    
+                
                 HStack {
                     List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
                         Button(action: {print(self.$searchText)}) {
@@ -70,8 +98,63 @@ struct MapSearchView: View {
                 .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 200)
                 .shadow(radius: 3)
                 .border(Color.black.opacity(0.4), width: 1)
+                .opacity(show ? 1 : 0)
+            VStack{
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if self.show {
+                            self.show = false
+                        }else{
+                            self.show = true
+                        }
+                        print("我是對話框")
+                        for Laundrys in self.info{
+                               let newLocation = MKPointAnnotation()
+                               newLocation.title = Laundrys.Name
+                               newLocation.subtitle = Laundrys.Address
+                               newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
+                            self.locations.append(newLocation)
+                           }
+                    }) {
+                        Image(systemName: "lightbulb")
+                    }
+                    .padding()
+                    .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
+                    .background(Color.white.opacity(0.75))
+                    .foregroundColor(.blue)
+                    .font(.headline)
+                    .cornerRadius(30)
+                    
+                    
+                }
+                HStack{
+                 Spacer()
+                 Button(action: {
+                    print("回到座標點")
+                    self.locationFetcher.start()
+                    let location = self.locationFetcher.lastKnownLocation
+                    print(location as Any)
+                     self.mapViewState.center = location
+
+                 }
+                    
+                 ) {
+                    Image(systemName: "location")
+                 }
+                .padding()
+                .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
+                .background(Color.white.opacity(0.75))
+                .foregroundColor(.blue)
+                .font(.headline)
+                .cornerRadius(30)
+            
+                }
+                Spacer()
+            }
 
             }
+        
     }
 }
 struct BarView: View {
@@ -146,7 +229,7 @@ struct MemoView: View {
     }
 }
 
-struct BppleView: View {
+struct WardrobeView: View {
 //    @State private var showAlert = false
 //    var BppleData: [BppleD]
     var body: some View {
