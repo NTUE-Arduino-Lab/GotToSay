@@ -57,8 +57,7 @@ struct MapSearchView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @ObservedObject var mapViewState = MapViewState()
-    @State private var selectedPlace: MKPointAnnotation?
-    @State private var showingPlaceDetails = false
+
     @ObservedObject var locate = Located()
     var locationFetcher = LocationFetcher()
 
@@ -70,7 +69,7 @@ struct MapSearchView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails, annotations: locations )
+            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations )
             VStack {
                 SearchBar(text: $searchText)
                     .padding(.top, 7.0)
@@ -129,6 +128,7 @@ struct MapSearchView: View {
                     let location = self.locationFetcher.lastKnownLocation
                     print(location as Any)
                      self.mapViewState.center = location
+                    
 
                  }
                     
@@ -142,6 +142,26 @@ struct MapSearchView: View {
                 .font(.headline)
                 .cornerRadius(30)
             
+                }
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        let newLocation = MKPointAnnotation()
+                        newLocation.coordinate = self.centerCoordinate
+                        newLocation.title = "Example location"
+                        self.locations.append(newLocation)
+                        print("當前位置點：")
+                        print(newLocation.coordinate)
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    .padding()
+                    .background(Color.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .clipShape(Circle())
+                    
+                    
                 }
                 Spacer()
             }
