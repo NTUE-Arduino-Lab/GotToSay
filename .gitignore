@@ -1,4 +1,5 @@
 # project.pbxproj
 .vscode
-xcuserdata
+xcuserdata/
+.xcuderdata
 .DS_Store
