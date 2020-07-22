@@ -17,3 +17,21 @@ var info = [
     LaundryInfo(Num: 5,Name:"洗衣店5",Address:"宜蘭市",Longitude:0.0,Latitude:0.0)
 ]
 #endif
+
+struct LaundryWashingM: Identifiable {
+    var id = UUID()
+    var number :Int
+    var name: String
+    var size: String
+    var from: String
+    var time: String
+}
+
+#if DEBUG
+
+var WashingM : [LaundryWashingM] = [
+    LaundryWashingM(number:1,name: "我是第一台洗衣機", size: "Large", from: "118自助洗衣店",time:"goforward.90"),
+    LaundryWashingM(number:2,name: "我是第一台洗衣機", size: "Small", from: "118自助洗衣店",time:"goforward.90"),
+
+]
+#endif

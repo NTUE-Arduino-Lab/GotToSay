@@ -62,13 +62,13 @@ struct MapSearchView: View {
 
     }
     func makepoint(){
-        print("makepoint()")
         for Laundrys in info{
             let newLocation = MKPointAnnotation()
             newLocation.title = Laundrys.Name
             newLocation.subtitle = Laundrys.Address
             newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
             locations.append(newLocation)
+            print("makepoint()")
         }
     }
     var body: some View {
@@ -162,6 +162,7 @@ struct MapSearchView: View {
                     .background(Color.black.opacity(0.75))
                     .foregroundColor(.white)
                     .font(.title)
+                        
                     .clipShape(Circle())
                     .hidden()
                     
