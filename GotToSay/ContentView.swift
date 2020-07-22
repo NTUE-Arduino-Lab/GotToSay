@@ -10,37 +10,34 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
+	@Environment(\.managedObjectContext) var moc
     @State private var testCppleD = CppleD(number:1,name: "我是第一台洗衣機", first: "台北市大安區和平東路二段134號", member: "apple",imagename:"goforward.90")
-    
+  
     var body: some View {
         VStack {
-                TabView {
-                        MapSearchView()
-                            .tabItem {NavigationLink(destination: MapSearchView()) {
-                                Image("nav_map_blue" )
-									.tag(0)
-                            }
-                                
-                        }
-                    VStack{
-                            BarView()
-                            List(CppleData) { CppleD in
-                                MemoView(CppleData: CppleData, Cpple: CppleD)
-                            }
-                        }.tabItem {
-                        NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
-                                {Image("nav_porfile_blue")}.tag(1)
-                        
-                    }
-                    
-                    WardrobeView().tabItem {
-                            NavigationLink(destination: WardrobeView()) {
-                                    Image("nav_wardrobe_blue")}.tag(2)
-                            }
-                    }
-                }
-            }
-    }
+			TabView {
+				MapSearchView().tabItem {NavigationLink(destination: MapSearchView()) {
+						Image("nav_map_blue" ).tag(0)
+					}
+				}
+				VStack{
+					BarView()
+					List(CppleData) { CppleD in
+						MemoView(CppleData: CppleData, Cpple: CppleD)
+					}
+				}.tabItem {
+					NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
+						{Image("nav_porfile_blue")}.tag(1)
+				}
+
+				WardrobeView().tabItem {
+					NavigationLink(destination: WardrobeView()) {
+						Image("nav_wardrobe_blue")}.tag(2)
+				}
+			}
+		}
+	}
+}
 class  Located: ObservableObject {
     @Published var items = [LaundryInfo]()
 }
@@ -246,15 +243,8 @@ struct MemoView: View {
     }
 }
 
-struct WardrobeView: View {
-//    @State private var showAlert = false
-//    var BppleData: [BppleD]
-    var body: some View {
-        ARView(name:"YUI",num: 0,myTag: nil)
-		}
-}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+		ContentView()
     }
 }

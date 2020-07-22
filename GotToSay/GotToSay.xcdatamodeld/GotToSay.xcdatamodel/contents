@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MyClothes" representedClassName="MyClothes" syncable="YES" codeGenerationType="class">
+        <attribute name="bleach" optional="YES" attributeType="String"/>
+        <attribute name="dry" optional="YES" attributeType="String"/>
+        <attribute name="dryClean" optional="YES" attributeType="String"/>
+        <attribute name="hcs" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="iron" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="pce" optional="YES" attributeType="String"/>
+        <attribute name="tumbleClean" optional="YES" attributeType="String"/>
+        <attribute name="wash" optional="YES" attributeType="String"/>
+        <attribute name="wetClean" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="MyClothes" positionX="-63" positionY="-18" width="128" height="28"/>
+    </elements>
+</model>
