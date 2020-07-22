@@ -41,8 +41,8 @@ struct ContentView: View {
 class  Located: ObservableObject {
     @Published var items = [LaundryInfo]()
 }
-struct MapSearchView: View {
 
+struct MapSearchView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @ObservedObject var mapViewState = MapViewState()
@@ -55,11 +55,10 @@ struct MapSearchView: View {
     @State private var show = true
     init(){
         locationFetcher.start()
-        makepoint()
-
     }
+
     func makepoint(){
-        print("makepoint()")
+        print("makepoint()：我是用來顯示標記點的")
         for Laundrys in info{
             let newLocation = MKPointAnnotation()
             newLocation.title = Laundrys.Name
@@ -69,8 +68,12 @@ struct MapSearchView: View {
         }
     }
     var body: some View {
+        
         ZStack(alignment: .top) {
-            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations )
+            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations)
+            .onAppear {
+                self.makepoint()
+            }
             VStack {
                 SearchBar(text: $searchText)
                     .frame(minWidth: 0, maxWidth: 260)
@@ -79,8 +82,15 @@ struct MapSearchView: View {
                     
                 }else{
                 HStack {
+                    
                     List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
-                        Button(action: {print(self.$searchText)}) {
+                        
+                        Button(action: {
+                            print(item.Name)
+                                                        
+                            
+                        })
+                        {
                         Image(systemName: "flag.fill")}
                         Text(item.Name)
                             .font(.subheadline)
@@ -106,8 +116,6 @@ struct MapSearchView: View {
                             self.show = true
                         }
                         print("我是對話框")
-                        self.makepoint()
-
                     }) {
                         Image(systemName: "lightbulb")
                     }
@@ -159,6 +167,7 @@ struct MapSearchView: View {
                     .background(Color.black.opacity(0.75))
                     .foregroundColor(.white)
                     .font(.title)
+                        
                     .clipShape(Circle())
                     .hidden()
                     
@@ -172,6 +181,8 @@ struct MapSearchView: View {
     }
 }
 struct BarView: View {
+    @State private var name = "逢甲大學洗衣店"
+    @State private var address = "台中市西屯區文華路100號"
      var body: some View {
         HStack{
         Image(systemName: "location.circle.fill")
@@ -181,11 +192,11 @@ struct BarView: View {
             .clipShape(Circle())
             Spacer()
         VStack(alignment: .leading) {
-            Text("台北教育大學洗衣機")
+            Text(name)
                 .font(.headline)
                 .foregroundColor(Color.blue)
 
-            Text("台北市大安區和平東路二段134號")
+            Text(address)
                 .font(.subheadline)
             .foregroundColor(Color.gray)
                 }

@@ -17,7 +17,12 @@ struct MapView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
-        
+        //逢甲座標
+        let center = CLLocationCoordinate2D(latitude: 24.178693 , longitude: 120.646740)
+        let region = MKCoordinateRegion(center: center,
+                                    latitudinalMeters: CLLocationDistance(1000),
+                                    longitudinalMeters: CLLocationDistance(1000))
+        mapView.setRegion(region, animated: true)
         mapView.delegate = context.coordinator
         return mapView
     }
@@ -67,14 +72,14 @@ struct MapView: UIViewRepresentable {
             // attempt to find a cell we can recycle
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             //annotationView?.image = UIImage(named: "nav_map_blue")
-            annotationView?.image = UIImage(named: "nav_map_blue")
+            annotationView?.image = UIImage(named: "icon_map.png")
 
             
 
             if annotationView == nil {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView?.canShowCallout = true
-                annotationView?.image = UIImage(named: "nav_map_blue")
+                annotationView?.image = UIImage(named: "icon_map.png")
                 //這裡是圖片樣子
                 let infoButton = UIButton(type: .detailDisclosure)
                 infoButton.setImage(UIImage(named: "nav_map_blue"), for: [] )
@@ -115,7 +120,7 @@ extension MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.title = "London"
         annotation.subtitle = "Home to the 2012 Summer Olympics."
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 24.178693, longitude: 120.64674)
         return annotation
     }
 }
