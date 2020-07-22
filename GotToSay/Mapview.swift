@@ -11,7 +11,6 @@ class MapViewState: ObservableObject {
 }
 
 struct MapView: UIViewRepresentable {
-    @Binding var count :Int
     @Binding var centerCoordinate: CLLocationCoordinate2D
     @ObservedObject var mapViewState: MapViewState    
     @Binding var annotations: [MKPointAnnotation]

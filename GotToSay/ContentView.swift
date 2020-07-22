@@ -46,7 +46,6 @@ class  Located: ObservableObject {
 }
 
 struct MapSearchView: View {
-    @State private var count = 0
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @ObservedObject var mapViewState = MapViewState()
@@ -74,7 +73,7 @@ struct MapSearchView: View {
     var body: some View {
         
         ZStack(alignment: .top) {
-            MapView(count: $count, centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations)
+            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations)
             .onAppear {
                 self.makepoint()
             }
