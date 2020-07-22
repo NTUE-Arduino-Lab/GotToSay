@@ -44,8 +44,9 @@ struct ContentView: View {
 class  Located: ObservableObject {
     @Published var items = [LaundryInfo]()
 }
-struct MapSearchView: View {
 
+struct MapSearchView: View {
+    @State private var count = 0
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @ObservedObject var mapViewState = MapViewState()
@@ -58,22 +59,25 @@ struct MapSearchView: View {
     @State private var show = true
     init(){
         locationFetcher.start()
-        makepoint()
-
     }
+
     func makepoint(){
+        print("makepoint()：我是用來顯示標記點的")
         for Laundrys in info{
             let newLocation = MKPointAnnotation()
             newLocation.title = Laundrys.Name
             newLocation.subtitle = Laundrys.Address
             newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
             locations.append(newLocation)
-            print("makepoint()")
         }
     }
     var body: some View {
+        
         ZStack(alignment: .top) {
-            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations )
+            MapView(count: $count, centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations)
+            .onAppear {
+                self.makepoint()
+            }
             VStack {
                 SearchBar(text: $searchText)
                     .frame(minWidth: 0, maxWidth: 260)
@@ -109,8 +113,6 @@ struct MapSearchView: View {
                             self.show = true
                         }
                         print("我是對話框")
-                        self.makepoint()
-
                     }) {
                         Image(systemName: "lightbulb")
                     }

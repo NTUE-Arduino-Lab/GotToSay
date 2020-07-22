@@ -11,6 +11,7 @@ class MapViewState: ObservableObject {
 }
 
 struct MapView: UIViewRepresentable {
+    @Binding var count :Int
     @Binding var centerCoordinate: CLLocationCoordinate2D
     @ObservedObject var mapViewState: MapViewState    
     @Binding var annotations: [MKPointAnnotation]
@@ -20,11 +21,9 @@ struct MapView: UIViewRepresentable {
         //逢甲座標
         let center = CLLocationCoordinate2D(latitude: 24.178693 , longitude: 120.646740)
         let region = MKCoordinateRegion(center: center,
-                                    latitudinalMeters: CLLocationDistance(800),
-                                    longitudinalMeters: CLLocationDistance(800))
+                                    latitudinalMeters: CLLocationDistance(1000),
+                                    longitudinalMeters: CLLocationDistance(1000))
         mapView.setRegion(region, animated: true)
-
-        
         mapView.delegate = context.coordinator
         return mapView
     }
@@ -122,7 +121,7 @@ extension MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.title = "London"
         annotation.subtitle = "Home to the 2012 Summer Olympics."
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 24.178693, longitude: 120.64674)
         return annotation
     }
 }
