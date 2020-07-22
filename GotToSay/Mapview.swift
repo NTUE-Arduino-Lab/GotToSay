@@ -72,14 +72,14 @@ struct MapView: UIViewRepresentable {
             // attempt to find a cell we can recycle
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             //annotationView?.image = UIImage(named: "nav_map_blue")
-            annotationView?.image = UIImage(named: "nav_map_blue")
+            annotationView?.image = UIImage(named: "icon_map.png")
 
             
 
             if annotationView == nil {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView?.canShowCallout = true
-                annotationView?.image = UIImage(named: "nav_map_blue")
+                annotationView?.image = UIImage(named: "icon_map.png")
                 //這裡是圖片樣子
                 let infoButton = UIButton(type: .detailDisclosure)
                 infoButton.setImage(UIImage(named: "nav_map_blue"), for: [] )

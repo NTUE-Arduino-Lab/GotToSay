@@ -85,8 +85,15 @@ struct MapSearchView: View {
                     
                 }else{
                 HStack {
+                    
                     List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
-                        Button(action: {print(self.$searchText)}) {
+                        
+                        Button(action: {
+                            print(item.Name)
+                                                        
+                            
+                        })
+                        {
                         Image(systemName: "flag.fill")}
                         Text(item.Name)
                             .font(.subheadline)
@@ -177,6 +184,8 @@ struct MapSearchView: View {
     }
 }
 struct BarView: View {
+    @State private var name = "逢甲大學洗衣店"
+    @State private var address = "台中市西屯區文華路100號"
      var body: some View {
         HStack{
         Image(systemName: "location.circle.fill")
@@ -186,11 +195,11 @@ struct BarView: View {
             .clipShape(Circle())
             Spacer()
         VStack(alignment: .leading) {
-            Text("台北教育大學洗衣機")
+            Text(name)
                 .font(.headline)
                 .foregroundColor(Color.blue)
 
-            Text("台北市大安區和平東路二段134號")
+            Text(address)
                 .font(.subheadline)
             .foregroundColor(Color.gray)
                 }
