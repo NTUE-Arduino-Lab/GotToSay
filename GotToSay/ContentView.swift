@@ -12,7 +12,7 @@ import MapKit
 
 struct ContentView: View {
     @State private var testCppleD = CppleD(number:1,name: "我是第一台洗衣機", first: "台北市大安區和平東路二段134號", member: "apple",imagename:"goforward.90")
-
+    @State private var launName = ""
     var body: some View {
         VStack {
                 TabView {
@@ -28,7 +28,7 @@ struct ContentView: View {
                                 
                         }
                     //視窗２
-                    ToMemo()
+                    ToMemo(launname: launName)
                     .tabItem {
                         NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
                                 {Image("nav_porfile_blue")}.tag(1)
@@ -66,6 +66,7 @@ struct MapSearchView: View {
     @State private var isEditing = false
 
     @State private var show = true
+    @State private var launName = ""
     init(){
         locationFetcher.start()
     }
@@ -99,8 +100,9 @@ struct MapSearchView: View {
 
                 HStack {
                         List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
-                        NavigationLink(destination: ToMemo()) {
+                            NavigationLink(destination: ToMemo(launname: item.Name)) {
                         Button(action: {
+                            
                             
                             print(item.Name)})
                         {
@@ -200,9 +202,11 @@ struct MapSearchView: View {
     }
 }
 struct ToMemo: View {
+    @State  var  launname: String
     var body: some View {
     VStack{
-            BarView()
+            Text(launname)
+        BarView(name: launname)
             List(CppleData) { CppleD in
                 MemoView(CppleData: CppleData, Cpple: CppleD)
             }

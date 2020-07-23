@@ -35,12 +35,12 @@ struct LaundryM: Identifiable {
 #if DEBUG
 
 var WashingM : [LaundryM] = [
-    LaundryM(number:1,name: "我是第1台洗衣機", size: "Large", from: "逢甲洗衣店",time:"goforward.90",kind:true),
-    LaundryM(number:2,name: "我是第2台洗衣機", size: "Small", from: "逢甲洗衣店",time:"goforward.90",kind:true),
-    LaundryM(number:3,name: "我是第3台洗衣機", size: "Small", from: "逢甲洗衣店",time:"goforward.90",kind:true),
-    LaundryM(number:4,name: "我是第1台烘衣機", size: "Large", from: "逢甲洗衣店",time:"goforward.90",kind:false),
-    LaundryM(number:5,name: "我是第2台烘衣機", size: "Small", from: "逢甲洗衣店",time:"goforward.90",kind:false),
-    LaundryM(number:6,name: "我是第3台烘衣機", size: "Small", from: "逢甲洗衣店",time:"goforward.90",kind:false),
+    LaundryM(number:1,name: "我是第1台洗衣機", size: "Large", from: "逢甲洗衣店1",time:"goforward.90",kind:true),
+    LaundryM(number:2,name: "我是第2台洗衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:true),
+    LaundryM(number:3,name: "我是第3台洗衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:true),
+    LaundryM(number:4,name: "我是第1台烘衣機", size: "Large", from: "逢甲洗衣店1",time:"goforward.90",kind:false),
+    LaundryM(number:5,name: "我是第2台烘衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:false),
+    LaundryM(number:6,name: "我是第3台烘衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:false),
 
 ]
 #endif
@@ -61,9 +61,9 @@ struct MemoInfo: Identifiable {
 #if DEBUG
 
 var Memo : [MemoInfo] = [
-    MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: 1, from: "逢甲洗衣店",time:"goforward.90"),
-    MemoInfo(number:2,name: "小西瓜", content: "離開去買菜",laundrynumber: 2, from: "逢甲洗衣店",time:"goforward.90"),
-    MemoInfo(number:3,name: "小黃瓜", content: "",laundrynumber: 3, from: "逢甲洗衣店",time:"goforward.90"),
+    MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: 1, from: "逢甲洗衣店1",time:"goforward.90"),
+    MemoInfo(number:2,name: "小西瓜", content: "離開去買菜",laundrynumber: 2, from: "逢甲洗衣店1",time:"goforward.90"),
+    MemoInfo(number:3,name: "小黃瓜", content: "",laundrynumber: 3, from: "逢甲洗衣店1",time:"goforward.90"),
 
 ]
 #endif

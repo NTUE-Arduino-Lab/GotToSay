@@ -49,8 +49,15 @@ struct MemoView: View {
 }
 
 struct BarView: View {
-    @State private var name = "逢甲大學洗衣店"
+    @State  var name : String
+   // @State private var name = "逢甲大學洗衣店"
     @State private var address = "台中市西屯區文華路100號"
+    func lundryTo(){
+        for Laundrys in info{
+
+        }
+    }
+    
      var body: some View {
         HStack{
         Image(systemName: "location.circle.fill")
