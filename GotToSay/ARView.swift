@@ -69,21 +69,58 @@ struct ARView: View {
 }
 
 struct myController: UIViewControllerRepresentable {
+	typealias UIViewControllerType = ViewController
+	
 	@Environment(\.presentationMode) var presentationMode
     @Binding var washTag: washTagInfo?
 	
-	func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> UIViewController {
+	class Coordinator: NSObject,UINavigationControllerDelegate,ARSCNViewDelegate {
+		let parent: myController
+		init(_ parent: myController){
+			self.parent = parent
+			}
+		func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+			let node = SCNNode()
+			guard let imageAnchor = anchor as? ARImageAnchor else {return nil}
+			guard let imageName = imageAnchor.name else {return nil}
+			if imageName != nil{
+				let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+				let planeNode = SCNNode(geometry: plane)
+				planeNode.eulerAngles.x = -.pi/2
+				if imageName == "tagSisley"{
+					parent.presentationMode.wrappedValue.dismiss()
+					node.addChildNode(planeNode)
+					return node
+				}else{
+					return nil
+				}
+			}
+			return nil
+		}
+	}
+	func makeCoordinator() -> Coordinator {
+		Coordinator(self)
+	}
+
+	
+	func makeUIViewController(context: UIViewControllerRepresentableContext<myController>) -> ViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let controller = storyBoard.instantiateViewController(identifier: "Home") as! ViewController
+		let controller = storyBoard.instantiateViewController(identifier: "Home")
+			as! ViewController
 		sendTag.send.data = nil
+		
 		print(sendTag.send.data)
+		washTag = washTagInfo()
 		return controller
     }
 	
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<myController>) {
+    func updateUIViewController(_ uiViewController: ViewController, context: UIViewControllerRepresentableContext<myController>) {
 		washTag = sendTag.send.data
 		if washTag != nil{
-			presentationMode.wrappedValue.dismiss()
+			self.presentationMode.wrappedValue.dismiss()
+		}
+		if uiViewController.isViewLoaded{
+			uiViewController.sceneView.delegate = context.coordinator
 		}
     }
 }
