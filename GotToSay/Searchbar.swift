@@ -49,13 +49,8 @@ struct SearchBar: View {
                 .padding(.trailing, 10)
 
             }
-            
-            
-            
         }
-
     }
-  
 }
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
