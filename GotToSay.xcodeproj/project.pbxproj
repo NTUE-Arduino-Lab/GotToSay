@@ -86,14 +86,14 @@
 				1011E9D324C564CB000D8512 /* Main.storyboard */,
 				1011E9D024C564CA000D8512 /* ViewController.swift */,
 				1011E9D424C564CB000D8512 /* WashTagInfo.swift */,
-				3C329D0A24C1899E00B35E7F /* DataRoom.swift */,
 				3C329D1024C18CCC00B35E7F /* appleTest.swift */,
 				3C329D1824C18FD400B35E7F /* Mapview.swift */,
+				3C329CFA24C187FA00B35E7F /* ContentView.swift */,
 				3C329D1924C18FD400B35E7F /* Searchbar.swift */,
 				3C329CF624C187FA00B35E7F /* AppDelegate.swift */,
 				3C329CF824C187FA00B35E7F /* SceneDelegate.swift */,
-				3C0FA3D724C981EA0079E16B /* MemoSay.swift */,
-				3C329CFA24C187FA00B35E7F /* ContentView.swift */,
+				3C329D0A24C1899E00B35E7F /* DataRoom.swift */,
+				10F6ED0524C9930600AE3EEC /* MemoSay.swift */,
 				3C329CFC24C1880D00B35E7F /* Assets.xcassets */,
 				3C329D0124C1880D00B35E7F /* LaunchScreen.storyboard */,
 				3C329D0424C1880D00B35E7F /* Info.plist */,
@@ -102,7 +102,6 @@
 				10EED7EF24C844D900B87F6F /* WardrobeView.swift */,
 				10EED7F124C8772600B87F6F /* ImagePicker.swift */,
 				10F6ED0324C98E4D00AE3EEC /* KeyBoardAviodance.swift */,
-				10F6ED0524C9930600AE3EEC /* MemoSay.swift */,
 			);
 			path = GotToSay;
 			sourceTree = "<group>";

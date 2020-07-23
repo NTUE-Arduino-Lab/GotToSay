@@ -14,7 +14,8 @@ struct MapView: UIViewRepresentable {
     @Binding var centerCoordinate: CLLocationCoordinate2D
     @ObservedObject var mapViewState: MapViewState    
     @Binding var annotations: [MKPointAnnotation]
-    
+    @Binding var text: String
+
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
         //逢甲座標
@@ -38,7 +39,7 @@ struct MapView: UIViewRepresentable {
             var region: MKCoordinateRegion
             
             if var span = mapViewState.span {
-                center = CLLocationCoordinate2D(latitude: 25.023999999999987, longitude: 121.54500000000007)
+                center = CLLocationCoordinate2D(latitude: 24.178693, longitude: 120.646740)
 
                 span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
                 region = MKCoordinateRegion(center: center,
@@ -54,13 +55,17 @@ struct MapView: UIViewRepresentable {
         }
     }
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(self )
     }
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
 
+        var someStrings: Array<String> = []
+
         init(_ parent: MapView) {
             self.parent = parent
+
+
         }
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             parent.centerCoordinate = mapView.centerCoordinate
@@ -72,15 +77,15 @@ struct MapView: UIViewRepresentable {
             // attempt to find a cell we can recycle
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             //annotationView?.image = UIImage(named: "nav_map_blue")
-            annotationView?.image = UIImage(named: "icon_map.png")
 
-            
+            //print(annotation.title as Any)
 
             if annotationView == nil {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView?.canShowCallout = true
                 annotationView?.image = UIImage(named: "icon_map.png")
                 //這裡是圖片樣子
+                
                 let infoButton = UIButton(type: .detailDisclosure)
                 infoButton.setImage(UIImage(named: "nav_map_blue"), for: [] )
                 annotationView?.rightCalloutAccessoryView = infoButton
@@ -89,13 +94,19 @@ struct MapView: UIViewRepresentable {
             }
             return annotationView
         }
-        func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        func mapView(_ mapView: MKMapView,annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
+          for loca in Memo {
+            if view.annotation?.title == loca.from{
             var accessoryView: UIView
             let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            textView.text = "這裡是放最新留言"
+            textView.text = loca.name+":  "+"\n"+loca.content
             textView.isEditable = false
-
+            textView.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
+            textView.textColor = UIColor.blue
+            textView.layer.borderWidth = 0.5
+            textView.layer.cornerRadius = 5.0
+                
             accessoryView = textView
             let widthConstraint = NSLayoutConstraint(item: accessoryView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
             accessoryView.addConstraint(widthConstraint)
@@ -103,7 +114,8 @@ struct MapView: UIViewRepresentable {
             accessoryView.addConstraint(heightConstraint)
             view.detailCalloutAccessoryView = accessoryView
             view.canShowCallout = true
-            
+
+            }
             /*
             guard let placemark = view.annotation as? MKPointAnnotation else { return }
 
@@ -111,7 +123,7 @@ struct MapView: UIViewRepresentable {
             parent.showingPlaceDetails = true
              */
         }
-
+        }
    }
 }
 

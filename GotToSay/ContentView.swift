@@ -12,8 +12,9 @@ import Combine
 
 
 struct ContentView: View {
-    @State private var testCppleD = CppleD(number:1,name: "我是第一台洗衣機", first: "台北市大安區和平東路二段134號", member: "apple",imagename:"goforward.90")
-    @State private var launName = ""
+    @State private var MemoInf = MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: "第二台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
+    @State private var launName = "逢甲洗衣店1"
+    @State private var launAddress = "台北市大安區和平東路二段118號"
     var body: some View {
         VStack {
                 TabView {
@@ -29,9 +30,9 @@ struct ContentView: View {
                                 
                         }
                     //視窗２
-                    ToMemo(launname: launName)
+                    ToMemo(launname: launName, launaddress: launAddress)
                     .tabItem {
-                        NavigationLink(destination: MemoView(CppleData: CppleData, Cpple: testCppleD))
+                        NavigationLink(destination: ToMemo(launname: launName, launaddress: launAddress))
                                 {Image("nav_porfile_blue")}.tag(1)
                         
                     }
@@ -65,7 +66,8 @@ struct MapSearchView: View {
 
     @State private var searchText = ""
     @State private var isEditing = false
-
+    
+    @State private var messText = ""
     @State private var show = true
     @State private var launName = ""
     init(){
@@ -80,13 +82,20 @@ struct MapSearchView: View {
             newLocation.subtitle = Laundrys.Address
             newLocation.coordinate = CLLocationCoordinate2D(latitude: Laundrys.Latitude, longitude: Laundrys.Longitude)
             locations.append(newLocation)
-        }
+            for loca in Memo {
+            if Laundrys.Name == loca.from{
+                self.messText = loca.content
+            }
+                
+            }
+            }
+
     }
     var body: some View {
         
         ZStack(alignment: .top) {
 
-            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations)
+            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations, text: $messText)
             .onAppear {
                 self.makepoint()
             }
@@ -101,7 +110,7 @@ struct MapSearchView: View {
 
                 HStack {
                         List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
-                            NavigationLink(destination: ToMemo(launname: item.Name)) {
+                            NavigationLink(destination: ToMemo(launname: item.Name, launaddress: item.Address)) {
                         Button(action: {
                             
                             
@@ -204,13 +213,21 @@ struct MapSearchView: View {
 }
 struct ToMemo: View {
     @State  var  launname: String
+    @State  var  launaddress: String
+    
     var body: some View {
     VStack{
-            Text(launname)
-        BarView(name: launname)
-            List(CppleData) { CppleD in
-                MemoView(CppleData: CppleData, Cpple: CppleD)
+            
+        BarView(name: launname, address: launaddress)
+            List(Memo.filter({ launname.isEmpty ? true : $0.from.contains(launname) })) { item in
+                MemoView(MemoInfo: item.laundrynumber, MemoName: item.name)
+        }
+        
+      /*
+        List(Memo) { MemoInfo in
+                MemoView(MemoInfo: Memo, Memo: MemoInfo)
             }
+ */
         }
         .navigationBarTitle (Text(""), displayMode: .inline)
     }
