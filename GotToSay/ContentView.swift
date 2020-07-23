@@ -213,14 +213,6 @@ struct ToMemo: View {
 }
 
 
-
-struct WardrobeView: View {
-//    @State private var showAlert = false
-//    var BppleData: [BppleD]
-    var body: some View {
-        ARView(name:"YUI",num: 0,myTag: nil)
-		}
-}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

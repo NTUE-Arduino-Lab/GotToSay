@@ -22,15 +22,15 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string></string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>我們的服務需要您的許可</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>我們的服務需要您的許可</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>我們的服務需要您的許可</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>我們的服務需要您的許可</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>我們的服務需要您的許可</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
