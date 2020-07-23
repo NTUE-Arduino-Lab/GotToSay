@@ -11,11 +11,11 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="owner" optional="YES" attributeType="String"/>
         <attribute name="pce" optional="YES" attributeType="String"/>
-        <attribute name="tumbleClean" optional="YES" attributeType="String"/>
+        <attribute name="tumbleDry" optional="YES" attributeType="String"/>
         <attribute name="wash" optional="YES" attributeType="String"/>
         <attribute name="wetClean" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="MyClothes" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="MyClothes" positionX="-63" positionY="-18" width="128" height="238"/>
     </elements>
 </model>

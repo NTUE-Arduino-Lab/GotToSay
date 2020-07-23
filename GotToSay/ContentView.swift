@@ -8,6 +8,7 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 struct ContentView: View {
 	@Environment(\.managedObjectContext) var moc

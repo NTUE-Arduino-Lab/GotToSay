@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import CoreImage
 struct WardrobeView: View {
 	@Environment(\.managedObjectContext) var moc
 	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClothes: FetchedResults<MyClothes>
@@ -20,21 +20,13 @@ struct WardrobeView: View {
 						Text(myClothes.name ?? "unknow")
 					}
 				}
-				Button("ADD"){
-					let name = ["Sisley", "Sky", "Uniqlo"]
-					let chooseName = name.randomElement()!
-					let myClothes = MyClothes(context: self.moc)
-					myClothes.id = UUID()
-					myClothes.name = "\(chooseName)"
-					try? self.moc.save()
-				}
 			}.navigationBarTitle("我的衣櫃",displayMode: .inline)
 				.navigationBarItems(trailing: Button(action: {self.addClothes = true}){
 						Image(systemName: "plus")
 				})
 			.sheet(isPresented: $addClothes)
 			{
-				AddClothesView()
+				AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
 			}
 		}
 		
@@ -43,33 +35,43 @@ struct WardrobeView: View {
 
 struct AddClothesView: View{
 	@Environment(\.managedObjectContext) var moc
+	@Environment(\.presentationMode) var presentationMode
 	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClothes: FetchedResults<MyClothes>
 	
 	@State private var name = ""
 	@State private var owner = ""
+	@State private var keyboardHeight: CGFloat = 0
 	@State var myTag: washTagInfo?
+	
+	
 	@State var tag = false
 	@State var goSave = false
-	@State var showImagePicker = false
+	@State var shouldPresentImagePicker = false
+	@State var shouldPresentActionSheet = false
+	@State var shouldPresentCamera = false
+	
+	
 	@State var image: Image?
 	@State var inputImage: UIImage?
 	var body: some View{
+		
 		NavigationView{
+			
 			VStack{
 				ZStack{
-					Circle().fill(Color.secondary)
+					Rectangle().fill(Color.secondary)
 					if image != nil{
-						image?.resizable().scaledToFit()
+						image?.resizable()
 					}else{
 						Text("Tap to select a pic").foregroundColor(.white).font(.headline)
 					}
-				}
+					}.onAppear(perform: loadImage)
 				.padding(.horizontal)
 				.frame(width: 200.0, height: 200.0)
 				.onTapGesture {
-					self.showImagePicker = true
+					self.shouldPresentActionSheet = true
 				}
-				TextField("什麼衣服", text: $name)					.padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
+				TextField("什麼衣服", text: $name).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				TextField("誰的衣服", text: $owner).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				
 				Button(action: {self.tag = true}){
@@ -82,10 +84,36 @@ struct AddClothesView: View{
 				}
 			}.navigationBarTitle("增加衣服",displayMode: .inline)
 			.navigationBarItems(trailing: Button(action: {
-				self.tag = true}){Text("完成")})
-			.sheet(isPresented: $showImagePicker, onDismiss: loadImage){
-				ImagePicker(image: self.$inputImage)
-			}
+				let chooseName = self.name
+				let chooseOwner = self.owner
+				let myClothes = MyClothes(context: self.moc)
+				myClothes.id = UUID()
+				myClothes.name = "\(chooseName)"
+				myClothes.owner = "\(chooseOwner)"
+				myClothes.bleach = self.myTag?.bleach
+				myClothes.dry = self.myTag?.dry
+				myClothes.dryClean = self.myTag?.dryClean
+				myClothes.hcs = self.myTag?.hcs
+				myClothes.iron = self.myTag?.iron
+				myClothes.pce = self.myTag?.pce
+				myClothes.tumbleDry = self.myTag?.tumbleDry
+				myClothes.wash = self.myTag?.wash
+				myClothes.wetClean = self.myTag?.wetClean
+				myClothes.image = self.inputImage?.jpegData(compressionQuality: 1.0)
+				try? self.moc.save()
+				self.presentationMode.wrappedValue.dismiss()
+			}){Text("完成")})
+			.sheet(isPresented: $shouldPresentImagePicker, onDismiss: loadImage){
+				ImagePicker(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,image: self.$inputImage)
+			}.actionSheet(isPresented: $shouldPresentActionSheet) { () -> ActionSheet in
+				ActionSheet(title: Text("你想要從哪裡加入圖片呢？"), buttons: [ActionSheet.Button.default(Text("拍一張照片"), action: {
+					self.shouldPresentImagePicker = true
+					self.shouldPresentCamera = true
+				}), ActionSheet.Button.default(Text("從相簿選取"), action: {
+					self.shouldPresentImagePicker = true
+					self.shouldPresentCamera = false
+				}), ActionSheet.Button.cancel()])
+			}.keyboardAdaptive()
 		}
 	}
 	func loadImage(){
