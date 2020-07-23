@@ -9,6 +9,7 @@
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="iron" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="owner" optional="YES" attributeType="String"/>
         <attribute name="pce" optional="YES" attributeType="String"/>
         <attribute name="tumbleClean" optional="YES" attributeType="String"/>
         <attribute name="wash" optional="YES" attributeType="String"/>
