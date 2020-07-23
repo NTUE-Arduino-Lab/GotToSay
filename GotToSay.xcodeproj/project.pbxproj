@@ -11,7 +11,11 @@
 		1011E9D624C564CB000D8512 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011E9D124C564CB000D8512 /* ARView.swift */; };
 		1011E9D824C564CB000D8512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1011E9D324C564CB000D8512 /* Main.storyboard */; };
 		1011E9D924C564CB000D8512 /* WashTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1011E9D424C564CB000D8512 /* WashTagInfo.swift */; };
-		3C0FA3D824C981EA0079E16B /* MemoSay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0FA3D724C981EA0079E16B /* MemoSay.swift */; };
+		10B9CD4A24C828830018C625 /* GotToSay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10B9CD4824C828830018C625 /* GotToSay.xcdatamodeld */; };
+		10EED7F024C844D900B87F6F /* WardrobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EED7EF24C844D900B87F6F /* WardrobeView.swift */; };
+		10EED7F224C8772600B87F6F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EED7F124C8772600B87F6F /* ImagePicker.swift */; };
+		10F6ED0424C98E4D00AE3EEC /* KeyBoardAviodance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F6ED0324C98E4D00AE3EEC /* KeyBoardAviodance.swift */; };
+		10F6ED0624C9930600AE3EEC /* MemoSay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F6ED0524C9930600AE3EEC /* MemoSay.swift */; };
 		3C329CF724C187FA00B35E7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329CF624C187FA00B35E7F /* AppDelegate.swift */; };
 		3C329CF924C187FA00B35E7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329CF824C187FA00B35E7F /* SceneDelegate.swift */; };
 		3C329CFB24C187FA00B35E7F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329CFA24C187FA00B35E7F /* ContentView.swift */; };
@@ -29,7 +33,11 @@
 		1011E9D124C564CB000D8512 /* ARView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 		1011E9D324C564CB000D8512 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1011E9D424C564CB000D8512 /* WashTagInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WashTagInfo.swift; sourceTree = "<group>"; };
-		3C0FA3D724C981EA0079E16B /* MemoSay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoSay.swift; sourceTree = "<group>"; };
+		10B9CD4924C828830018C625 /* GotToSay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GotToSay.xcdatamodel; sourceTree = "<group>"; };
+		10EED7EF24C844D900B87F6F /* WardrobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeView.swift; sourceTree = "<group>"; };
+		10EED7F124C8772600B87F6F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		10F6ED0324C98E4D00AE3EEC /* KeyBoardAviodance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardAviodance.swift; sourceTree = "<group>"; };
+		10F6ED0524C9930600AE3EEC /* MemoSay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoSay.swift; sourceTree = "<group>"; };
 		3C329CF324C187FA00B35E7F /* GotToSay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GotToSay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C329CF624C187FA00B35E7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C329CF824C187FA00B35E7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +98,11 @@
 				3C329D0124C1880D00B35E7F /* LaunchScreen.storyboard */,
 				3C329D0424C1880D00B35E7F /* Info.plist */,
 				3C329CFE24C1880D00B35E7F /* Preview Content */,
+				10B9CD4824C828830018C625 /* GotToSay.xcdatamodeld */,
+				10EED7EF24C844D900B87F6F /* WardrobeView.swift */,
+				10EED7F124C8772600B87F6F /* ImagePicker.swift */,
+				10F6ED0324C98E4D00AE3EEC /* KeyBoardAviodance.swift */,
+				10F6ED0524C9930600AE3EEC /* MemoSay.swift */,
 			);
 			path = GotToSay;
 			sourceTree = "<group>";
@@ -174,11 +187,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C0FA3D824C981EA0079E16B /* MemoSay.swift in Sources */,
+				10EED7F224C8772600B87F6F /* ImagePicker.swift in Sources */,
 				1011E9D924C564CB000D8512 /* WashTagInfo.swift in Sources */,
+				10F6ED0624C9930600AE3EEC /* MemoSay.swift in Sources */,
 				3C329D0B24C1899E00B35E7F /* DataRoom.swift in Sources */,
+				10EED7F024C844D900B87F6F /* WardrobeView.swift in Sources */,
+				10B9CD4A24C828830018C625 /* GotToSay.xcdatamodeld in Sources */,
 				3C329D1A24C18FD400B35E7F /* Mapview.swift in Sources */,
 				1011E9D624C564CB000D8512 /* ARView.swift in Sources */,
+				10F6ED0424C98E4D00AE3EEC /* KeyBoardAviodance.swift in Sources */,
 				3C329D1124C18CCC00B35E7F /* appleTest.swift in Sources */,
 				3C329CF724C187FA00B35E7F /* AppDelegate.swift in Sources */,
 				3C329D1B24C18FD400B35E7F /* Searchbar.swift in Sources */,
@@ -378,6 +395,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		10B9CD4824C828830018C625 /* GotToSay.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				10B9CD4924C828830018C625 /* GotToSay.xcdatamodel */,
+			);
+			currentVersion = 10B9CD4924C828830018C625 /* GotToSay.xcdatamodel */;
+			path = GotToSay.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3C329CEB24C187FA00B35E7F /* Project object */;
 }
