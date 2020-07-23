@@ -13,23 +13,60 @@ struct WardrobeView: View {
 	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClothes: FetchedResults<MyClothes>
 	@State var addClothes = false
 	var body: some View {
-		NavigationView{
+		VStack{
+			HStack{
+				Button(action: {}){
+					Text("一起洗")
+				}
+				.padding([.top, .leading])
+				Spacer()
+				Button(action: {self.addClothes = true}){
+					Text("新增衣服")
+				}
+				.padding([.top, .trailing])
+			}
 			VStack{
-				List{
-					ForEach(myClothes, id: \.id){ myClothes in
-						Text(myClothes.name ?? "unknow")
+			
+					List{
+						ForEach(myClothes, id: \.id){ myClothes in
+							NavigationLink(destination: ClothesDetialView(name:myClothes.name, owner: myClothes.owner, image: myClothes.image)){
+									
+								if myClothes.image != nil{
+									Image(uiImage:UIImage(data: myClothes.image!)!).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
+
+								}else{
+									Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
+								}
+										
+									
+								VStack(alignment: .leading) {
+									Text(myClothes.name!)
+										.font(.title)
+									Text(myClothes.owner ?? "Mine")
+										.font(.subheadline)
+										.foregroundColor(Color.secondary)
+								}
+							}
+						}.onDelete(perform: removeClothes)
 					}
 				}
-			}.navigationBarTitle("我的衣櫃",displayMode: .inline)
-				.navigationBarItems(trailing: Button(action: {self.addClothes = true}){
-						Image(systemName: "plus")
-				})
+			}
 			.sheet(isPresented: $addClothes)
 			{
 				AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
 			}
-		}
+	}
+	func removeClothes(at offsets: IndexSet){
 		
+		for index in offsets {
+			let clothes = myClothes[index]
+			moc.delete(clothes)
+		}
+		do {
+			try moc.save()
+		} catch {
+			// handle the Core Data error
+		}
 	}
 }
 
@@ -122,8 +159,22 @@ struct AddClothesView: View{
 	}
 }
 
+struct ClothesDetialView: View {
+	
+	@State var name: String?
+	@State var owner: String?
+	@State var image: Data?
+	@State var myTag: washTagInfo?
+	
+	
+	var body: some View{
+		Text("Hello")
+	}
+	
+}
+
 struct WardrobeView_Previews: PreviewProvider {
     static var previews: some View {
-        WardrobeView()
+        WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     }
 }
