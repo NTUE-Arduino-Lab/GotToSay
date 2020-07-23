@@ -9,26 +9,27 @@ import SwiftUI
 import Foundation
 
 struct MemoView: View {
-    var CppleData: [CppleD]
-    var Cpple:CppleD
+    var MemoInfo: String
+    var MemoName:  String
+
     var body: some View {
         VStack {
             HStack{
-                Image(systemName:Cpple.imagename)
+                Image(systemName:"clock")
                     .foregroundColor(.blue)
                     .frame(width: 50, height: 50)
                     .font(.largeTitle)
                     .clipShape(Circle())
             
                 VStack(alignment: .leading) {
-                    Text(Cpple.name)
+                    Text(MemoInfo)
                         .font(.headline)
                         .foregroundColor(Color.blue)
                             HStack {
                                 Text("By")
                                     .font(.subheadline)
                                     .foregroundColor(Color.gray)
-                                Text(Cpple.member)
+                                Text(MemoName)
                                     .font(.subheadline)
                                     .foregroundColor(Color.blue.opacity(0.8))
                                     }
@@ -50,13 +51,7 @@ struct MemoView: View {
 
 struct BarView: View {
     @State  var name : String
-   // @State private var name = "逢甲大學洗衣店"
-    @State private var address = "台中市西屯區文華路100號"
-    func lundryTo(){
-        for Laundrys in info{
-
-        }
-    }
+    @State var address : String
     
      var body: some View {
         HStack{

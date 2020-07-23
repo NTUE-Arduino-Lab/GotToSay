@@ -13,7 +13,7 @@ struct LaundryInfo: Identifiable {
 }
 #if DEBUG
 var info = [
-    LaundryInfo(Num: 1,Name:"逢甲洗衣店1",Address:"台北市大安區和平東路二段118號",Longitude:120.99793200000005,Latitude:23.597650999999956),
+    LaundryInfo(Num: 1,Name:"逢甲洗衣店1",Address:"台北市大安區和平東路二段118號",Longitude:120.646740,Latitude:24.178693),
     LaundryInfo(Num: 2,Name:"二樓洗衣店2",Address:"台北市大安區和平東路二段134號2樓",Longitude:120.64696963449802,Latitude:24.176268887244532),
     LaundryInfo(Num: 3,Name:"三樓洗衣店3",Address:"台北市大安區和平東路二段134號3樓",Longitude:121.54506237477938,Latitude:25.026),
     LaundryInfo(Num: 4,Name:"洗衣店4",Address:"基隆市",Longitude:0.0,Latitude:0.0),
@@ -53,7 +53,7 @@ struct MemoInfo: Identifiable {
     var number :Int
     var name: String
     var content: String
-    var laundrynumber : Int
+    var laundrynumber : String
     var from: String
     var time: String
 }
@@ -61,9 +61,9 @@ struct MemoInfo: Identifiable {
 #if DEBUG
 
 var Memo : [MemoInfo] = [
-    MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: 1, from: "逢甲洗衣店1",time:"goforward.90"),
-    MemoInfo(number:2,name: "小西瓜", content: "離開去買菜",laundrynumber: 2, from: "逢甲洗衣店1",time:"goforward.90"),
-    MemoInfo(number:3,name: "小黃瓜", content: "",laundrynumber: 3, from: "逢甲洗衣店1",time:"goforward.90"),
+    MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: "第一台洗衣機", from: "逢甲洗衣店1",time:"goforward.90"),
+    MemoInfo(number:2,name: "小西瓜", content: "離開去買菜",laundrynumber: "第二台洗衣機", from: "二樓洗衣店2",time:"goforward.90"),
+    MemoInfo(number:3,name: "小黃瓜", content: "我等等就回來了,別動",laundrynumber: "第三台洗衣機", from: "二樓洗衣店2",time:"goforward.90"),
 
 ]
 #endif
