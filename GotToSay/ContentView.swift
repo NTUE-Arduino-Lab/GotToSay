@@ -69,6 +69,7 @@ struct MapSearchView: View {
     
     @State private var messText = ""
     @State private var show = true
+
     @State private var launName = ""
     init(){
         locationFetcher.start()
@@ -204,7 +205,12 @@ struct MapSearchView: View {
                     
                 }
                 Spacer()
+                
             }
+
+                    
+                
+            
             }
             
          .navigationBarHidden(true)
@@ -214,15 +220,39 @@ struct MapSearchView: View {
 struct ToMemo: View {
     @State  var  launname: String
     @State  var  launaddress: String
+
+    @State private var showSecondView = false
+    
     
     var body: some View {
     VStack{
-            
         BarView(name: launname, address: launaddress)
             List(Memo.filter({ launname.isEmpty ? true : $0.from.contains(launname) })) { item in
                 MemoView(MemoInfo: item.laundrynumber, MemoName: item.name)
         }
-        
+
+        HStack {
+        Spacer()
+            Button(action: {
+                if self.showSecondView{
+                    self.showSecondView = false}
+                else{
+                    self.showSecondView = true
+                }
+            }) {
+                Image(systemName: "plus")
+                    .sheet(isPresented: $showSecondView) {
+                        NewMemo(Name: self.launname)
+                }
+            }
+            .padding()
+            .background(Color.blue.opacity(0.75))
+            .foregroundColor(.white)
+            .font(.title)
+            .clipShape(Circle())
+            
+        }.padding()
+
       /*
         List(Memo) { MemoInfo in
                 MemoView(MemoInfo: Memo, Memo: MemoInfo)
@@ -230,6 +260,7 @@ struct ToMemo: View {
  */
         }
         .navigationBarTitle (Text(""), displayMode: .inline)
+
     }
 }
 

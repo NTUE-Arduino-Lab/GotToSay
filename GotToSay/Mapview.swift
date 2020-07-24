@@ -55,22 +55,22 @@ struct MapView: UIViewRepresentable {
         }
     }
     func makeCoordinator() -> Coordinator {
-        Coordinator(self )
+        Coordinator(self)
     }
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
+        @State var displayModal: Bool = true
 
-        var someStrings: Array<String> = []
-
+        
         init(_ parent: MapView) {
             self.parent = parent
-
 
         }
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             parent.centerCoordinate = mapView.centerCoordinate
            // print(parent.centerCoordinate)
         }
+
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             let identifier = "placemark"
 
@@ -85,15 +85,24 @@ struct MapView: UIViewRepresentable {
                 annotationView?.canShowCallout = true
                 annotationView?.image = UIImage(named: "icon_map.png")
                 //這裡是圖片樣子
-                
                 let infoButton = UIButton(type: .detailDisclosure)
                 infoButton.setImage(UIImage(named: "nav_map_blue"), for: [] )
+                // 按鈕按下後的動作
+                infoButton.addTarget(self, action: #selector(Coordinator.onClickDetailButton(_:forEvent:)),
+                 for: UIControl.Event.touchUpInside)
                 annotationView?.rightCalloutAccessoryView = infoButton
+
+                                  
             } else {
                 annotationView?.annotation = annotation
             }
             return annotationView
         }
+            @objc func onClickDetailButton(_ sender: Any, forEvent event: UIEvent) {
+                displayModal = true
+                print(sender)
+            }
+
         func mapView(_ mapView: MKMapView,annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
           for loca in Memo {
