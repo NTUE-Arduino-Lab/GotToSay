@@ -62,7 +62,7 @@ struct AddClothesView: View{
 	@State private var name = ""
 	@State private var owner = ""
 	@State private var keyboardHeight: CGFloat = 0
-	@State var myTag: washTagInfo?
+	@State var myTag = washTagInfo()
 	
 	
 	@State var tag = false
@@ -95,6 +95,13 @@ struct AddClothesView: View{
 				TextField("什麼衣服", text: $name).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				TextField("誰的衣服", text: $owner).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				
+				HStack{
+					if myTag.wash != nil{
+						Image(myTag.wash!).renderingMode(.template).foregroundColor(Color.accentColor)
+					}
+				}
+				
+				
 				Button(action: {self.tag = true}){
 					ZStack{
 						RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
@@ -110,15 +117,15 @@ struct AddClothesView: View{
 				myClothes.id = UUID()
 				myClothes.name = "\(chooseName)"
 				myClothes.owner = "\(chooseOwner)"
-				myClothes.bleach = self.myTag?.bleach
-				myClothes.dry = self.myTag?.dry
-				myClothes.dryClean = self.myTag?.dryClean
-				myClothes.hcs = self.myTag?.hcs
-				myClothes.iron = self.myTag?.iron
-				myClothes.pce = self.myTag?.pce
-				myClothes.tumbleDry = self.myTag?.tumbleDry
-				myClothes.wash = self.myTag?.wash
-				myClothes.wetClean = self.myTag?.wetClean
+				myClothes.bleach = self.myTag.bleach
+				myClothes.dry = self.myTag.dry
+				myClothes.dryClean = self.myTag.dryClean
+				myClothes.hcs = self.myTag.hcs
+				myClothes.iron = self.myTag.iron
+				myClothes.pce = self.myTag.pce
+				myClothes.tumbleDry = self.myTag.tumbleDry
+				myClothes.wash = self.myTag.wash
+				myClothes.wetClean = self.myTag.wetClean
 				myClothes.image = self.inputImage?.jpegData(compressionQuality: 1.0)
 				try? self.moc.save()
 				self.presentationMode.wrappedValue.dismiss()

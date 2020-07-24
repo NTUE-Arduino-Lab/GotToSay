@@ -45,35 +45,58 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     // MARK: - ARSCNViewDelegate
 	var tag: washTagInfo! = washTagInfo()
     // Override to create and configure nodes for anchors added to the view's session.
-	
+//    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+//        let node = SCNNode()
+//        guard let imageAnchor = anchor as? ARImageAnchor else {return nil}
+//        guard let imageName = imageAnchor.name else {return nil}
+//        if imageName != nil{
+//			let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+//            let planeNode = SCNNode(geometry: plane)
+//            planeNode.eulerAngles.x = -.pi/2
+//			if imageName == "tagSisley"{
+//				tag.wash = "GentleWashAtOrBelow30"
+//				tag.bleach = "DoNotBleach"
+//				tag.tumbleDry = "DoNotTumbleDry"
+//				tag.dry = "LineDryInShade"
+//				tag.iron = "IronAtLowTemperature"
+//				tag.dryClean = "DoNotDryClean"
+//				sendTag.send.data = tag
+//				createHostingController(for: planeNode,imgName: imageName,myTag: tag)
+//			}else{createHostingController(for: planeNode,imgName: imageName)}
+//            node.addChildNode(planeNode)
+//            return node
+//        }else{
+//            return nil
+//        }
+//    }
 		
 //    func createHostingController(for node: SCNNode,imgName: String) {
 //        let arVC = UIHostingController(rootView: ARView(name:imgName,num:0))
-//			
+//
 //        DispatchQueue.main.async {
 //            arVC.willMove(toParent: self)
 //            self.addChild(arVC)
-//            
+//
 //            arVC.view.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
 //            self.view.addSubview(arVC.view)
 //            self.show(hostingVC: arVC, on: node)
 //        }
-//		
+//
 //    }
-//    
+//
 //	func createHostingController(for node: SCNNode,imgName: String, myTag:washTagInfo) {
 //        let arVC = UIHostingController(rootView: ARView(name:imgName, num:0, myTag:myTag))
-//		
+//
 //        DispatchQueue.main.async {
 //            arVC.willMove(toParent: self)
 //            self.addChild(arVC)
-//            
+//
 //            arVC.view.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
 //            self.view.addSubview(arVC.view)
 //            self.show(hostingVC: arVC, on: node)
 //        }
 //    }
-//	
+//
 //    func show(hostingVC: UIHostingController<ARView>, on node:SCNNode)
 //    {
 //        let material = SCNMaterial()
