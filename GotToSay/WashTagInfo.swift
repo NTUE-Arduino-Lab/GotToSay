@@ -6,6 +6,8 @@
 //  Copyright © 2020 e2ne0. All rights reserved.
 //
 
+import SwiftUI
+
 struct washTagInfo: Codable {
 	var	wash: String?
 	var bleach: String?
@@ -18,7 +20,9 @@ struct washTagInfo: Codable {
 	var iron: String?
 }
 class sendTag{
-	static let send = sendTag()
-	var data:washTagInfo?
 	private init() {}
+	
+//	func getWashImage(wash:String) -> Image{
+//		
+//	}
 }

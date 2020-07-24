@@ -14,48 +14,32 @@ struct WardrobeView: View {
 	@State var addClothes = false
 	var body: some View {
 		VStack{
-			HStack{
-				Button(action: {}){
-					Text("一起洗")
-				}
-				.padding([.top, .leading])
-				Spacer()
-				Button(action: {self.addClothes = true}){
-					Text("新增衣服")
-				}
-				.padding([.top, .trailing])
-			}
-			VStack{
-			
-					List{
-						ForEach(myClothes, id: \.id){ myClothes in
-							NavigationLink(destination: ClothesDetialView(name:myClothes.name, owner: myClothes.owner, image: myClothes.image)){
-									
-								if myClothes.image != nil{
-									Image(uiImage:UIImage(data: myClothes.image!)!).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
+			NavigationView{
+				List{
+					ForEach(myClothes, id: \.id){ myClothes in NavigationLink(destination: ClothesDetialView(name:myClothes.name, owner: myClothes.owner, image: myClothes.image)){
+						if myClothes.image != nil{
+							Image(uiImage:UIImage(data: myClothes.image!)!).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
 
-								}else{
-									Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
-								}
-										
-									
-								VStack(alignment: .leading) {
-									Text(myClothes.name!)
-										.font(.title)
-									Text(myClothes.owner ?? "Mine")
-										.font(.subheadline)
-										.foregroundColor(Color.secondary)
-								}
-							}
-						}.onDelete(perform: removeClothes)
+						}else{
+							Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
+						}
+						VStack(alignment: .leading) {
+							Text(myClothes.name!).font(.title)
+							Text(myClothes.owner ?? "Mine").font(.subheadline).foregroundColor(Color.secondary)
+						}
 					}
-				}
+				}.onDelete(perform: removeClothes)
+				}.navigationBarTitle(Text("我的衣櫃"),displayMode: .automatic)
+				.navigationBarItems(leading: Button(action: {}){
+				Text("一起洗")
+				}, trailing: Button(action: {self.addClothes = true}){
+				Text("新增衣服")
+					})
 			}
-			.sheet(isPresented: $addClothes)
-			{
-				AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-			}
+	}.sheet(isPresented: $addClothes){
+			AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
 	}
+}
 	func removeClothes(at offsets: IndexSet){
 		
 		for index in offsets {
@@ -78,7 +62,7 @@ struct AddClothesView: View{
 	@State private var name = ""
 	@State private var owner = ""
 	@State private var keyboardHeight: CGFloat = 0
-	@State var myTag: washTagInfo?
+	@State var myTag = washTagInfo()
 	
 	
 	@State var tag = false
@@ -111,13 +95,19 @@ struct AddClothesView: View{
 				TextField("什麼衣服", text: $name).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				TextField("誰的衣服", text: $owner).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				
+				HStack{
+					if myTag.wash != nil{
+						Image(myTag.wash!).renderingMode(.template).foregroundColor(Color.accentColor)
+					}
+				}
+				
+				
 				Button(action: {self.tag = true}){
 					ZStack{
 						RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
 						Text("Scan")
 					}
-				}.sheet(isPresented: $tag) {
-					myController(washTag: self.$myTag)
+				}
 				}
 			}.navigationBarTitle("增加衣服",displayMode: .inline)
 			.navigationBarItems(trailing: Button(action: {
@@ -127,15 +117,15 @@ struct AddClothesView: View{
 				myClothes.id = UUID()
 				myClothes.name = "\(chooseName)"
 				myClothes.owner = "\(chooseOwner)"
-				myClothes.bleach = self.myTag?.bleach
-				myClothes.dry = self.myTag?.dry
-				myClothes.dryClean = self.myTag?.dryClean
-				myClothes.hcs = self.myTag?.hcs
-				myClothes.iron = self.myTag?.iron
-				myClothes.pce = self.myTag?.pce
-				myClothes.tumbleDry = self.myTag?.tumbleDry
-				myClothes.wash = self.myTag?.wash
-				myClothes.wetClean = self.myTag?.wetClean
+				myClothes.bleach = self.myTag.bleach
+				myClothes.dry = self.myTag.dry
+				myClothes.dryClean = self.myTag.dryClean
+				myClothes.hcs = self.myTag.hcs
+				myClothes.iron = self.myTag.iron
+				myClothes.pce = self.myTag.pce
+				myClothes.tumbleDry = self.myTag.tumbleDry
+				myClothes.wash = self.myTag.wash
+				myClothes.wetClean = self.myTag.wetClean
 				myClothes.image = self.inputImage?.jpegData(compressionQuality: 1.0)
 				try? self.moc.save()
 				self.presentationMode.wrappedValue.dismiss()
@@ -151,6 +141,8 @@ struct AddClothesView: View{
 					self.shouldPresentCamera = false
 				}), ActionSheet.Button.cancel()])
 			}.keyboardAdaptive()
+		.sheet(isPresented: $tag) {
+		myController(washTag: self.$myTag)
 		}
 	}
 	func loadImage(){
