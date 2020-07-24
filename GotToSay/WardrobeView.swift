@@ -19,7 +19,7 @@ struct WardrobeView: View {
 					ForEach(myClothes, id: \.id){ myClothes in NavigationLink(destination: ClothesDetialView(name:myClothes.name, owner: myClothes.owner, image: myClothes.image)){
 						if myClothes.image != nil{
 							Image(uiImage:UIImage(data: myClothes.image!)!).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
-
+							
 						}else{
 							Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
 						}
@@ -27,16 +27,16 @@ struct WardrobeView: View {
 							Text(myClothes.name!).font(.title)
 							Text(myClothes.owner ?? "Mine").font(.subheadline).foregroundColor(Color.secondary)
 						}
-					}
-				}.onDelete(perform: removeClothes)
+						}
+					}.onDelete(perform: removeClothes)
 				}.navigationBarTitle(Text("我的衣櫃"),displayMode: .automatic)
-				.navigationBarItems(leading: Button(action: {}){
-				Text("一起洗")
-				}, trailing: NavigationLink(destination: AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
-				Text("新增衣服")
+					.navigationBarItems(leading: Button(action: {}){
+						Text("一起洗")
+						}, trailing: NavigationLink(destination: AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
+							Text("新增衣服")
 					})
 			}
-	}}
+		}}
 	func removeClothes(at offsets: IndexSet){
 		
 		for index in offsets {
@@ -72,42 +72,41 @@ struct AddClothesView: View{
 	@State var image: Image?
 	@State var inputImage: UIImage?
 	var body: some View{
-		
 		NavigationView{
 			
 			VStack{
 				ZStack{
 					Rectangle().fill(Color.secondary)
-					if image != nil{
-						image?.resizable()
+					if self.image != nil{
+						self.image?.resizable()
 					}else{
 						Text("Tap to select a pic").foregroundColor(.white).font(.headline)
 					}
-					}.onAppear(perform: loadImage)
-				.padding(.horizontal)
-				.frame(width: 200.0, height: 200.0)
-				.onTapGesture {
-					self.shouldPresentActionSheet = true
+				}.onAppear(perform: self.loadImage)
+					.padding(.horizontal)
+					.frame(width: 200.0, height: 200.0)
+					.onTapGesture {
+						self.shouldPresentActionSheet = true
 				}
 				
-				_TextField(title: "哪件衣服", text: $name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
-				_TextField(title: "誰的衣服", text: $owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
-
-					
+				_TextField(title: "哪件衣服", text: self.$name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
+				_TextField(title: "誰的衣服", text: self.$owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding([.leading, .bottom, .trailing])
 				
 				
-				ShowTag(myTag: $myTag)
+				
+				
+				ShowTag(myTag: self.$myTag)
 				
 				Button(action: {self.tag = true}){
 					ZStack{
 						RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
 						Text("Scan")
 					}
-				}.sheet(isPresented: $tag) {
-				myController(washTag: self.$myTag)
+				}.sheet(isPresented: self.$tag) {
+					myController(washTag: self.$myTag)
 				}
-				}
-			}.navigationBarTitle("增加衣服",displayMode: .inline)
+			}.keyboardAdaptive()
+		}.navigationBarTitle("增加衣服",displayMode: .inline)
 			.navigationBarItems(trailing: Button(action: {
 				let chooseName = self.name
 				let chooseOwner = self.owner
@@ -128,7 +127,7 @@ struct AddClothesView: View{
 				try? self.moc.save()
 				self.presentationMode.wrappedValue.dismiss()
 			}){Text("完成")})
-			.actionSheet(isPresented: $shouldPresentActionSheet) { () -> ActionSheet in
+			.actionSheet(isPresented: self.$shouldPresentActionSheet) { () -> ActionSheet in
 				ActionSheet(title: Text("你想要從哪裡加入圖片呢？"), buttons: [ActionSheet.Button.default(Text("拍一張照片"), action: {
 					self.shouldPresentImagePicker = true
 					self.shouldPresentCamera = true
@@ -136,9 +135,8 @@ struct AddClothesView: View{
 					self.shouldPresentImagePicker = true
 					self.shouldPresentCamera = false
 				}), ActionSheet.Button.cancel()])
-			}.keyboardAdaptive()
-			
-		.sheet(isPresented: $shouldPresentImagePicker, onDismiss: loadImage){
+		}
+		.sheet(isPresented: self.$shouldPresentImagePicker, onDismiss: self.loadImage){
 			ImagePicker(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,image: self.$inputImage)
 		}
 	}
@@ -163,7 +161,7 @@ struct ClothesDetialView: View {
 }
 
 struct WardrobeView_Previews: PreviewProvider {
-    static var previews: some View {
-        WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-    }
+	static var previews: some View {
+		WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+	}
 }

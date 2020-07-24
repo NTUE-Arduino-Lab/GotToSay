@@ -11,6 +11,8 @@ import Combine
 import SwiftUI
 import UIKit
 
+
+
 extension UIResponder {
     static var currentFirstResponder: UIResponder? {
         _currentFirstResponder = nil
@@ -30,6 +32,11 @@ extension UIResponder {
     }
 }
 
+extension UITextField{
+	@objc func doneButtonTapped(button:UIBarButtonItem) -> Void {
+       self.resignFirstResponder()
+    }
+}
 
 extension Publishers {
     static var keyboardHeight: AnyPublisher<CGFloat, Never> {
@@ -102,22 +109,28 @@ struct _TextField: UIViewRepresentable {
     @Binding var text: String
     let onEditingChanged: (Bool) -> Void
     let onCommit: () -> Void
-
+	
     let textField = UITextField()
-
+	
     init(title: String?, text: Binding<String>, onEditingChanged: @escaping (Bool) -> Void = { _ in }, onCommit: @escaping () -> Void = {}) {
         self.title = title
         self._text = text
         self.onEditingChanged = onEditingChanged
         self.onCommit = onCommit
     }
-
+	
     func makeCoordinator() -> _TextFieldCoordinator {
         _TextFieldCoordinator(self)
     }
 
     func makeUIView(context: Context) -> UITextField {
-        textField.placeholder = title
+		let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
+		let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(textField.doneButtonTapped(button:)))
+		let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		toolBar.items = [spacer, doneButton]
+        toolBar.setItems([spacer, doneButton], animated: true)
+		textField.placeholder = title
+		textField.inputAccessoryView = toolBar
 		textField.delegate = context.coordinator as? UITextFieldDelegate
         return textField
     }
