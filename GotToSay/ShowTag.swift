@@ -42,10 +42,8 @@ struct ShowTag: View {
 				if myTag.hcs != nil{
 					Image(myTag.hcs!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
 				}
-				Text(TagDetail().tagDetail(input: myTag.wash ?? ""))
 			}
 		}
-		
     }
 }
 

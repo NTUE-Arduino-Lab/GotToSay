@@ -118,7 +118,7 @@ struct _TextField: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UITextField {
         textField.placeholder = title
-        textField.delegate = context.coordinator
+		textField.delegate = context.coordinator as? UITextFieldDelegate
         return textField
     }
 

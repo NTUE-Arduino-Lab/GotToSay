@@ -89,17 +89,22 @@ struct AddClothesView: View{
 				.onTapGesture {
 					self.shouldPresentActionSheet = true
 				}
-				TextField("什麼衣服", text: $name).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
-				TextField("誰的衣服", text: $owner).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
+				
+				_TextField(title: "哪件衣服", text: $name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
+				_TextField(title: "誰的衣服", text: $owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
+
+					
+				
 				
 				ShowTag(myTag: $myTag)
-				
 				
 				Button(action: {self.tag = true}){
 					ZStack{
 						RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
 						Text("Scan")
 					}
+				}.sheet(isPresented: $tag) {
+				myController(washTag: self.$myTag)
 				}
 				}
 			}.navigationBarTitle("增加衣服",displayMode: .inline)
@@ -123,9 +128,7 @@ struct AddClothesView: View{
 				try? self.moc.save()
 				self.presentationMode.wrappedValue.dismiss()
 			}){Text("完成")})
-			.sheet(isPresented: $shouldPresentImagePicker, onDismiss: loadImage){
-				ImagePicker(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,image: self.$inputImage)
-			}.actionSheet(isPresented: $shouldPresentActionSheet) { () -> ActionSheet in
+			.actionSheet(isPresented: $shouldPresentActionSheet) { () -> ActionSheet in
 				ActionSheet(title: Text("你想要從哪裡加入圖片呢？"), buttons: [ActionSheet.Button.default(Text("拍一張照片"), action: {
 					self.shouldPresentImagePicker = true
 					self.shouldPresentCamera = true
@@ -134,8 +137,9 @@ struct AddClothesView: View{
 					self.shouldPresentCamera = false
 				}), ActionSheet.Button.cancel()])
 			}.keyboardAdaptive()
-		.sheet(isPresented: $tag) {
-		myController(washTag: self.$myTag)
+			
+		.sheet(isPresented: $shouldPresentImagePicker, onDismiss: loadImage){
+			ImagePicker(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,image: self.$inputImage)
 		}
 	}
 	func loadImage(){
