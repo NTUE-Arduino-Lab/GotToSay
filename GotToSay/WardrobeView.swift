@@ -32,14 +32,11 @@ struct WardrobeView: View {
 				}.navigationBarTitle(Text("我的衣櫃"),displayMode: .automatic)
 				.navigationBarItems(leading: Button(action: {}){
 				Text("一起洗")
-				}, trailing: Button(action: {self.addClothes = true}){
+				}, trailing: NavigationLink(destination: AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
 				Text("新增衣服")
 					})
 			}
-	}.sheet(isPresented: $addClothes){
-			AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-	}
-}
+	}}
 	func removeClothes(at offsets: IndexSet){
 		
 		for index in offsets {
@@ -95,11 +92,7 @@ struct AddClothesView: View{
 				TextField("什麼衣服", text: $name).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				TextField("誰的衣服", text: $owner).padding(.horizontal).textFieldStyle(RoundedBorderTextFieldStyle())
 				
-				HStack{
-					if myTag.wash != nil{
-						Image(myTag.wash!).renderingMode(.template).foregroundColor(Color.accentColor)
-					}
-				}
+				ShowTag(myTag: $myTag)
 				
 				
 				Button(action: {self.tag = true}){
