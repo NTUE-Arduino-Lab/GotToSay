@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct washTagInfo: Codable {
+struct washTagInfo: Codable,Equatable {
 	var	wash: String?
 	var bleach: String?
 	var wetClean: String?
@@ -19,6 +19,21 @@ struct washTagInfo: Codable {
 	var hcs: String?
 	var iron: String?
 }
+
+struct TagType{
+	static var wash = ["WashSymbol","blahblahblah"]
+	static var bleach = ["blahblahblah"]
+	static var wetClean = ["blahblahblah"]
+	static var dryClean = ["blahblahblah"]
+	static var tumbleDry = ["blahblahblah"]
+	static var dry = ["blahblahblah"]
+	static var pce = ["blahblahblah"]
+	static var hcs = ["blahblahblah"]
+	static var iron = ["blahblahblah"]
+}
+
+
+
 class TagDetail {
 	func tagDetail(input:String) -> String {
 		if input == "WashSymbol"{

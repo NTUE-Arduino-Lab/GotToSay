@@ -62,10 +62,6 @@ struct ARView: View {
             }
         }
     }
-//	func loadTag() {
-//		guard let myTag = myTag else { return }
-//
-//	}
 }
 
 struct myController: UIViewControllerRepresentable {

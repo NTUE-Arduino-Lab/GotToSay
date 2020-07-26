@@ -62,10 +62,12 @@ struct AddClothesView: View{
 	@State var myTag = washTagInfo()
 	
 	
-	@State var tag = false
+	@State var shouldPresentTagActionSheet = false
+	@State var shouldPresentTagScan = false
+	@State var shouldPresentTagEdit = false
 	@State var goSave = false
 	@State var shouldPresentImagePicker = false
-	@State var shouldPresentActionSheet = false
+	@State var shouldPresentImageActionSheet = false
 	@State var shouldPresentCamera = false
 	
 	
@@ -86,7 +88,7 @@ struct AddClothesView: View{
 					.padding(.horizontal)
 					.frame(width: 200.0, height: 200.0)
 					.onTapGesture {
-						self.shouldPresentActionSheet = true
+						self.shouldPresentImageActionSheet = true
 				}
 				
 				_TextField(title: "哪件衣服", text: self.$name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
@@ -94,15 +96,24 @@ struct AddClothesView: View{
 				
 				
 				
+				if myTag != washTagInfo(){
+					ShowTag(myTag: self.$myTag)
+				}
 				
-				ShowTag(myTag: self.$myTag)
-				
-				Button(action: {self.tag = true}){
+				Button(action: {self.shouldPresentTagActionSheet = true}){
 					ZStack{
 						RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
-						Text("Scan")
+						Text("加入標籤")
 					}
-				}.sheet(isPresented: self.$tag) {
+				}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
+						ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons: [ActionSheet.Button.default(Text("相機掃描"), action: {
+							self.shouldPresentTagScan = true
+						}), ActionSheet.Button.default(Text("自己編輯"), action: {
+							self.shouldPresentTagEdit = true
+						}), ActionSheet.Button.cancel()])
+				}.sheet(isPresented: self.$shouldPresentTagScan){
+					myController(washTag: self.$myTag)
+				}.sheet(isPresented: self.$shouldPresentTagScan){
 					myController(washTag: self.$myTag)
 				}
 			}.keyboardAdaptive()
@@ -127,7 +138,7 @@ struct AddClothesView: View{
 				try? self.moc.save()
 				self.presentationMode.wrappedValue.dismiss()
 			}){Text("完成")})
-			.actionSheet(isPresented: self.$shouldPresentActionSheet) { () -> ActionSheet in
+			.actionSheet(isPresented: self.$shouldPresentImageActionSheet) { () -> ActionSheet in
 				ActionSheet(title: Text("你想要從哪裡加入圖片呢？"), buttons: [ActionSheet.Button.default(Text("拍一張照片"), action: {
 					self.shouldPresentImagePicker = true
 					self.shouldPresentCamera = true
@@ -135,14 +146,19 @@ struct AddClothesView: View{
 					self.shouldPresentImagePicker = true
 					self.shouldPresentCamera = false
 				}), ActionSheet.Button.cancel()])
-		}
-		.sheet(isPresented: self.$shouldPresentImagePicker, onDismiss: self.loadImage){
+		}.sheet(isPresented: self.$shouldPresentImagePicker, onDismiss: self.loadImage){
 			ImagePicker(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,image: self.$inputImage)
 		}
 	}
 	func loadImage(){
 		guard let inputImage = inputImage else {return}
 		image = Image(uiImage: inputImage)
+	}
+}
+
+struct TagEditor: View {
+	var body: some View{
+		EmptyView()
 	}
 }
 

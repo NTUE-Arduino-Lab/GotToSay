@@ -12,51 +12,56 @@ struct ShowTag: View {
 	@Binding var myTag:washTagInfo
 	var body: some View {
 		VStack{
-			
 			List{
 				if myTag.wash != nil{
-					Image(myTag.wash!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
-					
+					DetialView(input: myTag.wash!)
 				}
 				if myTag.bleach != nil{
-					Image(myTag.bleach!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.bleach!)
 				}
 				if myTag.tumbleDry != nil{
-					Image(myTag.tumbleDry!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.tumbleDry!)
 				}
 				if myTag.dry != nil{
-					Image(myTag.dry!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.dry!)
 				}
 				if myTag.iron != nil{
-					Image(myTag.iron!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.iron!)
 				}
 				if myTag.wetClean != nil{
-					Image(myTag.wetClean!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.wetClean!)
 				}
 				if myTag.dryClean != nil{
-					Image(myTag.dryClean!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.dryClean!)
 				}
 				if myTag.pce != nil{
-					Image(myTag.pce!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.pce!)
 				}
 				if myTag.hcs != nil{
-					Image(myTag.hcs!).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					DetialView(input: myTag.hcs!)
 				}
 			}
-			
-			
-			
-			
-			
+		}
+	}
+}
+struct DetialView:View {
+	let input: String
+	var body: some View{
+		VStack{
+			HStack{
+				Image(input).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.primary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+				Spacer()
+				Text(TagDetail().tagDetail(input: input))
+			}
+		}.onTapGesture {
+			print("hello")
 		}
 	}
 }
 
 
-
-
 struct preShowTag: View{
-	@State var myTag = washTagInfo(wash: "GentleWashAtOrBelow30", bleach: nil, wetClean: nil, dryClean: nil, tumbleDry: nil, dry: nil, pce: nil, hcs: nil, iron: nil)
+	@State var myTag = washTagInfo(wash: "GentleWashAtOrBelow30", bleach: nil, wetClean: nil, dryClean: "DoNotDryClean", tumbleDry: nil, dry: nil, pce: nil, hcs: nil, iron: nil)
 	
 	var body:some View{
 		ShowTag(myTag:$myTag)
