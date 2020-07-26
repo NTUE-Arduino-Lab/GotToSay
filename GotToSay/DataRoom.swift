@@ -50,20 +50,46 @@ var WashingM : [LaundryM] = [
 //便條紙他家
 struct MemoInfo: Identifiable {
     var id = UUID()
-    var number :Int
+
     var name: String
     var content: String
+    var role1:Bool
+    var role2:Bool
+    var role3:Bool
     var laundrynumber : String
     var from: String
     var time: String
 }
 
+
 #if DEBUG
 
 var Memo : [MemoInfo] = [
-    MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: "第一台洗衣機", from: "逢甲洗衣店1",time:"goforward.90"),
-    MemoInfo(number:2,name: "小西瓜", content: "離開去買菜",laundrynumber: "第二台洗衣機", from: "二樓洗衣店2",time:"goforward.90"),
-    MemoInfo(number:3,name: "小黃瓜", content: "我等等就回來了,別動",laundrynumber: "第三台洗衣機", from: "二樓洗衣店2",time:"goforward.90"),
+    MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90"),
+    MemoInfo(name: "謝小美", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第3台洗衣機", from: "逢甲洗衣店1",time:"goforward.90"),
 
 ]
 #endif
+
+//留言他家
+struct CommentInfo: Identifiable {
+    var id = UUID()
+    
+    var name: String
+    var laundrynumber : String
+    var Author: String
+
+    var comment: String
+    var role: Bool
+}
+
+
+#if DEBUG
+
+var CommentI : [CommentInfo] = [
+    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小毛孩",comment: "我放在下面了",role:true),
+    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小屁孩",comment: "你的衣服有蟲",role:false),
+
+]
+#endif
+

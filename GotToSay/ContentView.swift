@@ -12,7 +12,7 @@ import Combine
 
 
 struct ContentView: View {
-    @State private var MemoInf = MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: "第二台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
+    @State private var MemoInf = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
     @State private var launName = "逢甲洗衣店1"
     @State private var launAddress = "台北市大安區和平東路二段118號"
     var body: some View {
