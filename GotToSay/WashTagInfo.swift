@@ -21,15 +21,68 @@ struct washTagInfo: Codable,Equatable {
 }
 
 struct TagType{
-	static var wash = ["WashSymbol","blahblahblah"]
-	static var bleach = ["blahblahblah"]
-	static var wetClean = ["blahblahblah"]
-	static var dryClean = ["blahblahblah"]
-	static var tumbleDry = ["blahblahblah"]
-	static var dry = ["blahblahblah"]
-	static var pce = ["blahblahblah"]
-	static var hcs = ["blahblahblah"]
-	static var iron = ["blahblahblah"]
+	static var wash = [
+		"WashSymbol",
+		"HandWash", 
+		"DoNotWash", 
+		"WashAtOrBelow30", 
+		"WashAtOrBelow40", 
+		"WashAtOrBelow50", 
+		"WashAtOrBelow60", 
+		"WashAtOrBelow70", 
+		"WashAtOrBelow95",
+		"GentleWashAtOrBelow30",
+		"GentleWashAtOrBelow40",
+		"GentleWashAtOrBelow50",
+		"GentleWashAtOrBelow60",
+		"VeryGentleWashAtOrBelow30",
+		"VeryGentleWashAtOrBelow40"
+	]
+	static var bleach = [
+		"BleachingSymbol", 
+		"Non-chlorineBleachWhenNeeded", 
+		"DoNotBleach"
+	]
+	static var wetClean = [
+		"ProfessionalWetCleaning",
+		"GentleWetCleaning",
+		"VeryGentleWetCleaning"
+	]
+	static var dryClean = [
+		"ProfessionalCleaningSymbol",
+		"DoNotDryClean"
+	]
+	static var tumbleDry = [
+		"DoNotTumbleDry",
+		"TumbleDryingLowTemperature",
+		"TumbleDryingNormal"
+	]
+	static var dry = [
+		"DryingSymbol",
+		"DryFlat",
+		"LineDry",
+		"DryFlatInShade",
+		"LineDryInShade",
+		"FlatDrip",
+		"DripDry",
+		"FlatDripInShade",
+		"DripDryInShade"
+	]
+	static var pce = [
+		"PCE",
+		"GentleCleaningWithPCE"
+	]
+	static var hcs = [
+		"HCS",
+		"GentleCleaningWithHCS"
+	]
+	static var iron = [
+		"IroningSymbol",
+		"DoNotIron",
+		"IronAtLowTemperature",
+		"IronAtMediumTemperature",
+		"IronAtHighTemperature"
+	]
 }
 
 
