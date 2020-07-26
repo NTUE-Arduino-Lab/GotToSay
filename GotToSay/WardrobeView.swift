@@ -113,8 +113,8 @@ struct AddClothesView: View{
 						}), ActionSheet.Button.cancel()])
 				}.sheet(isPresented: self.$shouldPresentTagScan){
 					myController(washTag: self.$myTag)
-				}.sheet(isPresented: self.$shouldPresentTagScan){
-					myController(washTag: self.$myTag)
+				}.sheet(isPresented: self.$shouldPresentTagEdit){
+					TagEditor(myTag: self.$myTag)
 				}
 			}.keyboardAdaptive()
 		}.navigationBarTitle("增加衣服",displayMode: .inline)
@@ -157,8 +157,22 @@ struct AddClothesView: View{
 }
 
 struct TagEditor: View {
+	@Binding var myTag: washTagInfo
+	@State var shouldPresentWashSelector = false
 	var body: some View{
-		EmptyView()
+		List{
+			if myTag.wash != nil{
+				DetialView(input: myTag.wash!)
+			}else{
+				VStack{
+					HStack{
+						Image("WashSymbol").resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.secondary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+						Spacer()
+						Text("還沒有選擇標籤").foregroundColor(Color.secondary)
+					}
+				}
+			}
+		}
 	}
 }
 

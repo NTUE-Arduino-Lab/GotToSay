@@ -53,8 +53,6 @@ struct DetialView:View {
 				Spacer()
 				Text(TagDetail().tagDetail(input: input))
 			}
-		}.onTapGesture {
-			print("hello")
 		}
 	}
 }
