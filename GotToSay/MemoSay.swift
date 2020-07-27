@@ -11,7 +11,7 @@ import Foundation
 struct MemoView: View {
     var MemoInfo: String
     var MemoName:  String
-
+    @State private var showSecondView = false
     var body: some View {
         VStack {
             HStack{
@@ -36,11 +36,21 @@ struct MemoView: View {
                                             }
 
                 Spacer()
-                Button(action: {}) {
+                Button(action: {
+                    if self.showSecondView{
+                        self.showSecondView = false}
+                    else{
+                        self.showSecondView = true
+                    }
+                }) {
                     Image(systemName: "circle.grid.2x2.fill")
                                   }
                                     .foregroundColor(.blue)
                                     .font(.title)
+                    .sheet(isPresented: $showSecondView) {
+                        Memolist(name:self.MemoName,Laundm:self.MemoInfo)
+                }
+                
     }
         .padding()
         .background(Color(hue: 0.556, saturation: 0.898, brightness: 0.918, opacity: 0.2))
@@ -107,7 +117,7 @@ struct NewMemo: View {
     @State  var Name:String
     var roles = [
         Role(name: "洗衣機", gender: "1",image:"view_washingmachine_disable.png"),
-         Role(name: "烘乾機", gender: "男",image:"view_dryer_disable.png"),
+         Role(name: "烘乾機", gender: "2",image:"view_dryer_disable.png"),
     ]
     var roles2 = [
         Role2(size: "大型",size2:"Large"),
@@ -133,7 +143,7 @@ struct NewMemo: View {
             HStack{
                    Text("\(selectedName)")
                     .padding()
-                    Picker(selection: $selectedName, label: Text("選擇角色")) {
+                    Picker(selection: $selectedName, label: Text("選擇機器")) {
                     ForEach(roles, id: \.name) { (role) in
                      HStack {
 
@@ -202,7 +212,7 @@ struct NewMemo: View {
         .padding()
         Button(action: {
             print(self.selectedMemo)
-            let new = MemoInfo(number:1,name: "小冬瓜", content: "可以幫我拿一下衣服嗎？",laundrynumber: "第一台洗衣機", from: self.Name,time:"goforward.90")
+            let new = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
             Memo.append(new)
             self.presentationMode.wrappedValue.dismiss()
         }) {
@@ -224,11 +234,126 @@ struct NewMemo: View {
         .padding()
     }
 }
-/*
-struct NewMemo_Previews: PreviewProvider {
-    static var previews: some View {
-        NewMemo(Name: "二樓洗衣店2")
+
+struct Memolist: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+        @State  var name : String
+        @State  var Laundm : String
+        @State var Laundmsize : String = "洗衣機"
+        @State private var inputtext : String = ""
+       @State private var actionbutton : Bool = false
+        @State private var coun : Int = 0
+    
+    var body: some View {
+    VStack{
+
+        VStack(alignment:.leading){
+            //名字
+        HStack{
+            Text("By: ")
+            Text(name)
+        }
+            //洗衣機型號
+        HStack{
+            Text("編號: ")
+            Text(Laundm)
+        }
+            //時間
+        HStack{
+            Text("剩餘時間: ")
+            Text("０分鐘")
+        }
+            //if通知
+            HStack{
+                Image(systemName: "exclamationmark.circle.fill").foregroundColor(Color.blue)
+                Text("擋到通知我")
+            }
+
+        }
+        //list 人的留言
+            List(CommentI.filter({ name.isEmpty ? true : $0.name.contains(name)&&$0.laundrynumber.contains(Laundm) })) { item in
+                HStack(alignment:.center){
+                    Image(systemName: "person.fill").foregroundColor(Color.blue).font(.title).padding()
+                    VStack(alignment:.leading){
+                            Text(item.comment)
+                        HStack{
+                            Text("By: ")
+                            Text(item.Author)
+                            }.font(.subheadline).foregroundColor(.gray)
+                        }
+                    Spacer()
+                    Button(action: {
+                     }) {
+                        if item.role {
+                            Image(systemName: "hand.thumbsup.fill").foregroundColor(Color.blue).font(.headline).onTapGesture {
+                                    print("")
+                            }
+                            
+                        }
+                        else{
+                            Image(systemName: "hand.thumbsup").foregroundColor(Color.white).font(.headline).onTapGesture {
+                                    print("")
+                            }
+                            
+                        }
+
+                         }
+                }
+        }
+        .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 300)
+        
+        _TextField(title: "留下留言", text: $inputtext).frame(minWidth: 0, maxWidth: 250).padding()
+        HStack{
+            Button(action: {
+                if self.inputtext .isEmpty{}
+                else{
+                    let new = CommentInfo(name: self.Laundm, laundrynumber:"小毛孩",Author: self.inputtext, size: self.Laundmsize,comment:self.inputtext, role: self.actionbutton)
+                    CommentI.append(new)
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                
+                
+                
+                
+                
+            }) {
+                Text("送出")
+                .fontWeight(.bold)
+                .font(.headline)
+                .foregroundColor(.blue)
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.blue, lineWidth: 4)
+                )
+                }
+            
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("關閉")
+                .fontWeight(.bold)
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                    .background(Color.blue)
+                .cornerRadius(20)
+                }
+        
+        }
+    }
+    .padding()
+    .overlay(
+        RoundedRectangle(cornerRadius: 20)
+            .stroke(Color.blue.opacity(0.7), lineWidth: 4)
+    )
+
+
+    
+    
+    
+    
+    
+    
     }
 }
-
-*/
