@@ -53,9 +53,9 @@ struct TagType{
 		"DoNotDryClean"
 	]
 	static var tumbleDry = [
-		"DoNotTumbleDry",
 		"TumbleDryingLowTemperature",
-		"TumbleDryingNormal"
+		"TumbleDryingNormal",
+		"DoNotTumbleDry"
 	]
 	static var dry = [
 		"DryingSymbol",

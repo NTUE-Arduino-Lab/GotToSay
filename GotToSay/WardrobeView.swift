@@ -106,11 +106,13 @@ struct AddClothesView: View{
 						Text("加入標籤")
 					}
 				}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
-						ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons: [ActionSheet.Button.default(Text("相機掃描"), action: {
+						ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons:
+							[ActionSheet.Button.default(Text("相機掃描"), action: {
 							self.shouldPresentTagScan = true
 						}), ActionSheet.Button.default(Text("自己編輯"), action: {
 							self.shouldPresentTagEdit = true
 						}), ActionSheet.Button.cancel()])
+//							selector(list: TagType.wash))
 				}.sheet(isPresented: self.$shouldPresentTagScan){
 					myController(washTag: self.$myTag)
 				}.sheet(isPresented: self.$shouldPresentTagEdit){
@@ -154,25 +156,85 @@ struct AddClothesView: View{
 		guard let inputImage = inputImage else {return}
 		image = Image(uiImage: inputImage)
 	}
+//	func selector(list:[String]) -> [ActionSheet.Button] {
+//		var myButton :[ActionSheet.Button] = []
+//		list.forEach{value in
+//			myButton.append(ActionSheet.Button.default(Text(value)
+//			, action: {print(value)}))
+//
+//		}
+//		myButton.append(ActionSheet.Button.cancel())
+//		return myButton
+//	}
 }
 
 struct TagEditor: View {
 	@Binding var myTag: washTagInfo
-	@State var shouldPresentWashSelector = false
+	@Environment(\.presentationMode) var presentationMode
+
 	var body: some View{
-		List{
-			if myTag.wash != nil{
-				DetialView(input: myTag.wash!)
+		NavigationView{
+			List{
+				TagList(input: self.$myTag.wash, Tags: TagType.wash)
+				TagList(input: self.$myTag.bleach, Tags: TagType.bleach)
+				TagList(input: self.$myTag.tumbleDry, Tags: TagType.tumbleDry)
+				TagList(input: self.$myTag.dry, Tags: TagType.dry)
+				TagList(input: self.$myTag.iron, Tags: TagType.iron)
+				TagList(input: self.$myTag.dryClean, Tags: TagType.dryClean)
+				TagList(input: self.$myTag.wetClean, Tags: TagType.wetClean)
+				TagList(input: self.$myTag.pce, Tags: TagType.pce)
+				TagList(input: self.$myTag.hcs, Tags: TagType.hcs)
+			}.navigationBarTitle(Text("標籤編輯")).navigationBarItems(trailing: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+				Text("完成")
+			})
+		}
+	}
+}
+struct TagList:View {
+	@Binding var input: String?
+	@State var select = false
+	let Tags:Array<String>
+	var body: some View{
+		NavigationLink(destination:TagSelector(myTag: self.$input, state: self.$select, Tags: Tags),isActive: self.$select){
+			if input != nil{
+				DetialView(input: input!)
+				.onTapGesture {
+					self.select = true
+				}
 			}else{
-				VStack{
-					HStack{
-						Image("WashSymbol").resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.secondary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
-						Spacer()
-						Text("還沒有選擇標籤").foregroundColor(Color.secondary)
-					}
+				HStack{
+					Image(Tags[0]).resizable().renderingMode(.template).scaledToFill().foregroundColor(Color.secondary).frame(width: 50.0, height: 50.0).clipShape(Rectangle())
+					Spacer()
+					Text("還沒有選擇標籤").foregroundColor(Color.secondary)
+				}.onTapGesture {
+					self.select = true
 				}
 			}
 		}
+	}
+}
+
+struct TagSelector:View {
+	@Binding var myTag: String?
+	@Binding var state: Bool
+	let Tags:Array<String>
+	var body: some View{
+		List{
+			Button(action: {
+				self.myTag = nil
+				self.state = false
+			}){
+				Text("不要選取")
+			}
+			ForEach(Tags, id: \.self) {theTag in
+				Button(action: {
+					self.myTag = theTag
+					self.state = false
+				}){
+					DetialView(input: theTag)
+				}
+			}
+		}.navigationBarTitle("請選擇標籤")
 	}
 }
 
