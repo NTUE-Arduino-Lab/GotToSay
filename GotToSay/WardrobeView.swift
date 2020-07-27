@@ -78,7 +78,7 @@ struct AddClothesView: View{
 			
 			VStack{
 				ZStack{
-					Rectangle().fill(Color.secondary)
+					Circle().fill(Color.secondary)
 					if self.image != nil{
 						self.image?.resizable()
 					}else{
@@ -86,11 +86,10 @@ struct AddClothesView: View{
 					}
 				}.onAppear(perform: self.loadImage)
 					.padding(.horizontal)
-					.frame(width: 200.0, height: 200.0)
+					.frame(width: 250.0, height: 250.0)
 					.onTapGesture {
 						self.shouldPresentImageActionSheet = true
 				}
-				
 				_TextField(title: "哪件衣服", text: self.$name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
 				_TextField(title: "誰的衣服", text: self.$owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding([.leading, .bottom, .trailing])
 				
@@ -106,20 +105,22 @@ struct AddClothesView: View{
 						Text("加入標籤")
 					}
 				}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
-						ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons:
-							[ActionSheet.Button.default(Text("相機掃描"), action: {
+					ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons:
+						[ActionSheet.Button.default(Text("相機掃描"), action: {
 							self.shouldPresentTagScan = true
 						}), ActionSheet.Button.default(Text("自己編輯"), action: {
 							self.shouldPresentTagEdit = true
 						}), ActionSheet.Button.cancel()])
-//							selector(list: TagType.wash))
+					//							selector(list: TagType.wash))
 				}.sheet(isPresented: self.$shouldPresentTagScan){
 					myController(washTag: self.$myTag)
 				}.sheet(isPresented: self.$shouldPresentTagEdit){
 					TagEditor(myTag: self.$myTag)
 				}
+				Spacer()
 			}.keyboardAdaptive()
-		}.navigationBarTitle("增加衣服",displayMode: .inline)
+			
+		}.navigationBarTitle("增加衣服",displayMode: .automatic)
 			.navigationBarItems(trailing: Button(action: {
 				let chooseName = self.name
 				let chooseOwner = self.owner
@@ -151,27 +152,28 @@ struct AddClothesView: View{
 		}.sheet(isPresented: self.$shouldPresentImagePicker, onDismiss: self.loadImage){
 			ImagePicker(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,image: self.$inputImage)
 		}
+		
 	}
 	func loadImage(){
 		guard let inputImage = inputImage else {return}
 		image = Image(uiImage: inputImage)
 	}
-//	func selector(list:[String]) -> [ActionSheet.Button] {
-//		var myButton :[ActionSheet.Button] = []
-//		list.forEach{value in
-//			myButton.append(ActionSheet.Button.default(Text(value)
-//			, action: {print(value)}))
-//
-//		}
-//		myButton.append(ActionSheet.Button.cancel())
-//		return myButton
-//	}
+	//	func selector(list:[String]) -> [ActionSheet.Button] {
+	//		var myButton :[ActionSheet.Button] = []
+	//		list.forEach{value in
+	//			myButton.append(ActionSheet.Button.default(Text(value)
+	//			, action: {print(value)}))
+	//
+	//		}
+	//		myButton.append(ActionSheet.Button.cancel())
+	//		return myButton
+	//	}
 }
 
 struct TagEditor: View {
 	@Binding var myTag: washTagInfo
 	@Environment(\.presentationMode) var presentationMode
-
+	
 	var body: some View{
 		NavigationView{
 			List{
@@ -198,8 +200,8 @@ struct TagList:View {
 		NavigationLink(destination:TagSelector(myTag: self.$input, state: self.$select, Tags: Tags),isActive: self.$select){
 			if input != nil{
 				DetialView(input: input!)
-				.onTapGesture {
-					self.select = true
+					.onTapGesture {
+						self.select = true
 				}
 			}else{
 				HStack{
@@ -255,5 +257,6 @@ struct ClothesDetialView: View {
 struct WardrobeView_Previews: PreviewProvider {
 	static var previews: some View {
 		WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+//		AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
 	}
 }
