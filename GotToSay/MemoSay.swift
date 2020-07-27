@@ -185,7 +185,7 @@ struct NewMemo: View {
                 .font(.title)
                 .foregroundColor(.blue)
             
-               TextField("你的年紀", text: $selectedAge)
+            _TextField(title: "時間", text: $selectedAge)
                 .padding(5)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
 
@@ -238,8 +238,7 @@ struct NewMemo: View {
 struct Memolist: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
         @State  var name : String
-        @State  var Laundm : String
-        @State var Laundmsize : String = "洗衣機"
+        @State  var Laundm: String
         @State private var inputtext : String = ""
        @State private var actionbutton : Bool = false
         @State private var coun : Int = 0
@@ -307,7 +306,7 @@ struct Memolist: View {
             Button(action: {
                 if self.inputtext .isEmpty{}
                 else{
-                    let new = CommentInfo(name: self.Laundm, laundrynumber:"小毛孩",Author: self.inputtext, size: self.Laundmsize,comment:self.inputtext, role: self.actionbutton)
+                    let new = CommentInfo(name: self.name,laundrynumber: self.Laundm, Author:"王小花", size: "洗衣機",comment: self.inputtext,role:self.actionbutton)
                     CommentI.append(new)
                     self.presentationMode.wrappedValue.dismiss()
                 }

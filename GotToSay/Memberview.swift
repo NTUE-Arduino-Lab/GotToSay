@@ -34,9 +34,9 @@ struct Memberview: View {
 
             VStack{
                 VStack{
-                    Image(systemName: "person")
+                    Image(systemName: "person.fill")
                     Text(MemberI[0].name)
-                }.foregroundColor(Color.blue).font(.title).padding(.top)
+                }.foregroundColor(Color.black).font(.title).padding()
             //list 人的留言
                 List(CommentI.filter({ member.isEmpty ? true : $0.name.contains(member) })) { item in
                     
@@ -44,7 +44,7 @@ struct Memberview: View {
                         if item.size == "洗衣機"{
                         Image( "view_washingmachine_disable.png").foregroundColor(Color.blue).font(.title).padding()
                         }else{
-                            Image( "view_dryer_disable.png").foregroundColor(Color.blue).font(.title).padding()
+                            Image( "view_dryer_disable.png").foregroundColor(Color.blue).font(.subheadline).padding()
                         }
 
                         VStack(alignment:.leading){
@@ -81,11 +81,9 @@ struct Memberview: View {
                                 self.showSecondView = true
                             }
                          }) {
-                            Image(systemName: "circle.grid.2x2.fill").font(.title).foregroundColor(Color.blue.opacity(5))
-                                /*
-                                .sheet(isPresented: self.$showSecondView) {
-                                    Memolist(name:self.member,Laundm:item.laundrynumber)}
-                                */
+                            Image(systemName: "circle.grid.2x2.fill")
+                                
+                                .font(.title).foregroundColor(Color.blue.opacity(5))
                                 .actionSheet(isPresented: self.$showSecondView) { () -> ActionSheet in
                                     ActionSheet(title: Text("想做些什麼呢？"), buttons: [ActionSheet.Button.default(
                                         
@@ -119,7 +117,7 @@ struct Memberview: View {
                              }
                     }
                 }.padding()
-            }.background(Color.blue.opacity(0.1)).padding()
+            }.background(Color.blue.opacity(0.3)).cornerRadius(20).padding()
 
     }
 }

@@ -20,7 +20,9 @@ struct ContentView: View {
                 TabView {
                     NavigationView {
                     //視窗１
+
                         MapSearchView()
+
                     }
 
                         .tabItem {NavigationLink(destination: MapSearchView()) {
@@ -109,7 +111,7 @@ struct MapSearchView: View {
             .onAppear {
                 self.makepoint()
             }
-
+            
             VStack {
                 SearchBar(text: $searchText)
                     .frame(minWidth: 0, maxWidth: 260)
@@ -268,6 +270,7 @@ struct ToMemo: View {
             }
  */
         }
+        
         .navigationBarTitle (Text(""), displayMode: .inline)
 
     }
