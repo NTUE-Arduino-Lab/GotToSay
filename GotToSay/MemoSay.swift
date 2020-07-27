@@ -143,7 +143,7 @@ struct NewMemo: View {
             HStack{
                    Text("\(selectedName)")
                     .padding()
-                    Picker(selection: $selectedName, label: Text("選擇角色")) {
+                    Picker(selection: $selectedName, label: Text("選擇機器")) {
                     ForEach(roles, id: \.name) { (role) in
                      HStack {
 
@@ -238,7 +238,8 @@ struct NewMemo: View {
 struct Memolist: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
         @State  var name : String
-        @State  var Laundm: String
+        @State  var Laundm : String
+        @State var Laundmsize : String = "洗衣機"
         @State private var inputtext : String = ""
        @State private var actionbutton : Bool = false
         @State private var coun : Int = 0
@@ -300,13 +301,13 @@ struct Memolist: View {
                 }
         }
         .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 300)
-        TextField("留下留言", text: $inputtext).foregroundColor(Color.blue).padding()
-        .frame(minWidth: 0, maxWidth: 250)
+        
+        _TextField(title: "留下留言", text: $inputtext).frame(minWidth: 0, maxWidth: 250).padding()
         HStack{
             Button(action: {
                 if self.inputtext .isEmpty{}
                 else{
-                    let new = CommentInfo(name: self.name,laundrynumber: self.Laundm, Author:"小毛孩",comment: self.inputtext,role:self.actionbutton)
+                    let new = CommentInfo(name: self.Laundm, laundrynumber:"小毛孩",Author: self.inputtext, size: self.Laundmsize,comment:self.inputtext, role: self.actionbutton)
                     CommentI.append(new)
                     self.presentationMode.wrappedValue.dismiss()
                 }

@@ -29,13 +29,22 @@ struct ContentView: View {
                             }
                                 
                         }
+                    Memberview()
+                        .tabItem {
+                            NavigationLink(destination: Memberview()) {
+                                   // Image("nav_porfile_blue")}.tag(1)
+                                Image(systemName: "equal.square.fill").font(.title)}.tag(1)
+                            }
+                    /*
                     //視窗２
                     ToMemo(launname: launName, launaddress: launAddress)
                     .tabItem {
                         NavigationLink(destination: ToMemo(launname: launName, launaddress: launAddress))
-                                {Image("nav_porfile_blue")}.tag(1)
-                        
+                                {
+                                    Image(systemName: "equal.square.fill").font(.title)}.tag(1)
+
                     }
+ */
                     //視窗３
                     WardrobeView()
                         .tabItem {

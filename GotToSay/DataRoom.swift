@@ -78,7 +78,7 @@ struct CommentInfo: Identifiable {
     var name: String
     var laundrynumber : String
     var Author: String
-
+    var size: String
     var comment: String
     var role: Bool
 }
@@ -87,9 +87,32 @@ struct CommentInfo: Identifiable {
 #if DEBUG
 
 var CommentI : [CommentInfo] = [
-    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小毛孩",comment: "我放在下面了",role:true),
-    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小屁孩",comment: "你的衣服有蟲",role:false),
+    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小毛孩",size:"洗衣機",comment: "我放在下面了",role:true),
+    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小屁孩",size:"洗衣機",comment: "你的衣服有蟲",role:false),
+    CommentInfo(name: "謝小美",laundrynumber: "我是第3台洗衣機", Author:"小屁孩",size:"洗衣機",comment: "你是蟲",role:true),
+    CommentInfo(name: "王小花",laundrynumber: "我是第3台烘衣機", Author:"小屁孩",size:"烘衣機",comment: "你的衣服有蟲",role:false),
 
 ]
 #endif
 
+//留言他家
+struct MemberInfo: Identifiable {
+    var id = UUID()
+    
+    var name: String
+    var laundrynumber : String
+    var Author: String
+
+    var comment: String
+    var role: Bool
+}
+
+
+#if DEBUG
+
+var MemberI : [MemberInfo] = [
+    MemberInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"洗衣機",comment: "我放在下面了",role:true),
+    MemberInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"烘衣機",comment: "你的衣服有蟲",role:false),
+
+]
+#endif
