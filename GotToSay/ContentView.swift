@@ -241,7 +241,7 @@ struct MapSearchView: View {
             }
             
          .navigationBarHidden(true)
-         .navigationBarTitle("")
+         .navigationBarTitle (Text(""), displayMode: .inline)
     }
 }
 struct ToMemo: View {
