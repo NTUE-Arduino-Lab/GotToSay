@@ -85,9 +85,89 @@ struct TagType{
 	]
 }
 
-
+struct washProcess: Codable,Equatable {
+	var	level: Int
+	var temperature: Int
+	var bleach: Int
+}
 
 class TagDetail {
+	
+	func process(wash: String?,bleach: String?) -> washProcess {
+		var wp = washProcess(level: -1, temperature: -1, bleach: -1)
+		if wash == "DoNotWash"{
+			wp.level = -1
+			wp.temperature = -1
+		}
+		if wash == "WashSymbol"{
+			wp.level = 0
+			wp.temperature = 95
+		}
+		if wash == "WashAtOrBelow95"{
+			wp.level = 3
+			wp.temperature = 95
+		}
+		if wash == "WashAtOrBelow70"{
+			wp.level = 3
+			wp.temperature = 70
+		}
+		if wash == "WashAtOrBelow60"{
+			wp.level = 3
+			wp.temperature = 60
+		}
+		if wash == "WashAtOrBelow50"{
+			wp.level = 3
+			wp.temperature = 50
+		}
+		if wash == "WashAtOrBelow40"{
+			wp.level = 3
+			wp.temperature = 40
+		}
+		if wash == "WashAtOrBelow30"{
+			wp.level = 3
+			wp.temperature = 30
+		}
+		if wash == "HandWash"{
+			wp.level = 0
+			wp.temperature = 95
+		}
+		if wash == "GentleWashAtOrBelow60"{
+			wp.level = 2
+			wp.temperature = 60
+		}
+		if wash == "GentleWashAtOrBelow50"{
+			wp.level = 2
+			wp.temperature = 50
+		}
+		if wash == "GentleWashAtOrBelow40"{
+			wp.level = 2
+			wp.temperature = 40
+		}
+		if wash == "GentleWashAtOrBelow30"{
+			wp.level = 2
+			wp.temperature = 30
+		}
+		if wash == "VeryGentleWashAtOrBelow40"{
+			wp.level = 1
+			wp.temperature = 40
+		}
+		if wash == "VeryGentleWashAtOrBelow30"{
+			wp.level = 1
+			wp.temperature = 30
+		}
+		if bleach == "DoNotBleach"{
+			wp.bleach = 0
+		}
+		if bleach == "Non-chlorineBleachWhenNeeded"{
+			wp.bleach = 1
+		}
+		if bleach == "BleachingSymbol"{
+			wp.bleach = 2
+		}
+		return wp
+	}
+	
+	
 	func tagDetail(input:String) -> String {
 		if input == "WashSymbol"{
 			let detail = "水洗"
@@ -268,5 +348,4 @@ class TagDetail {
 		
 		return ""
 	}
-	
 }

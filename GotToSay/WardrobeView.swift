@@ -12,6 +12,7 @@ struct WardrobeView: View {
 	@Environment(\.managedObjectContext) var moc
 	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClotheses: FetchedResults<MyClothes>
 	@State var addClothes = false
+	@State var prossce = false
 	var body: some View {
 		NavigationView{
 			List{
@@ -29,15 +30,14 @@ struct WardrobeView: View {
 					}
 				}.onDelete(perform: removeClothes)
 			}.navigationBarTitle(Text("我的衣櫃"),displayMode: .automatic)
-				.navigationBarItems(leading: Button(action: {}){
+				.navigationBarItems(leading: Button(action: {self.prossce = true}){
 					Text("一起洗")
 					}, trailing:  NavigationLink(destination: AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
 						Text("新增衣服")
 				})
-		}//.sheet(isPresented: self.$addClothes){
-		//AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-		
-		//			}
+		}.sheet(isPresented: self.$prossce){
+			prossceSelector().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+		}
 	}
 	func removeClothes(at offsets: IndexSet){
 		
@@ -66,7 +66,174 @@ struct WardrobeView: View {
 	}
 
 }
+struct prossceSelector: View {
+	@Environment(\.managedObjectContext) var moc
+	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClotheses: FetchedResults<MyClothes>
+	@State var level:Int = -1
+	@State var temperature:Int = -1
+	@State var bleach:Int = -1
+	let ph:CGFloat = 80
+	@State var shouldPresentlLevelSheet = false
+	var body: some View{
+		NavigationView{
+		VStack{
+			List{
+				ForEach(myClotheses, id: \.id){ myClothes in
+					prossceList(level: self.$level, temperature: self.$temperature, bleach: self.$bleach, tagProcess: self.getProcess(clothes: myClothes), clothes: myClothes)
+				}
+			}
+			
+			Spacer()
+			HStack{
+				Spacer()
+				VStack{
+					Text("洗程")
+					Picker(selection: self.$level, label: Text("洗程")){
+						Text("請選擇洗程").tag(-1)
+						Text("手洗").tag(0)
+						Text("超柔洗").tag(1)
+						Text("柔洗").tag(2)
+						Text("一般").tag(3)
+						
+					}.labelsHidden().frame(width: 120,height:ph).clipped()
+					
+				}
+				Spacer()
+				VStack{
+					Text("溫度")
+					if level == 3{
+						Picker(selection: self.$temperature, label: Text("溫度")){
+							Text("請選擇溫度").tag(-1)
+							Text("30").tag(30)
+							Text("40").tag(40)
+							Text("50").tag(50)
+							Text("60").tag(60)
+							Text("70").tag(70)
+							Text("95").tag(95)
+						}.labelsHidden().frame(width: 120,height:ph).clipped()
+					}
+					if level == 2{
+						Picker(selection: self.$temperature, label: Text("溫度")){
+							Text("請選擇溫度").tag(-1)
+							Text("30").tag(30)
+							Text("40").tag(40)
+							Text("50").tag(50)
+							Text("60").tag(60)
+						}.labelsHidden().frame(width: 120,height:ph).clipped()
+					}
+					if level == 1{
+						Picker(selection: self.$temperature, label: Text("溫度")){
+							Text("請選擇溫度").tag(-1)
+							Text("30").tag(30)
+							Text("40").tag(40)
+						}.labelsHidden().frame(width: 120,height:ph).clipped()
+					}
+					if level == 0{
+						Picker(selection: self.$temperature, label: Text("溫度")){
+							Text("40").tag(40)
+						}.labelsHidden().frame(width: 120,height:ph).clipped()
+					}
+					if level == -1{
+						Picker(selection: self.$temperature, label: Text("溫度")){
+							Text("請選擇溫度").tag(-1)
+						}.labelsHidden().frame(width: 120,height:ph).clipped()
+					}
+				}
+				Spacer()
+				VStack{
+					Text("漂白劑")
+					Picker(selection: self.$bleach, label: Text("")){
+						Text("請選擇漂白劑").tag(-1)
+						Text("不加漂白劑").tag(0)
+						Text("無氧漂白劑").tag(1)
+						Text("我不確定").tag(2)
+					}.labelsHidden().frame(width: 130,height:ph).clipped()
+					
+				}
+				Spacer()
+			}
+			}
+		}
+//		List{
+//			Button(action: {self.shouldPresentlLevelSheet = true}){
+//				HStack{
+//					if level == -1{
+//						Text("請選擇洗程")
+//					}
+//					if level == -0{
+//						Text("超柔洗")
+//					}
+//					if level == 1{
+//						Text("柔洗")
+//					}
+//					if level == 2{
+//						Text("一般")
+//					}
+//					if level == 3{
+//						Text("手洗")
+//					}
+//					Spacer()
+//				}
+				
+//			}.actionSheet(isPresented: self.$shouldPresentlLevelSheet) { () -> ActionSheet in
+//				ActionSheet(title: Text("請選擇洗程"), buttons: [ActionSheet.Button.default(Text("手洗"), action: {
+//					self.level = 3
+//				}), ActionSheet.Button.default(Text("一般"), action: {
+//					self.level = 2
+//				}), ActionSheet.Button.default(Text("柔洗"), action: {
+//					self.level = 1
+//				}), ActionSheet.Button.default(Text("超柔洗"), action: {
+//					self.level = 0
+//				}),ActionSheet.Button.cancel()])
+//			}
+//		}
+	}
+	func getProcess(clothes: MyClothes) -> washProcess {
+		TagDetail().process(wash: clothes.wash, bleach: clothes.bleach)
+	}
+}
 
+struct prossceList: View {
+	@Environment(\.managedObjectContext) var moc
+	@Binding var level:Int
+	@Binding var temperature:Int
+	@Binding var bleach:Int
+	@State var tagProcess:washProcess
+	@State var clothes: MyClothes
+	var body: some View{
+		
+		HStack{
+			if self.tagProcess.level >= self.level && self.tagProcess.temperature <= self.temperature && self.tagProcess.bleach >= self.bleach
+			{
+				NavigationLink(destination: ClothesDetialView(clothes: clothes).environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
+					if clothes.image != nil{
+						Image(uiImage:self.resizeImage(image: UIImage(data: clothes.image!))).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
+					
+				}else{
+					Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
+				}
+				VStack(alignment: .leading) {
+					Text(clothes.name!).font(.title)
+					Text(clothes.owner ?? "Mine").font(.subheadline).foregroundColor(Color.secondary)
+				}
+				}
+			}
+		}
+	}
+	func resizeImage(image: UIImage?) -> UIImage {
+		if image != nil{
+			let scale = 150 / image!.size.width
+			let newHeight = image!.size.height * scale
+		UIGraphicsBeginImageContext(CGSize(width: 150, height: newHeight))
+			image!.draw(in: CGRect(x: 0, y: 0, width: 150, height: newHeight))
+		let newImage = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+
+		return newImage!
+		}
+		return UIImage()
+	}
+}
 
 struct AddClothesView: View{
 	@Environment(\.managedObjectContext) var moc
