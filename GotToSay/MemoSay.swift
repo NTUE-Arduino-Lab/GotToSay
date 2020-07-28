@@ -185,9 +185,7 @@ struct NewMemo: View {
                 .font(.title)
                 .foregroundColor(.blue)
             
-            _TextField(title: "時間", text: $selectedTime)
-                .padding(5)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
+            _TextField(title: "時間", text: $selectedTime).padding(5).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1)).keyboardType(.numberPad)
 
 
         }
@@ -212,7 +210,7 @@ struct NewMemo: View {
         .padding()
         Button(action: {
             print(self.selectedMemo)
-            let new = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
+            let new = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:self.selectedTime)
             Memo.append(new)
             self.presentationMode.wrappedValue.dismiss()
         }) {
@@ -232,6 +230,8 @@ struct NewMemo: View {
         .padding(.horizontal, 30)
         }
         .padding()
+        .keyboardAdaptive()
+
     }
 }
 
@@ -342,12 +342,13 @@ struct Memolist: View {
         }
     }
     .padding()
+        
     .overlay(
         RoundedRectangle(cornerRadius: 20)
             .stroke(Color.blue.opacity(0.7), lineWidth: 4)
     )
 
-
+        .keyboardAdaptive()
     
     
     

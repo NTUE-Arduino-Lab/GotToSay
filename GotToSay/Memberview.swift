@@ -42,14 +42,14 @@ struct Memberview: View {
                     
                     HStack(alignment:.center){
                         if item.size == "洗衣機"{
-                        Image( "view_washingmachine_disable.png").foregroundColor(Color.blue).font(.title).padding()
+                        Image( "view_washingmachine_disable.png").foregroundColor(Color.blue).font(.title).padding(.trailing)
                         }else{
-                            Image( "view_dryer_disable.png").foregroundColor(Color.blue).font(.subheadline).padding()
+                            Image( "view_dryer_disable.png").foregroundColor(Color.blue).font(.subheadline).padding(.trailing)
                         }
 
                         VStack(alignment:.leading){
                             HStack{
-                                Text(item.comment)
+                                Text(item.comment).font(.subheadline)
                                 Text(item.Author).font(.subheadline).foregroundColor(.blue)    
                             }
                             HStack{
@@ -59,6 +59,7 @@ struct Memberview: View {
                                 }.font(.subheadline).foregroundColor(.gray)
                             
                             }
+            
                         Spacer()
                         Button(action: {
                             //資料控制
