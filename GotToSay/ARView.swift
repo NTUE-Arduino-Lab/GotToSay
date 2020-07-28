@@ -83,14 +83,21 @@ struct myController: UIViewControllerRepresentable {
 				let planeNode = SCNNode(geometry: plane)
 				planeNode.eulerAngles.x = -.pi/2
 				if imageName == "tagSisley"{
-					parent.presentationMode.wrappedValue.dismiss()
-					node.addChildNode(planeNode)
 					parent.washTag.wash = "GentleWashAtOrBelow30"
 					parent.washTag.bleach = "DoNotBleach"
 					parent.washTag.tumbleDry = "DoNotTumbleDry"
 					parent.washTag.dry = "LineDryInShade"
 					parent.washTag.iron = "IronAtLowTemperature"
 					parent.washTag.dryClean = "DoNotDryClean"
+					parent.presentationMode.wrappedValue.dismiss()
+				}
+				if imageName == "tagSky"{
+					parent.washTag.wash = "WashAtOrBelow30"
+					parent.washTag.bleach = "DoNotBleach"
+					parent.washTag.tumbleDry = "DoNotTumbleDry"
+					parent.washTag.iron = "DoNotIron"
+					parent.washTag.dryClean = "DoNotDryClean"
+					parent.presentationMode.wrappedValue.dismiss()
 				}
 			}
 		}

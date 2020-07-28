@@ -5,7 +5,7 @@
         <attribute name="dry" optional="YES" attributeType="String"/>
         <attribute name="dryClean" optional="YES" attributeType="String"/>
         <attribute name="hcs" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="iron" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
