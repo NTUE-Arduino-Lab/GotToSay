@@ -15,6 +15,11 @@ struct MapView: UIViewRepresentable {
     @ObservedObject var mapViewState: MapViewState    
     @Binding var annotations: [MKPointAnnotation]
     @Binding var text: String
+    
+    
+    @Binding var displayModal: Bool
+    @Binding  var displayName: String
+    @Binding  var displayAddress: String
 
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
@@ -33,7 +38,7 @@ struct MapView: UIViewRepresentable {
             view.removeAnnotations(view.annotations)
             view.addAnnotations(annotations)
         }
-        
+       // print(displayModal)
         // Set the map display region
         if var center = mapViewState.center {
             var region: MKCoordinateRegion
@@ -55,16 +60,20 @@ struct MapView: UIViewRepresentable {
         }
     }
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(self, displayModal: $displayModal,displayName:$displayName,displayAddress:$displayAddress)
     }
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
-        @State var displayModal: Bool = true
+        @Binding  var displayModal: Bool
+        @Binding  var displayName: String
+        @Binding  var displayAddress: String
 
         
-        init(_ parent: MapView) {
+        init(_ parent: MapView,displayModal:Binding<Bool>,displayName:Binding<String>,displayAddress:Binding<String>) {
             self.parent = parent
-
+            self._displayModal = displayModal
+             self._displayName = displayName
+             self._displayAddress = displayAddress
         }
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             parent.centerCoordinate = mapView.centerCoordinate
@@ -77,8 +86,6 @@ struct MapView: UIViewRepresentable {
             // attempt to find a cell we can recycle
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             //annotationView?.image = UIImage(named: "nav_map_blue")
-
-            //print(annotation.title as Any)
 
             if annotationView == nil {
                 annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
@@ -99,22 +106,21 @@ struct MapView: UIViewRepresentable {
             return annotationView
         }
             @objc func onClickDetailButton(_ sender: Any, forEvent event: UIEvent) {
-                displayModal = true
-                print(sender)
+                self.displayModal = true
             }
 
         func mapView(_ mapView: MKMapView,annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
           for loca in Memo {
             if view.annotation?.title == loca.from{
-            var accessoryView: UIView
-            let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            textView.text = loca.name+":  "+"\n"+loca.content
-            textView.isEditable = false
-            textView.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
-            textView.textColor = UIColor.blue
-            textView.layer.borderWidth = 0.5
-            textView.layer.cornerRadius = 5.0
+                var accessoryView: UIView
+                //不完整程式碼Memo.count
+                let count :Int = 5 - Memo.count
+                let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+                textView.text = loca.name+":  "+"\n"+loca.content+"\n\n\n使用人數："+String(Memo.count)+"\n剩餘台數："+String(count)
+                textView.isEditable = false
+                textView.font = UIFont(name: "Helvetica-Light", size: 13)
+                textView.layer.cornerRadius = 10.0
                 
             accessoryView = textView
             let widthConstraint = NSLayoutConstraint(item: accessoryView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)

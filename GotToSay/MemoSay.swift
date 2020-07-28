@@ -130,7 +130,7 @@ struct NewMemo: View {
 
     @State private var selectedName = "洗衣機"
     @State private var selectedSize = "大型"
-    @State private var selectedAge = ""
+    @State private var selectedTime = ""
     @State private var selectedMemo = "請幫我拿出來"
     var body: some View {
         
@@ -185,7 +185,7 @@ struct NewMemo: View {
                 .font(.title)
                 .foregroundColor(.blue)
             
-            _TextField(title: "時間", text: $selectedAge)
+            _TextField(title: "時間", text: $selectedTime)
                 .padding(5)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
 

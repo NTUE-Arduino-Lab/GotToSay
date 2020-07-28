@@ -29,18 +29,18 @@ struct LaundryM: Identifiable {
     var size: String
     var from: String
     var time: String
-    var kind:   Bool
+    var used:   Bool
 }
 
 #if DEBUG
 
 var WashingM : [LaundryM] = [
-    LaundryM(number:1,name: "我是第1台洗衣機", size: "Large", from: "逢甲洗衣店1",time:"goforward.90",kind:true),
-    LaundryM(number:2,name: "我是第2台洗衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:true),
-    LaundryM(number:3,name: "我是第3台洗衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:true),
-    LaundryM(number:4,name: "我是第1台烘衣機", size: "Large", from: "逢甲洗衣店1",time:"goforward.90",kind:false),
-    LaundryM(number:5,name: "我是第2台烘衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:false),
-    LaundryM(number:6,name: "我是第3台烘衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",kind:false),
+    LaundryM(number:1,name: "我是第1台洗衣機", size: "Large", from: "逢甲洗衣店1",time:"goforward.90",used:true),
+    LaundryM(number:2,name: "我是第2台洗衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",used:true),
+    LaundryM(number:3,name: "我是第3台洗衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",used:true),
+    LaundryM(number:4,name: "我是第1台烘衣機", size: "Large", from: "逢甲洗衣店1",time:"goforward.90",used:false),
+    LaundryM(number:5,name: "我是第2台烘衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",used:false),
+    LaundryM(number:6,name: "我是第3台烘衣機", size: "Small", from: "逢甲洗衣店1",time:"goforward.90",used:false),
 
 ]
 #endif
@@ -67,6 +67,7 @@ struct MemoInfo: Identifiable {
 var Memo : [MemoInfo] = [
     MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90"),
     MemoInfo(name: "謝小美", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第3台洗衣機", from: "逢甲洗衣店1",time:"goforward.90"),
+
 
 ]
 #endif

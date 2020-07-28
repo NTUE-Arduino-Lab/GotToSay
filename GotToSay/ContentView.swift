@@ -82,6 +82,10 @@ struct MapSearchView: View {
     @State private var show = true
 
     @State private var launName = ""
+    //控制地圖視圖
+    @State private var displayModal:Bool = false
+    @State  private var displayName: String = "逢甲洗衣店1"
+    @State  private var displayAddress: String = "台北市大安區和平東路二段118號"
     init(){
         locationFetcher.start()
     }
@@ -107,7 +111,7 @@ struct MapSearchView: View {
         
         ZStack(alignment: .top) {
 
-            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations, text: $messText)
+            MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations, text: $messText ,displayModal: $displayModal, displayName:$displayName,displayAddress:$displayAddress)
             .onAppear {
                 self.makepoint()
             }
@@ -128,7 +132,7 @@ struct MapSearchView: View {
                             
                             print(item.Name)})
                         {
-                        Image(systemName: "flag.fill")}
+                            Image(systemName: "flag.fill").foregroundColor(Color.blue)}
                         Text(item.Name)
                             .font(.subheadline)
                             .padding(.horizontal,10)
@@ -193,28 +197,40 @@ struct MapSearchView: View {
                 .cornerRadius(30)
             
                 }
+                //測試用得
                 HStack {
                     Spacer()
                     Button(action: {
+                        if self.displayModal{
+                            self.displayModal = false}
+                        else{
+                            self.displayModal = true
+                        }
+                        /*
                         let newLocation = MKPointAnnotation()
                         newLocation.coordinate = self.centerCoordinate
                         newLocation.title = "Example location"
                         self.locations.append(newLocation)
                         print("當前位置點：")
                         print(newLocation.coordinate)
+ */
                     }) {
                         Image(systemName: "plus")
                     }
                     .padding()
-                    .background(Color.black.opacity(0.75))
-                    .foregroundColor(.white)
-                    .font(.title)
-                        
+                    .background(Color.white.opacity(0.75))
+                    .foregroundColor(.blue)
+                    .font(.headline)
                     .clipShape(Circle())
-                    .hidden()
-                    
+                     .hidden()
+                        .sheet(isPresented: $displayModal) {
+                            //NewMemo(Name: self.launName)
+                            ToMemo(launname: self.displayName, launaddress: self.displayAddress)
+                    }
+                   // .hidden()
                     
                 }
+                
                 Spacer()
                 
             }
@@ -224,8 +240,7 @@ struct MapSearchView: View {
             
             }
             
-         .navigationBarHidden(true)
-         .navigationBarTitle("")
+         .navigationBarTitle (Text(""), displayMode: .inline)
     }
 }
 struct ToMemo: View {
