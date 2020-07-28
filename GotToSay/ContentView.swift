@@ -128,7 +128,7 @@ struct MapSearchView: View {
                             
                             print(item.Name)})
                         {
-                        Image(systemName: "flag.fill")}
+                            Image(systemName: "flag.fill").foregroundColor(Color.blue)}
                         Text(item.Name)
                             .font(.subheadline)
                             .padding(.horizontal,10)

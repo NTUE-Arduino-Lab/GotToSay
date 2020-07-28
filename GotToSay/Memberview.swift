@@ -50,10 +50,7 @@ struct Memberview: View {
                         VStack(alignment:.leading){
                             HStack{
                                 Text(item.comment)
-                                Text(item.Author).font(.subheadline).foregroundColor(.blue)
-                                
-                                
-                                
+                                Text(item.Author).font(.subheadline).foregroundColor(.blue)    
                             }
                             HStack{
                                 Text("From:")
@@ -64,6 +61,7 @@ struct Memberview: View {
                             }
                         Spacer()
                         Button(action: {
+                            //資料控制
                             self.laund = item.laundrynumber
                             self.comment = item.comment
                             let index = CommentI.firstIndex { (CommentI) -> Bool in
@@ -75,14 +73,38 @@ struct Memberview: View {
                             }else{
                                 self.role = "按讚"
                             }
-                            if self.showSecondView{
-                                self.showSecondView = false}
+                            //前往便條
+                            if self.arivememo{
+                                self.arivememo = false}
                             else{
-                                self.showSecondView = true
+                                self.arivememo = true
                             }
                          }) {
                             Image(systemName: "circle.grid.2x2.fill")
-                                
+
+                                .gesture(
+                                   // LongPressGesture(minimumDuration: 1.0)
+                                    TapGesture()
+                                        .onEnded({ _ in
+                                            //資料控制
+                                            self.laund = item.laundrynumber
+                                            self.comment = item.comment
+                                            let index = CommentI.firstIndex { (CommentI) -> Bool in
+                                               return CommentI.comment.hasPrefix(item.comment)
+                                            }
+                                            self.coun(index : index!)
+                                            if item.role{
+                                                self.role = "收回讚"
+                                            }else{
+                                                self.role = "按讚"
+                                            }
+                                            //前往actionbutton
+                                            if self.showSecondView{
+                                                self.showSecondView = false}
+                                            else{
+                                                self.showSecondView = true
+                                                }                                      })
+                                )
                                 .font(.title).foregroundColor(Color.blue.opacity(5))
                                 .actionSheet(isPresented: self.$showSecondView) { () -> ActionSheet in
                                     ActionSheet(title: Text("想做些什麼呢？"), buttons: [ActionSheet.Button.default(

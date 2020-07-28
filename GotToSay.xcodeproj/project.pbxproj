@@ -25,7 +25,6 @@
 		3C329D0024C1880D00B35E7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C329CFF24C1880D00B35E7F /* Preview Assets.xcassets */; };
 		3C329D0324C1880D00B35E7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C329D0124C1880D00B35E7F /* LaunchScreen.storyboard */; };
 		3C329D0B24C1899E00B35E7F /* DataRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329D0A24C1899E00B35E7F /* DataRoom.swift */; };
-		3C329D1124C18CCC00B35E7F /* appleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329D1024C18CCC00B35E7F /* appleTest.swift */; };
 		3C329D1A24C18FD400B35E7F /* Mapview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329D1824C18FD400B35E7F /* Mapview.swift */; };
 		3C329D1B24C18FD400B35E7F /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C329D1924C18FD400B35E7F /* Searchbar.swift */; };
 /* End PBXBuildFile section */
@@ -51,7 +50,6 @@
 		3C329D0224C1880D00B35E7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C329D0424C1880D00B35E7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C329D0A24C1899E00B35E7F /* DataRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRoom.swift; sourceTree = "<group>"; };
-		3C329D1024C18CCC00B35E7F /* appleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appleTest.swift; sourceTree = "<group>"; };
 		3C329D1824C18FD400B35E7F /* Mapview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapview.swift; sourceTree = "<group>"; };
 		3C329D1924C18FD400B35E7F /* Searchbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +88,6 @@
 				1011E9D324C564CB000D8512 /* Main.storyboard */,
 				1011E9D024C564CA000D8512 /* ViewController.swift */,
 				1011E9D424C564CB000D8512 /* WashTagInfo.swift */,
-				3C329D1024C18CCC00B35E7F /* appleTest.swift */,
 				3C329D1824C18FD400B35E7F /* Mapview.swift */,
 				3C329D0A24C1899E00B35E7F /* DataRoom.swift */,
 				10F6ED0524C9930600AE3EEC /* MemoSay.swift */,
@@ -203,7 +200,6 @@
 				18483FC324CE95A800A02020 /* Memberview.swift in Sources */,
 				1011E9D624C564CB000D8512 /* ARView.swift in Sources */,
 				10F6ED0424C98E4D00AE3EEC /* KeyBoardFix.swift in Sources */,
-				3C329D1124C18CCC00B35E7F /* appleTest.swift in Sources */,
 				3C329CF724C187FA00B35E7F /* AppDelegate.swift in Sources */,
 				3C329D1B24C18FD400B35E7F /* Searchbar.swift in Sources */,
 				3C329CF924C187FA00B35E7F /* SceneDelegate.swift in Sources */,
