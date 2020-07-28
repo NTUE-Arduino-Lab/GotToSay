@@ -11,7 +11,6 @@ import SwiftUI
 struct ShowTag: View {
 	@Binding var myTag:washTagInfo
 	var body: some View {
-		VStack{
 			List{
 				if myTag.wash != nil{
 					DetialView(input: myTag.wash!)
@@ -41,7 +40,6 @@ struct ShowTag: View {
 					DetialView(input: myTag.hcs!)
 				}
 			}
-		}
 	}
 }
 struct DetialView:View {
