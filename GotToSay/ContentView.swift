@@ -240,7 +240,6 @@ struct MapSearchView: View {
             
             }
             
-         .navigationBarHidden(true)
          .navigationBarTitle (Text(""), displayMode: .inline)
     }
 }
