@@ -64,6 +64,7 @@ struct MapView: UIViewRepresentable {
     }
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
+        var count = 0
         @Binding  var displayModal: Bool
         @Binding  var displayName: String
         @Binding  var displayAddress: String
@@ -106,7 +107,14 @@ struct MapView: UIViewRepresentable {
             return annotationView
         }
             @objc func onClickDetailButton(_ sender: Any, forEvent event: UIEvent) {
+                
+                if count >= 1{
                 self.displayModal = true
+                }
+                count = count+1
+                if count >= 2{
+                    count = 0
+                }
             }
 
         func mapView(_ mapView: MKMapView,annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
