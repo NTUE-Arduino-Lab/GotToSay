@@ -100,7 +100,7 @@ class TagDetail {
 			wp.temperature = -1
 		}
 		if wash == "WashSymbol"{
-			wp.level = 0
+			wp.level = 3
 			wp.temperature = 95
 		}
 		if wash == "WashAtOrBelow95"{

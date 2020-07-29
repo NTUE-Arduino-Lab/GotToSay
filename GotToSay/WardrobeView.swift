@@ -21,7 +21,7 @@ struct WardrobeView: View {
 							Image(uiImage:self.resizeImage(image: UIImage(data: myClothes.image!))).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
 						
 					}else{
-						Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
+							Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
 					}
 					VStack(alignment: .leading) {
 						Text(myClothes.name!).font(.title)
@@ -79,9 +79,9 @@ struct prossceSelector: View {
 		VStack{
 			List{
 				ForEach(myClotheses, id: \.id){ myClothes in
-					prossceList(level: self.$level, temperature: self.$temperature, bleach: self.$bleach, tagProcess: self.getProcess(clothes: myClothes), clothes: myClothes)
+					prossceList(level: self.$level, temperature: self.$temperature, bleach: self.$bleach, tagProcess: TagDetail().process(wash: myClothes.wash , bleach: myClothes.bleach), clothes: myClothes)
 				}
-			}
+			}//.listStyle(GroupedListStyle())
 			
 			Spacer()
 			HStack{
@@ -188,9 +188,9 @@ struct prossceSelector: View {
 //			}
 //		}
 	}
-	func getProcess(clothes: MyClothes) -> washProcess {
-		TagDetail().process(wash: clothes.wash, bleach: clothes.bleach)
-	}
+//	func getProcess(clothes: MyClothes) -> washProcess {
+//		return TagDetail().process(wash: clothes.wash, bleach: clothes.bleach)
+//	}
 }
 
 struct prossceList: View {
@@ -200,23 +200,25 @@ struct prossceList: View {
 	@Binding var bleach:Int
 	@State var tagProcess:washProcess
 	@State var clothes: MyClothes
+	@State var hide = true
 	var body: some View{
-		
-		HStack{
-			if self.tagProcess.level >= self.level && self.tagProcess.temperature <= self.temperature && self.tagProcess.bleach >= self.bleach
-			{
+		Group{
+			if self.tagProcess.level >= self.level && self.tagProcess.temperature >= self.temperature && self.tagProcess.bleach >= self.bleach{
 				NavigationLink(destination: ClothesDetialView(clothes: clothes).environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
 					if clothes.image != nil{
 						Image(uiImage:self.resizeImage(image: UIImage(data: clothes.image!))).resizable().scaledToFill().frame(width: 150.0, height: 150.0).clipShape(Circle())
-					
-				}else{
-					Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
+						
+					}else{
+						Image (systemName: "camera").padding().frame(width: 150.0, height: 150.0).clipShape(Circle())
+					}
+					VStack(alignment: .leading) {
+						Text(clothes.name!).font(.title)
+						Text(clothes.owner ?? "Mine").font(.subheadline).foregroundColor(Color.secondary)
+					}
 				}
-				VStack(alignment: .leading) {
-					Text(clothes.name!).font(.title)
-					Text(clothes.owner ?? "Mine").font(.subheadline).foregroundColor(Color.secondary)
-				}
-				}
+				
+			}else{
+				EmptyView()
 			}
 		}
 	}
