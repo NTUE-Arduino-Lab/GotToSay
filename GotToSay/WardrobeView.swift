@@ -12,7 +12,7 @@ struct WardrobeView: View {
 	@Environment(\.managedObjectContext) var moc
 	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClotheses: FetchedResults<MyClothes>
 	@State var addClothes = false
-	@State var prossce = false
+//	@State var prossce = false
 	var body: some View {
 		NavigationView{
 			List{
@@ -30,13 +30,12 @@ struct WardrobeView: View {
 					}
 				}.onDelete(perform: removeClothes)
 			}.navigationBarTitle(Text("我的衣櫃"),displayMode: .automatic)
-				.navigationBarItems(leading: Button(action: {self.prossce = true}){
+				.navigationBarItems(leading: NavigationLink(destination: prossceSelector().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
 					Text("一起洗")
 					}, trailing:  NavigationLink(destination: AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
 						Text("新增衣服")
 				})
-		}.sheet(isPresented: self.$prossce){
-			prossceSelector().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+		//}.sheet(isPresented: self.$prossce){prossceSelector().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
 		}
 	}
 	func removeClothes(at offsets: IndexSet){
@@ -76,7 +75,7 @@ struct prossceSelector: View {
 	let ph:CGFloat = 80
 	@State var shouldPresentlLevelSheet = false
 	var body: some View{
-		NavigationView{
+//		NavigationView{
 			VStack{
 				List{
 					ForEach(myClotheses, id: \.id){ myClothes in
@@ -164,10 +163,10 @@ struct prossceSelector: View {
 					}
 					Spacer()
 				}
-			}.navigationBarTitle(Text("哪些衣服可以一起洗呢")).navigationBarItems(trailing: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
-				Text("完成")
-			})
-		}
+			}.navigationBarTitle(Text("哪些衣服可以一起洗呢"))//.navigationBarItems(trailing: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+//				Text("完成")
+//			})
+//		}
 	}
 }
 struct prossceList: View {

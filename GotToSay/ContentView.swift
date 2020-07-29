@@ -15,9 +15,10 @@ struct ContentView: View {
     @State private var MemoInf = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
     @State private var launName = "逢甲洗衣店1"
     @State private var launAddress = "台北市大安區和平東路二段118號"
+	@State var selection = 0
     var body: some View {
         VStack {
-                TabView {
+			TabView(selection:self.$selection) {
                     NavigationView {
                     //視窗１
 
@@ -27,16 +28,16 @@ struct ContentView: View {
 
                         .tabItem {NavigationLink(destination: MapSearchView()) {
                                 Image("nav_map_blue")
-                                    .tag(0)
-                            }
+                                    
+                            }.tag(0)
                                 
                         }
                     Memberview()
                         .tabItem {
                             NavigationLink(destination: Memberview()) {
                                    // Image("nav_porfile_blue")}.tag(1)
-                                Image(systemName: "equal.square.fill").font(.title)}.tag(1)
-                            }
+                                Image(systemName: "equal.square.fill").font(.title)}
+                            }.tag(1)
                     /*
                     //視窗２
                     ToMemo(launname: launName, launaddress: launAddress)
@@ -51,8 +52,8 @@ struct ContentView: View {
                     WardrobeView()
                         .tabItem {
                             NavigationLink(destination: WardrobeView()) {
-                                    Image("nav_wardrobe_blue")}.tag(2)
-                            }
+                                    Image("nav_wardrobe_blue")}
+                            }.tag(2)
                     
             
                     }
