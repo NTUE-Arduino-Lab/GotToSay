@@ -207,7 +207,7 @@ struct MapSearchView: View {
                             self.displayModal = true
                         }
                         /*
-                        let newLocation = MKPointAnnotation()
+						let newLocation = MKPointAnnotation()
                         newLocation.coordinate = self.centerCoordinate
                         newLocation.title = "Example location"
                         self.locations.append(newLocation)
