@@ -68,6 +68,7 @@ struct WardrobeView: View {
 }
 struct prossceSelector: View {
 	@Environment(\.managedObjectContext) var moc
+	@Environment(\.presentationMode) var presentationMode
 	@FetchRequest(entity: MyClothes.entity(), sortDescriptors: []) var myClotheses: FetchedResults<MyClothes>
 	@State var level:Int = -1
 	@State var temperature:Int = -1
@@ -76,123 +77,99 @@ struct prossceSelector: View {
 	@State var shouldPresentlLevelSheet = false
 	var body: some View{
 		NavigationView{
-		VStack{
-			List{
-				ForEach(myClotheses, id: \.id){ myClothes in
-					prossceList(level: self.$level, temperature: self.$temperature, bleach: self.$bleach, tagProcess: TagDetail().process(wash: myClothes.wash , bleach: myClothes.bleach), clothes: myClothes)
-				}
-			}//.listStyle(GroupedListStyle())
-			
-			Spacer()
-			HStack{
-				Spacer()
-				VStack{
-					Text("洗程")
-					Picker(selection: self.$level, label: Text("洗程")){
-						Text("請選擇洗程").tag(-1)
-						Text("手洗").tag(0)
-						Text("超柔洗").tag(1)
-						Text("柔洗").tag(2)
-						Text("一般").tag(3)
-						
-					}.labelsHidden().frame(width: 120,height:ph).clipped()
-					
-				}
-				Spacer()
-				VStack{
-					Text("溫度")
-					if level == 3{
-						Picker(selection: self.$temperature, label: Text("溫度")){
-							Text("請選擇溫度").tag(-1)
-							Text("30").tag(30)
-							Text("40").tag(40)
-							Text("50").tag(50)
-							Text("60").tag(60)
-							Text("70").tag(70)
-							Text("95").tag(95)
-						}.labelsHidden().frame(width: 120,height:ph).clipped()
+			VStack{
+				List{
+					ForEach(myClotheses, id: \.id){ myClothes in
+						prossceList(level: self.$level, temperature: self.$temperature, bleach: self.$bleach, tagProcess: TagDetail().process(wash: myClothes.wash , bleach: myClothes.bleach), clothes: myClothes)
 					}
-					if level == 2{
-						Picker(selection: self.$temperature, label: Text("溫度")){
-							Text("請選擇溫度").tag(-1)
-							Text("30").tag(30)
-							Text("40").tag(40)
-							Text("50").tag(50)
-							Text("60").tag(60)
-						}.labelsHidden().frame(width: 120,height:ph).clipped()
-					}
-					if level == 1{
-						Picker(selection: self.$temperature, label: Text("溫度")){
-							Text("請選擇溫度").tag(-1)
-							Text("30").tag(30)
-							Text("40").tag(40)
-						}.labelsHidden().frame(width: 120,height:ph).clipped()
-					}
-					if level == 0{
-						Picker(selection: self.$temperature, label: Text("溫度")){
-							Text("40").tag(40)
-						}.labelsHidden().frame(width: 120,height:ph).clipped()
-					}
-					if level == -1{
-						Picker(selection: self.$temperature, label: Text("溫度")){
-							Text("請選擇溫度").tag(-1)
-						}.labelsHidden().frame(width: 120,height:ph).clipped()
-					}
-				}
-				Spacer()
-				VStack{
-					Text("漂白劑")
-					Picker(selection: self.$bleach, label: Text("")){
-						Text("請選擇漂白劑").tag(-1)
-						Text("不加漂白劑").tag(0)
-						Text("無氧漂白劑").tag(1)
-						Text("我不確定").tag(2)
-					}.labelsHidden().frame(width: 130,height:ph).clipped()
-					
-				}
-				Spacer()
-			}
-			}
-		}
-//		List{
-//			Button(action: {self.shouldPresentlLevelSheet = true}){
-//				HStack{
-//					if level == -1{
-//						Text("請選擇洗程")
-//					}
-//					if level == -0{
-//						Text("超柔洗")
-//					}
-//					if level == 1{
-//						Text("柔洗")
-//					}
-//					if level == 2{
-//						Text("一般")
-//					}
-//					if level == 3{
-//						Text("手洗")
-//					}
-//					Spacer()
-//				}
+				}//.listStyle(GroupedListStyle())
 				
-//			}.actionSheet(isPresented: self.$shouldPresentlLevelSheet) { () -> ActionSheet in
-//				ActionSheet(title: Text("請選擇洗程"), buttons: [ActionSheet.Button.default(Text("手洗"), action: {
-//					self.level = 3
-//				}), ActionSheet.Button.default(Text("一般"), action: {
-//					self.level = 2
-//				}), ActionSheet.Button.default(Text("柔洗"), action: {
-//					self.level = 1
-//				}), ActionSheet.Button.default(Text("超柔洗"), action: {
-//					self.level = 0
-//				}),ActionSheet.Button.cancel()])
-//			}
-//		}
+				Spacer()
+				HStack{
+					Spacer()
+					VStack{
+						Text("洗程")
+						Picker(selection: self.$level, label: Text("洗程")){
+							Text("請選擇洗程").tag(-1)
+							Text("手洗").tag(0)
+							Text("超柔洗").tag(1)
+							Text("柔洗").tag(2)
+							Text("一般").tag(3)
+							
+						}.labelsHidden().frame(width: 120,height:ph).clipped()
+						
+					}
+					Spacer()
+					VStack{
+						Text("溫度")
+						if level == 3{
+							Picker(selection: self.$temperature, label: Text("溫度")){
+								Text("請選擇溫度").tag(-1)
+								Text("30").tag(30)
+								Text("40").tag(40)
+								Text("50").tag(50)
+								Text("60").tag(60)
+								Text("70").tag(70)
+								Text("95").tag(95)
+							}.labelsHidden().frame(width: 120,height:ph).clipped()					}
+						if level == 2{
+							Picker(selection: self.$temperature, label: Text("溫度")){
+								Text("請選擇溫度").tag(-1)
+								Text("30").tag(30)
+								Text("40").tag(40)
+								Text("50").tag(50)
+								Text("60").tag(60)
+							}.labelsHidden().frame(width: 120,height:ph).clipped().onAppear(){
+								if self.temperature > 60{
+									self.temperature = 60
+								}
+							}
+						}
+						if level == 1{
+							Picker(selection: self.$temperature, label: Text("溫度")){
+								Text("請選擇溫度").tag(-1)
+								Text("30").tag(30)
+								Text("40").tag(40)
+							}.labelsHidden().frame(width: 120,height:ph).clipped().onAppear(){
+								if self.temperature > 40{
+									self.temperature = 40
+								}
+							}
+						}
+						if level == 0{
+							Picker(selection: self.$temperature, label: Text("溫度")){
+								Text("請選擇溫度").tag(-1)
+							}.labelsHidden().frame(width: 120,height:ph).clipped().onAppear(){
+								self.temperature = -1
+							}.disabled(true).colorMultiply(.secondary)
+						}
+						if level == -1{
+							Picker(selection: self.$temperature, label: Text("溫度")){
+								Text("請選擇溫度").tag(-1)
+							}.labelsHidden().frame(width: 120,height:ph).clipped().onAppear(){
+								self.temperature = -1
+							}
+						}
+					}
+					Spacer()
+					VStack{
+						Text("漂白劑")
+						Picker(selection: self.$bleach, label: Text("")){
+							Text("請選擇漂白劑").tag(-1)
+							Text("不加漂白劑").tag(0)
+							Text("無氧漂白劑").tag(1)
+							Text("我不確定").tag(2)
+						}.labelsHidden().frame(width: 130,height:ph).clipped()
+						
+					}
+					Spacer()
+				}
+			}.navigationBarTitle(Text("哪些衣服可以一起洗呢")).navigationBarItems(trailing: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+				Text("完成")
+			})
+		}
 	}
-//	func getProcess(clothes: MyClothes) -> washProcess {
-//		return TagDetail().process(wash: clothes.wash, bleach: clothes.bleach)
-//	}
 }
-
 struct prossceList: View {
 	@Environment(\.managedObjectContext) var moc
 	@Binding var level:Int
