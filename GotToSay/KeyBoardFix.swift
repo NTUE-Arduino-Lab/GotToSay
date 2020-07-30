@@ -107,14 +107,16 @@ struct _TextField: UIViewRepresentable {
 
     private let title: String?
     @Binding var text: String
+	private let changeColor: Bool
     let onEditingChanged: (Bool) -> Void
     let onCommit: () -> Void
 	
     let textField = UITextField()
 	
-    init(title: String?, text: Binding<String>, onEditingChanged: @escaping (Bool) -> Void = { _ in }, onCommit: @escaping () -> Void = {}) {
+	init(title: String?, text: Binding<String>, changeColor: Bool = false,onEditingChanged: @escaping (Bool) -> Void = { _ in }, onCommit: @escaping () -> Void = {}) {
         self.title = title
         self._text = text
+		self.changeColor = changeColor
         self.onEditingChanged = onEditingChanged
         self.onCommit = onCommit
     }
@@ -129,8 +131,14 @@ struct _TextField: UIViewRepresentable {
 		let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		toolBar.items = [spacer, doneButton]
         toolBar.setItems([spacer, doneButton], animated: true)
-		textField.placeholder = title
+
+		textField.attributedPlaceholder = NSAttributedString(string: title ?? "", attributes:
+		[NSAttributedString.Key.foregroundColor: UIColor.gray])
+		
 		textField.inputAccessoryView = toolBar
+		if changeColor{
+			textField.textColor = UIColor.black
+		}
 		textField.delegate = context.coordinator as? UITextFieldDelegate
         return textField
     }

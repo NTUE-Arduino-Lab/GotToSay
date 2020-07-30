@@ -19,55 +19,28 @@ struct ContentView: View {
     var body: some View {
         VStack {
 			TabView(selection:self.$selection) {
-                    NavigationView {
-                    //視窗１
-
-                        MapSearchView()
-
-                    }
-
-                        .tabItem {NavigationLink(destination: MapSearchView()) {
-                                Image("nav_map_blue")
-                                    
-                            }.tag(0)
-                                
-                        }
-                    Memberview()
-                        .tabItem {
-                            NavigationLink(destination: Memberview()) {
-                                   // Image("nav_porfile_blue")}.tag(1)
-                                Image(systemName: "equal.square.fill").font(.title)}
-                            }.tag(1)
-                    /*
-                    //視窗２
-                    ToMemo(launname: launName, launaddress: launAddress)
-                    .tabItem {
-                        NavigationLink(destination: ToMemo(launname: launName, launaddress: launAddress))
-                                {
-                                    Image(systemName: "equal.square.fill").font(.title)}.tag(1)
-
-                    }
- */
-                    //視窗３
-                    WardrobeView()
-                        .tabItem {
-                            NavigationLink(destination: WardrobeView()) {
-                                    Image("nav_wardrobe_blue")}
-                            }.tag(2)
-                    
-            
-                    }
-            
-            
-            
-            
-
-        }
-            }
-    }
+				//tab 0
+				NavigationView {
+					MapSearchView()
+				}.tabItem {
+					Image("nav_map_blue").renderingMode(.template)
+				}.tag(0)
+				//tab 1
+				Memberview().tabItem {
+					Image("nav_porfile_blue").renderingMode(.template)
+				}.tag(1)
+				//tab 2
+				WardrobeView().tabItem {
+					Image("nav_wardrobe_blue").renderingMode(.template)//}
+				}.tag(2)
+			}
+		}
+	}
+}
 class  Located: ObservableObject {
     @Published var items = [LaundryInfo]()
 }
+
 
 struct MapSearchView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
@@ -78,7 +51,7 @@ struct MapSearchView: View {
 
     @State private var searchText = ""
     @State private var isEditing = false
-    
+
     @State private var messText = ""
     @State private var show = true
 
@@ -103,7 +76,7 @@ struct MapSearchView: View {
             if Laundrys.Name == loca.from{
                 self.messText = loca.content
             }
-                
+
             }
             }
 
@@ -113,24 +86,22 @@ struct MapSearchView: View {
         ZStack(alignment: .top) {
 
             MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations, text: $messText ,displayModal: $displayModal, displayName:$displayName,displayAddress:$displayAddress)
-            .onAppear {
-                self.makepoint()
-            }
-            
+            .onAppear(perform: makepoint)
+
             VStack {
                 SearchBar(text: $searchText)
                     .frame(minWidth: 0, maxWidth: 260)
                     .padding(.top, 7.0)
-                if searchText.isEmpty{
-                    
-                }else{
 
-                HStack {
+                if searchText.isEmpty{
+
+                }else{
+					HStack {
                         List(info.filter({ searchText.isEmpty ? true : $0.Name.contains(searchText) })) { item in
                             NavigationLink(destination: ToMemo(launname: item.Name, launaddress: item.Address)) {
                         Button(action: {
-                            
-                            
+
+
                             print(item.Name)})
                         {
                             Image(systemName: "flag.fill").foregroundColor(Color.blue)}
@@ -144,37 +115,37 @@ struct MapSearchView: View {
                         .shadow(radius: 3)
                         .border(Color.black.opacity(0.4), width: 1)
 
-                    }
-                    
-                    
+					}
+											
                 }
-            }
+				Spacer()
 
+            }.keyboardAdaptive()
 
                 .opacity(show ? 1 : 0)
-            
+
             VStack{
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        if self.show {
-                            self.show = false
-                        }else{
-                            self.show = true
-                        }
-                        print("我是對話框")
-                    }) {
-                        Image(systemName: "lightbulb")
-                    }
-                    .padding()
-                    .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
-                    .background(Color.white.opacity(0.75))
-                    .foregroundColor(.blue)
-                    .font(.headline)
-                    .cornerRadius(30)
-                    
-                    
-                }
+//                HStack {
+//                    Spacer()
+//                    Button(action: {
+//                        if self.show {
+//                            self.show = false
+//                        }else{
+//                            self.show = true
+//                        }
+//                        print("我是對話框")
+//                    }) {
+//                        Image(systemName: "lightbulb")
+//                    }
+//                    .padding()
+//                    .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
+//                    .background(Color.white.opacity(0.75))
+//                    .foregroundColor(.blue)
+//                    .font(.headline)
+//                    .cornerRadius(30)
+//
+//
+//                }
                 HStack{
                  Spacer()
                  Button(action: {
@@ -183,21 +154,21 @@ struct MapSearchView: View {
                     let location = self.locationFetcher.lastKnownLocation
                     print(location as Any)
                      self.mapViewState.center = location
-                    
+
 
                  }
-                    
+
                  ) {
                     Image(systemName: "location")
                  }
-                .padding()
+				
                 .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
                 .background(Color.white.opacity(0.75))
                 .foregroundColor(.blue)
                 .font(.headline)
                 .cornerRadius(30)
-            
-                }
+
+                }.padding([.top,.trailing])
                 //測試用得
                 HStack {
                     Spacer()
@@ -229,19 +200,19 @@ struct MapSearchView: View {
                             ToMemo(launname: self.displayName, launaddress: self.displayAddress)
                     }
                    // .hidden()
-                    
+
                 }
-                
+
                 Spacer()
-                
+
             }
 
-                    
-                
-            
+
+
+
             }
-            
-         .navigationBarTitle (Text(""), displayMode: .inline)
+
+         .navigationBarTitle (Text("洗衣地圖"), displayMode: .inline)
     }
 }
 struct ToMemo: View {
