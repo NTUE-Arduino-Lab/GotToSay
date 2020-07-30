@@ -35,7 +35,7 @@ struct WardrobeView: View {
 					}, trailing:  NavigationLink(destination: AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)){
 						Text("新增衣服")
 				})
-		//}.sheet(isPresented: self.$prossce){prossceSelector().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+		}.sheet(isPresented: self.$addClothes){AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
 		}
 	}
 	func removeClothes(at offsets: IndexSet){
@@ -285,14 +285,16 @@ struct AddClothesView: View{
 					}), ActionSheet.Button.default(Text("自己編輯"), action: {
 						self.shouldPresentTagEdit = true
 					}), ActionSheet.Button.cancel()])
-			}.sheet(isPresented: self.$shouldPresentTagEdit){
-			if self.shouldPresentTagScan{
-				myController(washTag: self.$myTag)
-			}else{
-				TagEditor(myTag: self.$myTag)
+			}.sheet(isPresented: self.$shouldPresentTagEdit,onDismiss: {self.shouldPresentTagScan = false
+				self.shouldPresentTagEdit = false
+			}){
+				if self.shouldPresentTagScan{
+					myController(washTag: self.$myTag)
+				}else{
+					TagEditor(myTag: self.$myTag)
 
-			}
-					}.navigationBarTitle("增加衣服",displayMode: .automatic).navigationBarItems(trailing: Button(action: {
+				}
+			}.navigationBarTitle("增加衣服",displayMode: .automatic).navigationBarItems(trailing: Button(action: {
 					let chooseName = self.name
 					let chooseOwner = self.owner
 					let myClothes = MyClothes(context: self.moc)
@@ -332,7 +334,7 @@ struct AddClothesView: View{
 
 	func loadImage(){
 		guard let inputImage = inputImage else {return}
-		var reSize:UIImage = self.resizeImage(image: inputImage)
+		let reSize:UIImage = self.resizeImage(image: inputImage)
 		image = Image(uiImage: reSize)
 	}
 	//	func selector(list:[String]) -> [ActionSheet.Button] {
