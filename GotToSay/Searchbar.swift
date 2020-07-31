@@ -8,12 +8,13 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             //textfieldbug
-			_TextField(title: "地點", text: $text, changeColor: true)
+			_TextField(title: "地點", text: $text, changeColor: self.colorScheme == .dark ? true : false)
                 .padding(7)
                 .padding(.horizontal, 25)
 				.background(Color.white)
                 .cornerRadius(8)
 				.frame(width: 200, height: 40)
+				.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2))
 				.overlay(
                     HStack {
                         Spacer()
