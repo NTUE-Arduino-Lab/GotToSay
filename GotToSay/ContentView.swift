@@ -12,7 +12,9 @@ import Combine
 
 
 struct ContentView: View {
-
+    init(){
+        UITabBar.appearance().backgroundColor = UIColor.gray
+    }
 	@State var selection = 0
     var body: some View {
         VStack {
@@ -53,8 +55,8 @@ struct MapSearchView: View {
     @State private var launName = ""
     //控制地圖視圖
     @State private var displayModal:Bool = false
-    @State  private var displayName: String = "逢甲洗衣店1"
-    @State  private var displayAddress: String = "台北市大安區和平東路二段118號"
+    @State  private var displayName: String = "1逢甲洗衣店"
+    @State  private var displayAddress: String = "台中市西屯區文華路100號"
     init(){
         locationFetcher.start()
     }
@@ -78,15 +80,14 @@ struct MapSearchView: View {
     }
     var body: some View {
         
-        ZStack(alignment: .top) {
+        ZStack {
 
             MapView(centerCoordinate: $centerCoordinate, mapViewState: mapViewState, annotations: $locations, text: $messText ,displayModal: $displayModal, displayName:$displayName,displayAddress:$displayAddress)
             .onAppear(perform: makepoint)
 
             VStack {
                 SearchBar(text: $searchText)
-                    .frame(minWidth: 0, maxWidth: 260)
-                    .padding(.top, 7.0)
+                    .padding(.top, 5.0)
 
                 if searchText.isEmpty{
 
@@ -141,7 +142,39 @@ struct MapSearchView: View {
 //
 //
 //                }
- */               HStack{
+                 
+ */             Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            if self.displayModal{
+                                self.displayModal = false}
+                            else{
+                                self.displayModal = true
+                            }
+                            /*
+                            let newLocation = MKPointAnnotation()
+                            newLocation.coordinate = self.centerCoordinate
+                            newLocation.title = "Example location"
+                            self.locations.append(newLocation)
+                            print("當前位置點：")
+                            print(newLocation.coordinate)
+                */
+                        }) {
+                            Image(systemName: "plus")
+                    }
+                        .padding()
+                        .background(Color.white.opacity(0.75))
+                    .foregroundColor(.blue)
+                        .font(.headline)
+                        .clipShape(Circle())
+                        .hidden()
+                        .sheet(isPresented: $displayModal) {
+                            //NewMemo(Name: self.launName)
+                            ToMemo(launname: self.displayName, launaddress: self.displayAddress)
+                            }
+                        }
+                HStack{
                  Spacer()
                  Button(action: {
                     print("回到座標點")
@@ -155,52 +188,24 @@ struct MapSearchView: View {
                  }
 				
                 .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
-                 .background(Color.white.opacity(0.8))
+                 .background(Color.white)
                 .foregroundColor(.blue)
                 .font(.headline)
                     .clipShape(Circle())
 
                 .overlay(
                     RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.gray.opacity(0.8), lineWidth: 2)
+                        .stroke(Color.black.opacity(0.4), lineWidth: 2)
                 )
                 }.padding([.top,.trailing])
                 //測試用得
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        if self.displayModal{
-                            self.displayModal = false}
-                        else{
-                            self.displayModal = true
-                        }
-                        /*
-						let newLocation = MKPointAnnotation()
-                        newLocation.coordinate = self.centerCoordinate
-                        newLocation.title = "Example location"
-                        self.locations.append(newLocation)
-                        print("當前位置點：")
-                        print(newLocation.coordinate)
- */
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                    .padding()
-                    .background(Color.white.opacity(0.75))
-                    .foregroundColor(.blue)
-                    .font(.headline)
-                    .clipShape(Circle())
-                     .hidden()
-                        .sheet(isPresented: $displayModal) {
-                            //NewMemo(Name: self.launName)
-                            ToMemo(launname: self.displayName, launaddress: self.displayAddress)
-                    }
-                }
-                Spacer()
+
+                    .padding(.bottom)
+
              }
         }
-
-         .navigationBarTitle (Text("洗衣地圖"), displayMode: .inline)
+        //.navigationBarHidden(false)
+            .navigationBarTitle (Text("洗衣地圖"), displayMode: .inline)
     }
 }
 struct ToMemo: View {
@@ -239,7 +244,8 @@ struct ToMemo: View {
             
         }.padding()
     }
-    .navigationBarTitle (Text(""), displayMode: .inline)
+    .navigationBarHidden(true)
+    .navigationBarTitle (Text(""),displayMode: .inline)
 
     }
 }
