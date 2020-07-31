@@ -11,7 +11,7 @@ import SwiftUI
 struct Memberview: View {
     @State private var showSecondView = false
     @State private var arivememo = false
-    
+    @Environment(\.colorScheme) var colorScheme
     @State private var member :String = MemberI[0].name
     @State private var laund :String = ""
     @State private var role :String = ""
@@ -30,13 +30,23 @@ struct Memberview: View {
     func delet(){
         CommentI.remove(at: self.count)
     }
+
+
+
     var body: some View {
 
             VStack{
-                VStack{
-                    Image(systemName: "person.fill")
-                    Text(MemberI[0].name)
-                }.foregroundColor(Color.black).font(.title).padding()
+                 HStack{
+                    Spacer()
+                    VStack{
+                        Image(systemName: "person.fill")
+                        Text(MemberI[0].name)
+                    }.padding(20)
+                    Spacer()
+                }.foregroundColor(Color.white).font(.title).background(colorScheme == .dark ? Color.orange : Color(red: 153/255, green: 204/255, blue: 255/255))
+                    .cornerRadius(30, corners: [.topLeft, .topRight])
+                .shadow(radius: 3)
+                
             //list 人的留言
                 List(CommentI.filter({ member.isEmpty ? true : $0.name.contains(member) })) { item in
                     
@@ -49,7 +59,7 @@ struct Memberview: View {
 
                         VStack(alignment:.leading){
                             HStack{
-                                Text(item.comment).font(.subheadline)
+                                Text(item.comment).font(.headline)
                                 Text(item.Author).font(.subheadline).foregroundColor(.blue)    
                             }
                             HStack{
@@ -131,22 +141,35 @@ struct Memberview: View {
                                 Memolist(name:self.member,Laundm:item.laundrynumber)}
                              }
                             */
-                            
-                            
-                            
-                            
-                            
-                            
                              }
                     }
-                }.padding()
-            }.background(Color.blue.opacity(0.3)).cornerRadius(20).padding()
-
+                }
+            }//.background(colorScheme == .dark ? Color.orange : Color(red: 153/255, green: 204/255, blue: 255/255))
+                .overlay(
+    RoundedRectangle(cornerRadius: 30)
+        .stroke(Color.gray.opacity(0.8), lineWidth: 2)
+).padding()
     }
 }
 
 struct Memberview_Previews: PreviewProvider {
     static var previews: some View {
         Memberview()
+    }
+}
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
 }

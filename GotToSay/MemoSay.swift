@@ -75,12 +75,12 @@ struct BarView: View {
             Spacer()
         VStack(alignment: .leading) {
             Text(name)
-                .font(.headline)
-                .foregroundColor(Color.blue)
+                .font(.title)
+                .foregroundColor(Color.black)
 
             Text(address)
-                .font(.subheadline)
-            .foregroundColor(Color.gray)
+                .font(.headline)
+            .foregroundColor(Color.white)
                 }
             Spacer()
             Button(action: {}) {
@@ -91,8 +91,8 @@ struct BarView: View {
             
         }
             
-        .padding()
-        .background(Color(hue: 0.454, saturation: 0.898, brightness: 0.918,opacity: 0.75))
+        .padding(10)
+        .background(Color(red: 153/255, green: 204/255, blue: 255/255))
         
         
     }
@@ -155,9 +155,9 @@ struct NewMemo: View {
                    }
                 }
                  .pickerStyle(DefaultPickerStyle())
-                .frame(width: 250, height: 40)
+                    .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 40)
             }
-            }
+            }.frame(minWidth: 0, maxWidth: 300)
             
        
             VStack(alignment:.leading){
@@ -177,7 +177,7 @@ struct NewMemo: View {
                      
                      .pickerStyle(SegmentedPickerStyle())
                 }
-            }
+            }.frame(minWidth: 0, maxWidth: 300)
 
         VStack(alignment:.leading){
             Text("時間")
@@ -188,7 +188,7 @@ struct NewMemo: View {
             _TextField(title: "時間", text: $selectedTime).padding(5).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1)).keyboardType(.numberPad)
 
 
-        }
+        }.frame(minWidth: 0, maxWidth: 300)
 
         VStack(alignment:.leading){
             Text("提醒")
@@ -206,7 +206,7 @@ struct NewMemo: View {
              
 
 
-        }
+        }.frame(minWidth: 0, maxWidth: 300)
         .padding()
         Button(action: {
             print(self.selectedMemo)
@@ -229,8 +229,9 @@ struct NewMemo: View {
         .cornerRadius(20)
         .padding(.horizontal, 30)
         }
-        .padding()
         .keyboardAdaptive()
+        .padding()
+
 
     }
 }
@@ -347,13 +348,17 @@ struct Memolist: View {
         RoundedRectangle(cornerRadius: 20)
             .stroke(Color.blue.opacity(0.7), lineWidth: 4)
     )
+    .keyboardAdaptive()
+    .padding()
+    
+    
+    
+    
+    }
+}
 
-        .keyboardAdaptive()
-    
-    
-    
-    
-    
-    
+struct MemoSay_Previews: PreviewProvider {
+    static var previews: some View {
+        NewMemo(Name: "")
     }
 }
