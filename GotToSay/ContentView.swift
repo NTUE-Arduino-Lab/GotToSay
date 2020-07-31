@@ -244,7 +244,7 @@ struct ToMemo: View {
             
         }.padding()
     }
-    .navigationBarHidden(true)
+   // .navigationBarHidden(true)
     .navigationBarTitle (Text(""),displayMode: .inline)
 
     }

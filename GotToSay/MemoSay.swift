@@ -115,6 +115,7 @@ struct Role3 {
 }
 struct NewMemo: View {
     @State  var Name:String
+    
     var roles = [
         Role(name: "洗衣機", gender: "1",image:"view_washingmachine_disable.png"),
          Role(name: "烘乾機", gender: "2",image:"view_dryer_disable.png"),
@@ -210,7 +211,7 @@ struct NewMemo: View {
         .padding()
         Button(action: {
             print(self.selectedMemo)
-            let new = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:self.selectedTime)
+            let new = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "1逢甲洗衣店",time:self.selectedTime)
             Memo.append(new)
             self.presentationMode.wrappedValue.dismiss()
         }) {
@@ -307,7 +308,7 @@ struct Memolist: View {
             Button(action: {
                 if self.inputtext .isEmpty{}
                 else{
-                    let new = CommentInfo(name: self.name,laundrynumber: self.Laundm, Author:"王小花", size: "洗衣機",comment: self.inputtext,role:self.actionbutton)
+                    let new = CommentInfo(name: self.name,laundrynumber: self.Laundm, Author:"王小花", size: "洗衣機",comment: self.inputtext,role:self.actionbutton, from: "1逢甲洗衣店")
                     CommentI.append(new)
                     self.presentationMode.wrappedValue.dismiss()
                 }

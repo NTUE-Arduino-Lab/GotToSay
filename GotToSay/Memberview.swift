@@ -64,7 +64,7 @@ struct Memberview: View {
                             }
                             HStack{
                                 Text("From:")
-                                Text(item.laundrynumber)
+                                Text(item.from)
                              //   Text(CommentI.name.contains(member).count)
                                 }.font(.subheadline).foregroundColor(.gray)
                             

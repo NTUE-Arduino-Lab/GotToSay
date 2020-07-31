@@ -82,16 +82,17 @@ struct CommentInfo: Identifiable {
     var size: String
     var comment: String
     var role: Bool
+    var from: String
 }
 
 
 #if DEBUG
 
 var CommentI : [CommentInfo] = [
-    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小毛孩",size:"洗衣機",comment: "這樣會洗壞",role:true),
-    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小屁孩",size:"洗衣機",comment: "你的衣服好美",role:false),
-    CommentInfo(name: "謝小美",laundrynumber: "我是第3台洗衣機", Author:"西瓜",size:"洗衣機",comment: "衣服不能這樣洗",role:true),
-    CommentInfo(name: "王小花",laundrynumber: "我是第3台烘衣機", Author:"謝小美",size:"烘衣機",comment: "衣服不能這樣洗",role:false),
+    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小毛孩",size:"洗衣機",comment: "這樣會洗壞",role:true, from: "1逢甲洗衣店"),
+    CommentInfo(name: "王小花",laundrynumber: "我是第1台洗衣機", Author:"小屁孩",size:"洗衣機",comment: "你的衣服好美",role:false, from: "1逢甲洗衣店"),
+    CommentInfo(name: "謝小美",laundrynumber: "我是第3台洗衣機", Author:"西瓜",size:"洗衣機",comment: "衣服不能這樣洗",role:true, from: "1逢甲洗衣店"),
+    CommentInfo(name: "王小花",laundrynumber: "我是第3台烘衣機", Author:"謝小美",size:"烘衣機",comment: "衣服不能這樣洗",role:false, from: "1逢甲洗衣店"),
 
 ]
 #endif
