@@ -12,9 +12,7 @@ import Combine
 
 
 struct ContentView: View {
-    @State private var MemoInf = MemoInfo(name: "王小花", content: "擋到通知我",role1:true,role2:false,role3:true,laundrynumber: "我是第1台洗衣機", from: "逢甲洗衣店1",time:"goforward.90")
-    @State private var launName = "逢甲洗衣店1"
-    @State private var launAddress = "台北市大安區和平東路二段118號"
+
 	@State var selection = 0
     var body: some View {
         VStack {
@@ -37,16 +35,13 @@ struct ContentView: View {
 		}
 	}
 }
-class  Located: ObservableObject {
-    @Published var items = [LaundryInfo]()
-}
+
 
 
 struct MapSearchView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @ObservedObject var mapViewState = MapViewState()
-    @ObservedObject var locate = Located()
     var locationFetcher = LocationFetcher()
 
     @State private var searchText = ""
@@ -125,7 +120,7 @@ struct MapSearchView: View {
                 .opacity(show ? 1 : 0)
 
             VStack{
-//                HStack {
+/*               HStack {
 //                    Spacer()
 //                    Button(action: {
 //                        if self.show {
@@ -146,7 +141,7 @@ struct MapSearchView: View {
 //
 //
 //                }
-                HStack{
+ */               HStack{
                  Spacer()
                  Button(action: {
                     print("回到座標點")
@@ -154,20 +149,21 @@ struct MapSearchView: View {
                     let location = self.locationFetcher.lastKnownLocation
                     print(location as Any)
                      self.mapViewState.center = location
-
-
                  }
-
                  ) {
                     Image(systemName: "location")
                  }
 				
                 .frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
-                .background(Color.white.opacity(0.75))
+                 .background(Color.white.opacity(0.8))
                 .foregroundColor(.blue)
                 .font(.headline)
-                .cornerRadius(30)
+                    .clipShape(Circle())
 
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.gray.opacity(0.8), lineWidth: 2)
+                )
                 }.padding([.top,.trailing])
                 //測試用得
                 HStack {
@@ -199,18 +195,10 @@ struct MapSearchView: View {
                             //NewMemo(Name: self.launName)
                             ToMemo(launname: self.displayName, launaddress: self.displayAddress)
                     }
-                   // .hidden()
-
                 }
-
                 Spacer()
-
-            }
-
-
-
-
-            }
+             }
+        }
 
          .navigationBarTitle (Text("洗衣地圖"), displayMode: .inline)
     }
@@ -250,15 +238,8 @@ struct ToMemo: View {
             .clipShape(Circle())
             
         }.padding()
-
-      /*
-        List(Memo) { MemoInfo in
-                MemoView(MemoInfo: Memo, Memo: MemoInfo)
-            }
- */
-        }
-        
-        .navigationBarTitle (Text(""), displayMode: .inline)
+    }
+    .navigationBarTitle (Text(""), displayMode: .inline)
 
     }
 }

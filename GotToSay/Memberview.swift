@@ -36,7 +36,7 @@ struct Memberview: View {
                 VStack{
                     Image(systemName: "person.fill")
                     Text(MemberI[0].name)
-                }.foregroundColor(Color.black).font(.title).padding()
+                    }.foregroundColor(Color.white).font(.title).padding(20)
             //list 人的留言
                 List(CommentI.filter({ member.isEmpty ? true : $0.name.contains(member) })) { item in
                     
@@ -140,7 +140,7 @@ struct Memberview: View {
                              }
                     }
                 }.padding()
-            }.background(Color.blue.opacity(0.3)).cornerRadius(20).padding()
+            }.background(Color.blue).cornerRadius(20).padding()
 
     }
 }
