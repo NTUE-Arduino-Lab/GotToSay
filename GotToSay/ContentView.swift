@@ -13,7 +13,11 @@ import Combine
 
 struct ContentView: View {
 	@State var selection = 0
+	init(){
+		UITabBar.appearance().backgroundColor = UIColor(named: "tabBar")
+	}
 	var body: some View {
+		
 		TabView(selection:self.$selection) {
 			//tab 0
 			MapSearchView().tabItem {

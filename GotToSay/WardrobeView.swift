@@ -267,16 +267,20 @@ struct AddClothesView: View{
 			}
 			_TextField(title: "哪件衣服", text: self.$name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
 			_TextField(title: "誰的衣服", text: self.$owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
-			if myTag != washTagInfo(){
-				ShowTag(myTag: self.$myTag)
-			}
 			Spacer()
-			Button(action: {self.shouldPresentTagActionSheet = true}){
-				ZStack{
-					RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
-					Text("加入標籤").foregroundColor(Color.primary)
+			ZStack{
+				if myTag != washTagInfo(){
+					ShowTag(myTag: self.$myTag)
 				}
-				
+				VStack{
+				Spacer()
+				Button(action: {self.shouldPresentTagActionSheet = true}){
+					ZStack{
+						Rectangle().fill(Color.gray).frame(height: 50)
+						Text("加入標籤").foregroundColor(Color.primary)
+					}
+				}
+				}
 			}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
 				ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons:
 					[ActionSheet.Button.default(Text("相機掃描"), action: {
@@ -314,7 +318,6 @@ struct AddClothesView: View{
 					try? self.moc.save()
 					self.presentationMode.wrappedValue.dismiss()
 				}){Text("完成")})
-			Spacer()
 		}
 		.keyboardAdaptive()
 	}
@@ -368,7 +371,7 @@ struct TagEditor: View {
 			}.navigationBarTitle(Text("標籤編輯")).navigationBarItems(trailing: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
 				Text("完成")
 			})
-		}
+		}.accentColor(Color(UIColor(named: "tabSelect")!))
 	}
 }
 struct TagList:View {
@@ -530,16 +533,20 @@ struct ClothesDetialView: View {
 				}
 				_TextField(title: self.name, text: self.$name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
 				_TextField(title: self.owner, text: self.$owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
-				if myTag != washTagInfo(){
-					ShowTag(myTag: self.$myTag)
-				}
 				Spacer()
-				Button(action: {self.shouldPresentTagActionSheet = true}){
-					ZStack{
-						RoundedRectangle(cornerRadius: 15).fill(Color.gray).frame(width: 150, height: 50)
-						Text("加入標籤").foregroundColor(Color.primary)
+				ZStack{
+					if myTag != washTagInfo(){
+						ShowTag(myTag: self.$myTag)
 					}
-					
+					VStack{
+					Spacer()
+					Button(action: {self.shouldPresentTagActionSheet = true}){
+						ZStack{
+							Rectangle().fill(Color.gray).frame(height: 50)
+							Text("加入標籤").foregroundColor(Color.primary)
+						}
+					}
+					}
 				}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
 					ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons:
 						[ActionSheet.Button.default(Text("相機掃描"), action: {
@@ -556,8 +563,6 @@ struct ClothesDetialView: View {
 						
 					}
 				}
-				Spacer()
-				
 			}
 			}.keyboardAdaptive()
 			.onAppear(perform: self.loadTag)
@@ -614,7 +619,9 @@ struct ClothesDetialView: View {
 
 struct WardrobeView_Previews: PreviewProvider {
 	static var previews: some View {
-		WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-		//		AddClothesView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+		Group{
+			WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+			WardrobeView().environment(\.managedObjectContext, (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext).environment(\.colorScheme, .dark)
+		}
 	}
 }
