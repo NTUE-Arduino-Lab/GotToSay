@@ -36,7 +36,7 @@ struct ContentView: View {
 			LaunchScreenView()
 			  .opacity(showLaunch ? 1 : 0)
 			  .onAppear {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) {
 				  LaunchScreenView.shouldAnimate = false
 				  withAnimation() {
 					self.showLaunch = false
@@ -110,7 +110,7 @@ struct MapSearchView: View {
 										
 										print(item.Name)})
 									{
-										Image(systemName: "flag.fill").foregroundColor(Color.blue)}
+										Image(systemName: "flag.fill").foregroundColor(Color(UIColor(named: "tabSelect")!))}
 									Text(item.Name)
 										.font(.subheadline)
 										.padding(.horizontal,10)
@@ -198,15 +198,15 @@ struct MapSearchView: View {
 						}
 							
 						.frame(minWidth: 0, maxWidth: 50, minHeight: 0, maxHeight: 50)
-						.background(Color.white)
-						.foregroundColor(.blue)
+						.background(Color(UITabBar.appearance().backgroundColor!))
+						.foregroundColor(Color(UIColor(named: "tabSelect")!))
 						.font(.headline)
 						.clipShape(Circle())
 							
-						.overlay(
-							RoundedRectangle(cornerRadius: 30)
-								.stroke(Color.black.opacity(0.4), lineWidth: 2)
-						)
+//						.overlay(
+//							RoundedRectangle(cornerRadius: 30)
+//								.stroke(Color.black.opacity(0.4), lineWidth: 2)
+//						)
 					}.padding([.top,.trailing])
 						//測試用得
 						

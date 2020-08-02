@@ -81,13 +81,13 @@ extension LaunchScreenView {
 		  withAnimation(.easeOut(duration: self.topLineExitDuration)) {
 			self.topLineHeight = 0
 			}
-			withAnimation(Animation.easeIn(duration: self.circleDuration).delay(0.45)) {
+			withAnimation(Animation.easeIn(duration: self.circleDuration).delay(0.35)) {
 			  self.circlePos = 0
 			}
 			withAnimation(Animation.easeIn(duration: self.rotateAnimationDuration).delay(0.35)) {
 				self.shadowScale = 110
 			}
-			withAnimation(Animation.easeIn(duration: 0.1).delay(1.4)){
+			withAnimation(Animation.easeIn(duration: 0.1).delay(1.3)){
 				self.botLineWidthDisappear = 0
 				self.botLineWidthAppear = 0
 			}

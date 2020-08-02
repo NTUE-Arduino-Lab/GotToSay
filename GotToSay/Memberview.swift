@@ -39,11 +39,11 @@ struct Memberview: View {
                  HStack{
                     Spacer()
                     VStack{
-                        Image(systemName: "person.fill")
+						Image(systemName: "person.fill")
                         Text(MemberI[0].name)
                     }.padding(20)
                     Spacer()
-                }.foregroundColor(Color.white).font(.title).background(colorScheme == .dark ? Color.orange : Color(red: 153/255, green: 204/255, blue: 255/255))
+                }.foregroundColor(Color.white).font(.title).background(colorScheme == .dark ? Color.gray : Color(red: 153/255, green: 204/255, blue: 255/255))//white pink?
                     .cornerRadius(30, corners: [.topLeft, .topRight])
                 .shadow(radius: 3)
                 
@@ -52,9 +52,9 @@ struct Memberview: View {
                     
                     HStack(alignment:.center){
                         if item.size == "洗衣機"{
-                        Image( "view_washingmachine_disable.png").foregroundColor(Color.blue).font(.title).padding(.trailing)
+                        Image( "view_washingmachine_disable.png").foregroundColor(Color(UIColor(named: "tabSelect")!)).font(.title).padding(.trailing)
                         }else{
-                            Image( "view_dryer_disable.png").foregroundColor(Color.blue).font(.subheadline).padding(.trailing)
+                            Image( "view_dryer_disable.png").foregroundColor(Color(UIColor(named: "tabSelect")!)).font(.subheadline).padding(.trailing)
                         }
 
                         VStack(alignment:.leading){
@@ -91,8 +91,7 @@ struct Memberview: View {
                                 self.arivememo = true
                             }
                          }) {
-                            Image(systemName: "circle.grid.2x2.fill")
-
+							Image(systemName: "circle.grid.2x2.fill").foregroundColor(Color(UIColor(named: "tabSelect")!))
                                 .gesture(
                                    // LongPressGesture(minimumDuration: 1.0)
                                     TapGesture()
