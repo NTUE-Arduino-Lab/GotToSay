@@ -13,25 +13,38 @@ import Combine
 
 struct ContentView: View {
 	@State var selection = 0
+	@State var showLaunch = true
 	init(){
 		UITabBar.appearance().backgroundColor = UIColor(named: "tabBar")
 	}
 	var body: some View {
+		ZStack{
+			TabView(selection:self.$selection) {
+				//tab 0
+				MapSearchView().tabItem {
+						Image("nav_map_blue").renderingMode(.template)
+				}.tag(0)
+				//tab 1
+				Memberview().tabItem {
+					Image("nav_porfile_blue").renderingMode(.template)
+				}.tag(1)
+				//tab 2
+				WardrobeView().tabItem {
+					Image("nav_wardrobe_blue").renderingMode(.template)
+				}.tag(2)
+			}.accentColor(Color(UIColor(named: "tabSelect")!))
+			LaunchScreenView()
+			  .opacity(showLaunch ? 1 : 0)
+			  .onAppear {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+				  LaunchScreenView.shouldAnimate = false
+				  withAnimation() {
+					self.showLaunch = false
+				  }
+				}
+			}
+		}
 		
-		TabView(selection:self.$selection) {
-			//tab 0
-			MapSearchView().tabItem {
-					Image("nav_map_blue").renderingMode(.template)
-			}.tag(0)
-			//tab 1
-			Memberview().tabItem {
-				Image("nav_porfile_blue").renderingMode(.template)
-			}.tag(1)
-			//tab 2
-			WardrobeView().tabItem {
-				Image("nav_wardrobe_blue").renderingMode(.template)
-			}.tag(2)
-		}.accentColor(Color(UIColor(named: "tabSelect")!))
 	}
 }
 
