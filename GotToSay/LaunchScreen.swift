@@ -27,18 +27,18 @@ struct LaunchScreenView: View {
     var body: some View {
 		ZStack{
 			HStack{
-				RoundedRectangle(cornerRadius: 15).frame(width: 3.0, height: self.topLineHeight).offset(y: topLinePos).foregroundColor(.primary).colorInvert()
-				RoundedRectangle(cornerRadius: 15).frame(width: 3.0, height: self.topLineHeight).offset(y: topLinePos + 15.0).foregroundColor(.primary).colorInvert()
+				RoundedRectangle(cornerRadius: 15).frame(width: 3.0, height: self.topLineHeight).offset(y: topLinePos).foregroundColor(Color(UIColor(named: "LaunchCircle")!))
+				RoundedRectangle(cornerRadius: 15).frame(width: 3.0, height: self.topLineHeight).offset(y: topLinePos + 15.0).foregroundColor(Color(UIColor(named: "LaunchCircle")!))
 			}
-			Circle().frame(width: 35.0, height: 35.0).offset(y: circlePos).opacity(self.circleAlpha).foregroundColor(.primary).colorInvert().scaleEffect(self.circleScale)
+			Circle().frame(width: 35.0, height: 35.0).offset(y: circlePos).opacity(self.circleAlpha).foregroundColor(Color(UIColor(named: "LaunchCircle")!)).scaleEffect(self.circleScale)
 			Group{
 				Image("Shadow").resizable().scaledToFit().frame(height: self.shadowScale).offset(x: 5, y: 5)
 				Image("WashMachine").resizable().scaledToFit().rotationEffect(.degrees(self.rotation)).frame(height: self.iconScale).onAppear(perform: runAnimationPart1)
 			}
-			RoundedRectangle(cornerRadius: 15).frame(width: self.botLineWidthAppear, height: 3.0).offset(y: 130).opacity(self.botLineAlpha)
+			RoundedRectangle(cornerRadius: 15).frame(width: self.botLineWidthAppear, height: 3.0).offset(y: 130).foregroundColor(.primary).opacity(self.botLineAlpha)
 			RoundedRectangle(cornerRadius: 15).frame(width: self.botLineWidthDisappear, height: 3.0).offset(y: 130).foregroundColor(Color(UIColor(named: "LaunchBackground")!)).opacity(self.botLineAlpha)
 			
-			Text("GOT TO SAY").font(.system(size:30, weight:.semibold)).italic().offset(y: self.textPos).opacity(self.textAlpha)
+			Text("GOT TO SAY").font(.system(size:30, weight:.semibold)).italic().offset(y: self.textPos).foregroundColor(.primary).opacity(self.textAlpha)
 				
 		}.background(Rectangle().scale(100.0).foregroundColor(Color(UIColor(named: "LaunchBackground")!)))
 		

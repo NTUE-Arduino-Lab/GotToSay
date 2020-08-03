@@ -43,7 +43,7 @@ struct Memberview: View {
                         Text(MemberI[0].name)
                     }.padding(20)
                     Spacer()
-                }.foregroundColor(Color.white).font(.title).background(colorScheme == .dark ? Color.gray : Color(red: 153/255, green: 204/255, blue: 255/255))//white pink?
+                }.foregroundColor(Color.white).font(.title).background(Color(UIColor(named: "memoBar")!))//white pink?
                     .cornerRadius(30, corners: [.topLeft, .topRight])
                 .shadow(radius: 3)
                 
@@ -60,13 +60,13 @@ struct Memberview: View {
                         VStack(alignment:.leading){
                             HStack{
                                 Text(item.comment).font(.headline)
-                                Text(item.Author).font(.subheadline).foregroundColor(.blue)    
+                                Text(item.Author).font(.subheadline).foregroundColor(Color(UIColor(named: "tabSelect")!))    
                             }
                             HStack{
                                 Text("From:")
                                 Text(item.from)
                              //   Text(CommentI.name.contains(member).count)
-                                }.font(.subheadline).foregroundColor(.gray)
+                                }.font(.subheadline).foregroundColor(.secondary)
                             
                             }
             
@@ -146,7 +146,7 @@ struct Memberview: View {
             }//.background(colorScheme == .dark ? Color.orange : Color(red: 153/255, green: 204/255, blue: 255/255))
                 .overlay(
     RoundedRectangle(cornerRadius: 30)
-        .stroke(Color.gray.opacity(0.8), lineWidth: 2)
+        .stroke(Color(UIColor(named: "memoBar")!).opacity(0.8), lineWidth: 2)
 ).padding()
     }
 }

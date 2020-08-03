@@ -248,8 +248,8 @@ struct ToMemo: View {
                 }
             }
             .padding()
-            .background(Color.blue.opacity(0.75))
-            .foregroundColor(.white)
+            .background(Color(UIColor(named: "tabSelect")!).opacity(0.75))
+			.foregroundColor(.white)
             .font(.title)
             .clipShape(Circle())
             

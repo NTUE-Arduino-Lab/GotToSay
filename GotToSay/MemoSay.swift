@@ -16,7 +16,7 @@ struct MemoView: View {
         VStack {
             HStack{
                 Image(systemName:"clock")
-                    .foregroundColor(.blue)
+                    .foregroundColor(Color(UIColor(named: "tabSelect")!))
                     .frame(width: 50, height: 50)
                     .font(.largeTitle)
                     .clipShape(Circle())
@@ -24,14 +24,14 @@ struct MemoView: View {
                 VStack(alignment: .leading) {
                     Text(MemoInfo)
                         .font(.headline)
-                        .foregroundColor(Color.blue)
+						.foregroundColor(Color.primary)
                             HStack {
                                 Text("By")
                                     .font(.subheadline)
-                                    .foregroundColor(Color.gray)
+									.foregroundColor(Color.secondary)
                                 Text(MemoName)
                                     .font(.subheadline)
-                                    .foregroundColor(Color.blue.opacity(0.8))
+                                    .foregroundColor(Color(UIColor(named: "tabSelect")!).opacity(0.8))
                                     }
                                             }
 
@@ -45,7 +45,7 @@ struct MemoView: View {
                 }) {
                     Image(systemName: "circle.grid.2x2.fill")
                                   }
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(Color(UIColor(named: "tabSelect")!))
                                     .font(.title)
                     .sheet(isPresented: $showSecondView) {
                         Memolist(name:self.MemoName,Laundm:self.MemoInfo)
@@ -53,7 +53,7 @@ struct MemoView: View {
                 
     }
         .padding()
-        .background(Color(hue: 0.556, saturation: 0.898, brightness: 0.918, opacity: 0.2))
+        .background(Color(UIColor(named: "memoBar")!))
         .cornerRadius(30)
         }
     }
@@ -68,7 +68,7 @@ struct BarView: View {
         HStack{
              
         Image(systemName: "location.circle.fill")
-            .foregroundColor(.blue)
+            .foregroundColor(Color(UIColor(named: "tabSelect")!))
             .frame(width: 50, height: 50)
             .font(.title)
             .clipShape(Circle())
@@ -76,23 +76,23 @@ struct BarView: View {
         VStack(alignment: .leading) {
             Text(name)
                 .font(.title)
-                .foregroundColor(Color.black)
+                .foregroundColor(Color.primary)
 
             Text(address)
                 .font(.headline)
-            .foregroundColor(Color.white)
+            .foregroundColor(Color.secondary)
                 }
             Spacer()
             Button(action: {}) {
                Image(systemName: "ellipsis.circle.fill")
                                       }
-             .foregroundColor(.blue)
+             .foregroundColor(Color(UIColor(named: "tabSelect")!))
              .font(.title)
             
         }
             
         .padding(10)
-        .background(Color(red: 153/255, green: 204/255, blue: 255/255))
+        .background(Color(UIColor(named: "memoBar")!))
         
         
     }
@@ -128,6 +128,7 @@ struct NewMemo: View {
     
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+	@Environment(\.colorScheme) var colorScheme
 
     @State private var selectedName = "洗衣機"
     @State private var selectedSize = "大型"
@@ -140,17 +141,16 @@ struct NewMemo: View {
             Text("機器種類")
             .padding()
             .font(.title)
-            .foregroundColor(.blue)
+            .foregroundColor(Color(UIColor(named: "tabSelect")!))
             HStack{
                    Text("\(selectedName)")
                     .padding()
-                    Picker(selection: $selectedName, label: Text("選擇機器")) {
+				Picker(selection: $selectedName, label: Text("選擇機器")) {
                     ForEach(roles, id: \.name) { (role) in
                      HStack {
 
                          Image(role.image)
-                         Text(role.name)
-                            .foregroundColor(.blue)
+						Text(role.name).foregroundColor(Color(UIColor(named: "tabSelect")!))
 
                      }
                    }
@@ -165,7 +165,7 @@ struct NewMemo: View {
                 Text("大小")
                     .padding()
                     .font(.title)
-                    .foregroundColor(.blue)
+                    .foregroundColor(Color(UIColor(named: "tabSelect")!))
                 HStack{
                         Picker(selection: $selectedSize, label: Text("")) {
                         ForEach(roles2, id: \.size) { (roles2) in
@@ -184,9 +184,9 @@ struct NewMemo: View {
             Text("時間")
                 .padding()
                 .font(.title)
-                .foregroundColor(.blue)
+                .foregroundColor(Color(UIColor(named: "tabSelect")!))
             
-            _TextField(title: "時間", text: $selectedTime).padding(5).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1)).keyboardType(.numberPad)
+            _TextField(title: "時間", text: $selectedTime, changeColor: self.colorScheme == .dark ? true : false).padding(5).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(UIColor(named: "tabSelect")!), lineWidth: 1)).keyboardType(.numberPad)
 
 
         }.frame(minWidth: 0, maxWidth: 300)
@@ -195,7 +195,7 @@ struct NewMemo: View {
             Text("提醒")
                 .padding()
                 .font(.title)
-                .foregroundColor(.blue)
+                .foregroundColor(Color(UIColor(named: "tabSelect")!))
             HStack{
                 Picker(selection: $selectedSize, label: Text("")) {
                     Text("請幫我拿出來").tag(0)}.pickerStyle(SegmentedPickerStyle())
@@ -226,7 +226,7 @@ struct NewMemo: View {
             }
         }
         .padding(.vertical, 10.0)
-        .background(Color.blue)
+        .background(Color(UIColor(named: "tabSelect")!))
         .cornerRadius(20)
         .padding(.horizontal, 30)
         }
@@ -266,7 +266,7 @@ struct Memolist: View {
         }
             //if通知
             HStack{
-                Image(systemName: "exclamationmark.circle.fill").foregroundColor(Color.blue)
+                Image(systemName: "exclamationmark.circle.fill").foregroundColor(Color(UIColor(named: "tabSelect")!))
                 Text("擋到通知我")
             }
 
@@ -274,19 +274,19 @@ struct Memolist: View {
         //list 人的留言
             List(CommentI.filter({ name.isEmpty ? true : $0.name.contains(name)&&$0.laundrynumber.contains(Laundm) })) { item in
                 HStack(alignment:.center){
-                    Image(systemName: "person.fill").foregroundColor(Color.blue).font(.title).padding()
+                    Image(systemName: "person.fill").foregroundColor(Color(UIColor(named: "tabSelect")!)).font(.title).padding()
                     VStack(alignment:.leading){
                             Text(item.comment)
                         HStack{
                             Text("By: ")
                             Text(item.Author)
-                            }.font(.subheadline).foregroundColor(.gray)
+                            }.font(.subheadline).foregroundColor(.secondary)
                         }
                     Spacer()
                     Button(action: {
                      }) {
                         if item.role {
-                            Image(systemName: "hand.thumbsup.fill").foregroundColor(Color.blue).font(.headline).onTapGesture {
+                            Image(systemName: "hand.thumbsup.fill").foregroundColor(Color(UIColor(named: "tabSelect")!)).font(.headline).onTapGesture {
                                     print("")
                             }
                             
@@ -321,11 +321,11 @@ struct Memolist: View {
                 Text("送出")
                 .fontWeight(.bold)
                 .font(.headline)
-                .foregroundColor(.blue)
+                .foregroundColor(Color(UIColor(named: "tabSelect")!))
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.blue, lineWidth: 4)
+                        .stroke(Color(UIColor(named: "tabSelect")!), lineWidth: 4)
                 )
                 }
             
@@ -337,7 +337,7 @@ struct Memolist: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
-                    .background(Color.blue)
+                    .background(Color(UIColor(named: "tabSelect")!))
                 .cornerRadius(20)
                 }
         
@@ -347,7 +347,7 @@ struct Memolist: View {
         
     .overlay(
         RoundedRectangle(cornerRadius: 20)
-            .stroke(Color.blue.opacity(0.7), lineWidth: 4)
+			.stroke(Color(UIColor(named: "tabSelect")!).opacity(0.7), lineWidth: 4)
     )
     .keyboardAdaptive()
     .padding()
