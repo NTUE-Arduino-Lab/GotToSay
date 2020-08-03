@@ -239,6 +239,7 @@ struct NewMemo: View {
 
 struct Memolist: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+	@Environment(\.colorScheme) var colorScheme
         @State  var name : String
         @State  var Laundm: String
         @State private var inputtext : String = ""
@@ -303,7 +304,7 @@ struct Memolist: View {
         }
         .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 300)
         
-        _TextField(title: "留下留言", text: $inputtext).frame(minWidth: 0, maxWidth: 250).padding()
+        _TextField(title: "留下留言", text: $inputtext, changeColor: self.colorScheme == .dark ? true : false).frame(minWidth: 0, maxWidth: 250).padding()
         HStack{
             Button(action: {
                 if self.inputtext .isEmpty{}
