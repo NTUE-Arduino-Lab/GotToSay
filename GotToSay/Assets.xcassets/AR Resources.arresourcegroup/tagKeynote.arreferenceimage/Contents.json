@@ -1,0 +1,16 @@
+{
+  "images" : [
+    {
+      "filename" : "スクリーンショット 2020-08-04 午後8.14.38.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "unit" : "centimeters",
+    "width" : 50
+  }
+}

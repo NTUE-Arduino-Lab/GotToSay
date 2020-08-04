@@ -99,6 +99,15 @@ struct myController: UIViewControllerRepresentable {
 					parent.washTag.dryClean = "DoNotDryClean"
 					parent.presentationMode.wrappedValue.dismiss()
 				}
+				if imageName == "tagKeynote"{
+					parent.washTag.wash = "GentleWashAtOrBelow30"
+					parent.washTag.bleach = "DoNotBleach"
+					parent.washTag.tumbleDry = "DoNotTumbleDry"
+					parent.washTag.dry = "LineDry"
+					parent.washTag.iron = "IronAtMediumTemperature"
+					parent.washTag.dryClean = "DoNotDryClean"
+					parent.presentationMode.wrappedValue.dismiss()
+				}
 			}
 		}
 	}

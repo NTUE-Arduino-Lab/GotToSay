@@ -268,20 +268,16 @@ struct AddClothesView: View{
 			_TextField(title: "哪件衣服", text: self.$name).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
 			_TextField(title: "誰的衣服", text: self.$owner).frame(height: 40.0).padding(.horizontal).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary, lineWidth: 2)).padding(.horizontal)
 			Spacer()
-			ZStack{
 				if myTag != washTagInfo(){
 					ShowTag(myTag: self.$myTag)
 				}
-				VStack{
-				Spacer()
+
 				Button(action: {self.shouldPresentTagActionSheet = true}){
 					ZStack{
 						Rectangle().fill(Color.gray).frame(height: 50)
 						Text("加入標籤").foregroundColor(Color.primary)
 					}
-				}
-				}
-			}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
+				}.actionSheet(isPresented: self.$shouldPresentTagActionSheet) { () -> ActionSheet in
 				ActionSheet(title: Text("你想要從哪裡加入標呢？"), buttons:
 					[ActionSheet.Button.default(Text("相機掃描"), action: {
 						self.shouldPresentTagEdit = true
