@@ -5,6 +5,9 @@
   },
   "resources" : [
     {
+      "filename" : "tagC.arreferenceimage"
+    },
+    {
       "filename" : "tagKeynote.arreferenceimage"
     },
     {
@@ -15,6 +18,9 @@
     },
     {
       "filename" : "tagUniqlo.arreferenceimage"
+    },
+    {
+      "filename" : "tagUT.arreferenceimage"
     }
   ]
 }

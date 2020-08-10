@@ -108,6 +108,24 @@ struct myController: UIViewControllerRepresentable {
 					parent.washTag.dryClean = "DoNotDryClean"
 					parent.presentationMode.wrappedValue.dismiss()
 				}
+				if imageName == "tagC"{
+					parent.washTag.wash = "WashAtOrBelow30"
+					parent.washTag.bleach = "DoNotBleach"
+					parent.washTag.tumbleDry = "TumbleDryingLowTemperature"
+					parent.washTag.iron = "DoNotTumbleDry"
+					parent.washTag.dryClean = "DoNotDryClean"
+					parent.washTag.wetClean = "ProfessionalWetCleaning"
+					parent.presentationMode.wrappedValue.dismiss()
+				}
+				if imageName == "tagUT"{
+					parent.washTag.wash = "GentleWashAtOrBelow40"
+					parent.washTag.bleach = "Non-chlorineBleachWhenNeeded"
+					parent.washTag.tumbleDry = "TumbleDryingLowTemperature"
+					parent.washTag.dry = "LineDryInShade"
+					parent.washTag.iron = "IronAtMediumTemperature"
+					parent.washTag.dryClean = "DoNotDryClean"
+					parent.presentationMode.wrappedValue.dismiss()
+				}
 			}
 		}
 	}
